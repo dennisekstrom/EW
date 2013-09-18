@@ -2,6 +2,8 @@ package forex;
 
 import java.util.Calendar;
 
+import com.fxcore2.O2GOfferTableRow;
+
 import util.Instrument;
 import util.Period;
 

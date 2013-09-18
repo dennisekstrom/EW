@@ -10,7 +10,7 @@ import strategies.EURUSDLowFreq;
 import strategies.EURUSDEvents;
 import strategies.EURUSDHighFreq;
 import strategies.AUDUSDEvents;
-import trading.util.OffersListener;
+import trading.util.StrategyOfferListener;
 import trading.util.SessionStatusListener;
 import trading.util.User;
 
@@ -35,7 +35,7 @@ public class TradeController {
 	private O2GSession session = null;
 	private SessionStatusListener statusListener;
 	private ResponseListener responseListener;
-	private OffersListener offersListener;
+	private StrategyOfferListener offersListener;
 	private OrderController orderController = null;
 	private O2GTableManager tableManager;
 	private TableListener tableListener;
@@ -72,8 +72,7 @@ public class TradeController {
 			session = O2GTransport.createSession();
 			stratControl = new StrategyController();
 			setStatusListener(new SessionStatusListener(session, "", ""));
-			setResponseListener(new ResponseListener(session,
-					this));
+			setResponseListener(new ResponseListener(session, this));
 			tableListener = new TableListener();
 			session.subscribeSessionStatus(getStatusListener());
 			// Use the table manager
@@ -88,8 +87,8 @@ public class TradeController {
 				Thread.sleep(50);
 			}
 			// create and prepare order controller
-			orderController = new OrderController(
-					this.getSession(), responseListener);
+			orderController = new OrderController(this.getSession(),
+					responseListener);
 			orderController.prepareParamsFromLoginRules(this.getSession()
 					.getLoginRules());
 
@@ -107,12 +106,12 @@ public class TradeController {
 				offers = (O2GOffersTable) manager.getTable(O2GTableType.OFFERS);
 
 				// Set EUR/USD offer listener
-				offersListener = new OffersListener(stratControl, this);
+				offersListener = new StrategyOfferListener(stratControl, this);
 				offersListener.SetInstrumentFilter(getInstrument());
 
-				//TODO removed for testing
-				//				offers.subscribeUpdate(O2GTableUpdateType.UPDATE,
-				//						OffersFeed.getInstance());
+				// TODO removed for testing
+				// offers.subscribeUpdate(O2GTableUpdateType.UPDATE,
+				// OffersFeed.getInstance());
 
 				// Set up trade table
 				tableManager = session.getTableManager();
@@ -121,7 +120,7 @@ public class TradeController {
 						.getTable(O2GTableType.TRADES);
 				closedTradesTable = (O2GClosedTradesTable) tableManager
 						.getTable(O2GTableType.CLOSED_TRADES);
-				//				printTrades(tradesTable);
+				// printTrades(tradesTable);
 			}
 
 			// ENDTEST
@@ -215,140 +214,149 @@ public class TradeController {
 		return account;
 	}
 
-	//	/**
-	//	 * TODO Varf��r fungerar den inte?
-	//	 * 
-	//	 * @param sOfferID
-	//	 * @param sAccountID
-	//	 * @param sTradeID
-	//	 * @param iAmount
-	//	 * @param dRate
-	//	 * @param sBuySell
-	//	 */
-	//	public void createLimitOrder(String sOfferID, String sAccountID,
-	//			String sTradeID, int iAmount, double dRate, String sBuySell) {
+	// /**
+	// * TODO Varf������r fungerar den inte?
+	// *
+	// * @param sOfferID
+	// * @param sAccountID
+	// * @param sTradeID
+	// * @param iAmount
+	// * @param dRate
+	// * @param sBuySell
+	// */
+	// public void createLimitOrder(String sOfferID, String sAccountID,
+	// String sTradeID, int iAmount, double dRate, String sBuySell) {
 	//
-	//		O2GRequestFactory requestFactory = session.getRequestFactory();
+	// O2GRequestFactory requestFactory = session.getRequestFactory();
 	//
-	//		O2GValueMap valuemap = requestFactory.createValueMap();
+	// O2GValueMap valuemap = requestFactory.createValueMap();
 	//
-	//		valuemap.setString(O2GRequestParamsEnum.COMMAND,
-	//				Constants.Commands.CreateOrder);
-	//		valuemap.setString(O2GRequestParamsEnum.ORDER_TYPE,
-	//				Constants.Orders.CloseLimit);
-	//		valuemap.setString(O2GRequestParamsEnum.ACCOUNT_ID, sAccountID);
-	//		valuemap.setString(O2GRequestParamsEnum.OFFER_ID, sOfferID); // The identifier of the instrument the order should be placed for
-	//		valuemap.setString(O2GRequestParamsEnum.TRADE_ID, sTradeID); // The identifier of the trade to be closed
-	//		valuemap.setString(O2GRequestParamsEnum.BUY_SELL, sBuySell); // The order direction(Constants.Buy for Buy, Constants.Sell for Sell). Must be opposite to the direction of the trade
-	//		valuemap.setInt(O2GRequestParamsEnum.AMOUNT, iAmount); // The quantity of the instrument to be bought or sold. Must == the size of the position (Lot of the trade).
-	//		valuemap.setDouble(O2GRequestParamsEnum.RATE, dRate); // The dRate at which the order must be filled ( market for Sell, < market for Buy)
-	//		valuemap.setString(O2GRequestParamsEnum.CUSTOM_ID, "L"); // The custom identifier of the order
-	//		O2GRequest request = requestFactory.createOrderRequest(valuemap);
-	//		//		tableListener.setRequestID(request.getRequestId());
-	//		session.sendRequest(request);
-	//		//		try {
-	//		//			tableListener.waitEvents();
-	//		//		} catch (InterruptedException e) {
-	//		//			e.printStackTrace();
-	//		//		}
-	//	}
+	// valuemap.setString(O2GRequestParamsEnum.COMMAND,
+	// Constants.Commands.CreateOrder);
+	// valuemap.setString(O2GRequestParamsEnum.ORDER_TYPE,
+	// Constants.Orders.CloseLimit);
+	// valuemap.setString(O2GRequestParamsEnum.ACCOUNT_ID, sAccountID);
+	// valuemap.setString(O2GRequestParamsEnum.OFFER_ID, sOfferID); // The
+	// identifier of the instrument the order should be placed for
+	// valuemap.setString(O2GRequestParamsEnum.TRADE_ID, sTradeID); // The
+	// identifier of the trade to be closed
+	// valuemap.setString(O2GRequestParamsEnum.BUY_SELL, sBuySell); // The order
+	// direction(Constants.Buy for Buy, Constants.Sell for Sell). Must be
+	// opposite to the direction of the trade
+	// valuemap.setInt(O2GRequestParamsEnum.AMOUNT, iAmount); // The quantity of
+	// the instrument to be bought or sold. Must == the size of the position
+	// (Lot of the trade).
+	// valuemap.setDouble(O2GRequestParamsEnum.RATE, dRate); // The dRate at
+	// which the order must be filled ( market for Sell, < market for Buy)
+	// valuemap.setString(O2GRequestParamsEnum.CUSTOM_ID, "L"); // The custom
+	// identifier of the order
+	// O2GRequest request = requestFactory.createOrderRequest(valuemap);
+	// // tableListener.setRequestID(request.getRequestId());
+	// session.sendRequest(request);
+	// // try {
+	// // tableListener.waitEvents();
+	// // } catch (InterruptedException e) {
+	// // e.printStackTrace();
+	// // }
+	// }
 
 	/**
 	 * Create a position with limit and stop attached
 	 * 
-	 * TODO fixa s�� att den fungerar bra. Beh��vs ocks�� en EditLimit/EditStop
-	 * om man vill ��ndra. Under tiden testar jag med att bara k��ra custom
-	 * limits och stops (d��r jag sj��lv definierar n��r man ska st��nga en
-	 * position)
+	 * TODO fixa s������ att den fungerar bra. Beh������vs ocks������ en
+	 * EditLimit/EditStop om man vill ������ndra. Under tiden testar jag med att
+	 * bara k������ra custom limits och stops (d������r jag sj������lv
+	 * definierar n������r man ska st������nga en position)
 	 */
 
-	//		public O2GTradeTableRow createELS(String instrument, String orderType, double amount, double limitRate, double stopRate) {
-	//	
-	//			
-	//				
-	//					O2GRequestFactory requestFactory = session
-	//							.getRequestFactory();
-	//					if (requestFactory != null) {
-	//						O2GValueMap valueMap = requestFactory
-	//								.createValueMap();
-	//						valueMap.setString(O2GRequestParamsEnum.COMMAND,
-	//								"CreateOrder");
-	//						valueMap.setString(O2GRequestParamsEnum.ORDER_TYPE,
-	//								orderType);
-	//						valueMap.setString(O2GRequestParamsEnum.ACCOUNT_ID,
-	//								mAccountID);
-	//						valueMap.setString(O2GRequestParamsEnum.OFFER_ID,
-	//								mOfferID);
-	//						valueMap.setString(O2GRequestParamsEnum.BUY_SELL,
-	//								mBuySell);
-	//						valueMap.setDouble(O2GRequestParamsEnum.RATE, limitRate);
-	//						valueMap.setInt(O2GRequestParamsEnum.AMOUNT,
-	//								amount);
-	//						valueMap.setString(O2GRequestParamsEnum.CUSTOM_ID,
-	//								"EntryOrderWithStopLimit");
-	//						valueMap.setDouble(O2GRequestParamsEnum.RATE_LIMIT,
-	//								limitRate);
-	//						valueMap.setDouble(O2GRequestParamsEnum.RATE_STOP,
-	//								stopRate);
-	//						O2GRequest request = requestFactory
-	//								.createOrderRequest(valueMap);
-	//						O2GOrdersTable ordersTable = (O2GOrdersTable) tableManager
-	//								.getTable(O2GTableType.ORDERS);
-	//						TableListener tableListener = new TableListener();
-	//						ordersTable.subscribeUpdate(
-	//								O2GTableUpdateType.INSERT, tableListener);
-	//						session.sendRequest(request);
-	//						Thread.sleep(1000);
-	//						ordersTable.unsubscribeUpdate(
-	//								O2GTableUpdateType.INSERT, tableListener);
-	//	
-	//						// Edit secondary limit order (we will increase price by 50 pips)
-	//						mLimitOrderID = tableListener.getOrderID();
-	//						mRateLimit = mRateLimit + 50 * mPointSize;
-	//						O2GValueMap changeMap = requestFactory
-	//								.createValueMap();
-	//						changeMap.setString(O2GRequestParamsEnum.COMMAND,
-	//								"EditOrder");
-	//						changeMap.setString(O2GRequestParamsEnum.ORDER_ID,
-	//								mLimitOrderID);
-	//						changeMap
-	//								.setString(O2GRequestParamsEnum.ACCOUNT_ID,
-	//										mAccountID);
-	//						changeMap.setDouble(O2GRequestParamsEnum.RATE,
-	//								mRateLimit);
-	//	
-	//						// Send request using change ValueMap
-	//						O2GRequest changeRequest = requestFactory
-	//								.createOrderRequest(changeMap);
-	//						ordersTable.subscribeUpdate(
-	//								O2GTableUpdateType.UPDATE, tableListener);
-	//						session.sendRequest(changeRequest);
-	//						Thread.sleep(1000);
-	//						ordersTable.unsubscribeUpdate(
-	//								O2GTableUpdateType.UPDATE, tableListener);
-	//	
-	//	
-	//						// Remove secondary limit order
-	//						O2GValueMap removeMap = requestFactory
-	//								.createValueMap();
-	//						removeMap.setString(O2GRequestParamsEnum.COMMAND,
-	//								"DeleteOrder");
-	//						removeMap.setString(O2GRequestParamsEnum.ORDER_ID,
-	//								mLimitOrderID);
-	//	
-	//						// Send request using remove ValueMap
-	//						O2GRequest removeRequest = requestFactory
-	//								.createOrderRequest(removeMap);
-	//						ordersTable.subscribeUpdate(
-	//								O2GTableUpdateType.DELETE, tableListener);
-	//						session.sendRequest(removeRequest);
-	//						Thread.sleep(1000);
-	//						ordersTable.unsubscribeUpdate(
-	//								O2GTableUpdateType.DELETE, tableListener);
-	//					}
-	//				return tradesTable.getRow(0);
-	//	
-	//		}
+	// public O2GTradeTableRow createELS(String instrument, String orderType,
+	// double amount, double limitRate, double stopRate) {
+	//
+	//
+	//
+	// O2GRequestFactory requestFactory = session
+	// .getRequestFactory();
+	// if (requestFactory != null) {
+	// O2GValueMap valueMap = requestFactory
+	// .createValueMap();
+	// valueMap.setString(O2GRequestParamsEnum.COMMAND,
+	// "CreateOrder");
+	// valueMap.setString(O2GRequestParamsEnum.ORDER_TYPE,
+	// orderType);
+	// valueMap.setString(O2GRequestParamsEnum.ACCOUNT_ID,
+	// mAccountID);
+	// valueMap.setString(O2GRequestParamsEnum.OFFER_ID,
+	// mOfferID);
+	// valueMap.setString(O2GRequestParamsEnum.BUY_SELL,
+	// mBuySell);
+	// valueMap.setDouble(O2GRequestParamsEnum.RATE, limitRate);
+	// valueMap.setInt(O2GRequestParamsEnum.AMOUNT,
+	// amount);
+	// valueMap.setString(O2GRequestParamsEnum.CUSTOM_ID,
+	// "EntryOrderWithStopLimit");
+	// valueMap.setDouble(O2GRequestParamsEnum.RATE_LIMIT,
+	// limitRate);
+	// valueMap.setDouble(O2GRequestParamsEnum.RATE_STOP,
+	// stopRate);
+	// O2GRequest request = requestFactory
+	// .createOrderRequest(valueMap);
+	// O2GOrdersTable ordersTable = (O2GOrdersTable) tableManager
+	// .getTable(O2GTableType.ORDERS);
+	// TableListener tableListener = new TableListener();
+	// ordersTable.subscribeUpdate(
+	// O2GTableUpdateType.INSERT, tableListener);
+	// session.sendRequest(request);
+	// Thread.sleep(1000);
+	// ordersTable.unsubscribeUpdate(
+	// O2GTableUpdateType.INSERT, tableListener);
+	//
+	// // Edit secondary limit order (we will increase price by 50 pips)
+	// mLimitOrderID = tableListener.getOrderID();
+	// mRateLimit = mRateLimit + 50 * mPointSize;
+	// O2GValueMap changeMap = requestFactory
+	// .createValueMap();
+	// changeMap.setString(O2GRequestParamsEnum.COMMAND,
+	// "EditOrder");
+	// changeMap.setString(O2GRequestParamsEnum.ORDER_ID,
+	// mLimitOrderID);
+	// changeMap
+	// .setString(O2GRequestParamsEnum.ACCOUNT_ID,
+	// mAccountID);
+	// changeMap.setDouble(O2GRequestParamsEnum.RATE,
+	// mRateLimit);
+	//
+	// // Send request using change ValueMap
+	// O2GRequest changeRequest = requestFactory
+	// .createOrderRequest(changeMap);
+	// ordersTable.subscribeUpdate(
+	// O2GTableUpdateType.UPDATE, tableListener);
+	// session.sendRequest(changeRequest);
+	// Thread.sleep(1000);
+	// ordersTable.unsubscribeUpdate(
+	// O2GTableUpdateType.UPDATE, tableListener);
+	//
+	//
+	// // Remove secondary limit order
+	// O2GValueMap removeMap = requestFactory
+	// .createValueMap();
+	// removeMap.setString(O2GRequestParamsEnum.COMMAND,
+	// "DeleteOrder");
+	// removeMap.setString(O2GRequestParamsEnum.ORDER_ID,
+	// mLimitOrderID);
+	//
+	// // Send request using remove ValueMap
+	// O2GRequest removeRequest = requestFactory
+	// .createOrderRequest(removeMap);
+	// ordersTable.subscribeUpdate(
+	// O2GTableUpdateType.DELETE, tableListener);
+	// session.sendRequest(removeRequest);
+	// Thread.sleep(1000);
+	// ordersTable.unsubscribeUpdate(
+	// O2GTableUpdateType.DELETE, tableListener);
+	// }
+	// return tradesTable.getRow(0);
+	//
+	// }
 
 	/**
 	 * Open a position in client and FXCM, minimum amount is 1000. Set
@@ -368,7 +376,7 @@ public class TradeController {
 		if (strat != null && strat.currentTrade != null)
 			return false;
 
-		//Set up strategy parameters for openings a position
+		// Set up strategy parameters for openings a position
 		if (strat != null) {
 			strat.setIncomingTrade(true);
 			strat.setCurrentStrategy(strat);
@@ -465,7 +473,7 @@ public class TradeController {
 		if (request != null) {
 			responseListener.setRequestID(request.getRequestId());
 			session.sendRequest(request);
-			//			responseListener.waitEvents();
+			// responseListener.waitEvents();
 			// Call to PositionController is done in ResponseListener
 
 			Thread.sleep(1000);
@@ -504,7 +512,7 @@ public class TradeController {
 
 				try {
 					if (closePosition(session, trade, tableListener)) {
-						// TODO BEH���VS DENNA?
+						// TODO BEH���������VS DENNA?
 						// Thread.sleep(1000);
 					}
 				} catch (InterruptedException e) {
@@ -713,24 +721,24 @@ public class TradeController {
 		return offerRow.getInstrument();
 	}
 
-	//	/**
-	//	 * Get historic rates. Note: Will print over whatever was in the
-	//	 * simplelog.txt before.
-	//	 * 
-	//	 * @param instrument
-	//	 * @param timeFrame
-	//	 * @param dateFrom
-	//	 *            (yyy-mm-hh hh:mm:ss)
-	//	 * @param dateTo
-	//	 *            (yyy-mm-hh hh:mm:ss)
-	//	 */
-	//	public void getHist(String instrument, String timeFrame, String dateFrom,
-	//			String dateTo) {
-	//		HistData hist = new HistData(session, getStatusListener(),
-	//				getResponseListener(), getSimpleLog());
+	// /**
+	// * Get historic rates. Note: Will print over whatever was in the
+	// * simplelog.txt before.
+	// *
+	// * @param instrument
+	// * @param timeFrame
+	// * @param dateFrom
+	// * (yyy-mm-hh hh:mm:ss)
+	// * @param dateTo
+	// * (yyy-mm-hh hh:mm:ss)
+	// */
+	// public void getHist(String instrument, String timeFrame, String dateFrom,
+	// String dateTo) {
+	// HistData hist = new HistData(session, getStatusListener(),
+	// getResponseListener(), getSimpleLog());
 	//
-	//		hist.getHist(instrument, timeFrame, dateFrom, dateTo);
-	//	}
+	// hist.getHist(instrument, timeFrame, dateFrom, dateTo);
+	// }
 
 	/**
 	 * Print current offers from all availabe instruments.
@@ -754,21 +762,21 @@ public class TradeController {
 		}
 	}
 
-	//	// Print Trades Table
-	//	public static void printTrades(O2GTradesTable table) {
-	//		try {
-	//			System.out.println("\nPrinting Trades Table\n");
-	//			for (int i = 0; i < table.size(); i++) {
-	//				O2GTradeRow trade = table.getRow(i);
-	//				System.out.println("TradeID = " + trade.getTradeID()
-	//						+ " BuySell = " + trade.getBuySell() + " Amount = "
-	//						+ trade.getAmount());
-	//			}
-	//		} catch (Exception e) {
-	//			System.out.println("Exception in getTrades().\n\t "
-	//					+ e.getMessage());
-	//		}
-	//	}
+	// // Print Trades Table
+	// public static void printTrades(O2GTradesTable table) {
+	// try {
+	// System.out.println("\nPrinting Trades Table\n");
+	// for (int i = 0; i < table.size(); i++) {
+	// O2GTradeRow trade = table.getRow(i);
+	// System.out.println("TradeID = " + trade.getTradeID()
+	// + " BuySell = " + trade.getBuySell() + " Amount = "
+	// + trade.getAmount());
+	// }
+	// } catch (Exception e) {
+	// System.out.println("Exception in getTrades().\n\t "
+	// + e.getMessage());
+	// }
+	// }
 
 	/**
 	 * Get current session
@@ -802,7 +810,6 @@ public class TradeController {
 	public void setResponseListener(ResponseListener responseListener) {
 		this.responseListener = responseListener;
 	}
-
 
 	public User getUser() {
 		return user;

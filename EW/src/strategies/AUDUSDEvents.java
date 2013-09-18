@@ -5,11 +5,12 @@ import java.util.ArrayList;
 import com.fxcore2.O2GClosedTradeRow;
 import com.fxcore2.O2GOfferTableRow;
 
+import forex.Offer;
+
 import trading.Strategy;
 import trading.StrategyController;
 import trading.TradeController;
 import trading.util.Event;
-import trading.util.OfferData;
 import trading.util.Event.EventImpact;
 import trading.util.Event.EventResult;
 
@@ -44,7 +45,7 @@ public class AUDUSDEvents extends Strategy {
 
 	// Backtrace feed
 	@Override
-	public void onTick(OfferData data) {
+	public void onTick(Offer data) {
 		// TODO Auto-generated method stub
 
 	}
@@ -126,7 +127,7 @@ public class AUDUSDEvents extends Strategy {
 
 			for (Event event : liveEvents) {
 				fetchingEvent = true;
-				// TODO g�ra i en annan tr�d?
+				// TODO g���ra i en annan tr���d?
 				if (event.getInstrument() != "AUD"
 						&& event.getInstrument() != "USD")
 					continue;
@@ -165,7 +166,7 @@ public class AUDUSDEvents extends Strategy {
 										+ " " + eventResult.getResult() + "\n");
 						awaitingEventResult = false;
 					} else if (eventResult.getResult() == EventResult.WORSE) {
-						// g�r n�got om det �r s�mre d�
+						// g���r n���got om det ���r s���mre d���
 						System.out.println("Result: WORSE");
 						tradeController.openPosition(this.instrument, "S",
 								20000, 0.0, 0.0, this);
@@ -197,7 +198,7 @@ public class AUDUSDEvents extends Strategy {
 										+ " " + eventResult.getResult() + "\n");
 						awaitingEventResult = false;
 					} else if (eventResult.getResult() == EventResult.WORSE) {
-						// g�r n�got om det �r s�mre d�
+						// g���r n���got om det ���r s���mre d���
 						System.out.println("Result: WORSE");
 						tradeController.openPosition(this.instrument, "B",
 								20000, 0.0, 0.0, this);
@@ -235,7 +236,7 @@ public class AUDUSDEvents extends Strategy {
 	}
 
 	@Override
-	public void strategyAlgorithm(OfferData row) {
+	public void strategyAlgorithm(Offer row) {
 		handleLiveEvents();
 
 	}

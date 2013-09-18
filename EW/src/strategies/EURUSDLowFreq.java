@@ -1,5 +1,6 @@
 package strategies;
 
+import forex.Offer;
 import indicator.data.FibonacciData;
 import indicator.data.TrendData;
 
@@ -27,24 +28,24 @@ public class EURUSDLowFreq extends Strategy {
 
 	private static final String STRATEGY_NAME = "Low frequency trend strategy";
 
-	private static final int HISTORY_MINUTES_BACKTRACE = 60 * 24 * 5; //one day
+	private static final int HISTORY_MINUTES_BACKTRACE = 60 * 24 * 5; // one day
 	private static final int BACKTRACE_BAR_AMOUNT = 200;
 	private static final String TIME_FRAME = "m5";
 	private static final String STRAT_INSTRUMENT = "EUR/USD";
 	private static final String INSTRUMENT = "EUR/USD";
 
-	//Total gross of closed trades with the strategy
+	// Total gross of closed trades with the strategy
 	private long totalGross = 0;
 
 	private boolean awaitingEventResult = true;
 	private boolean eventIsLive = false;
-	private boolean fetchingEvent = false;
+	private final boolean fetchingEvent = false;
 	private boolean stopLossMovedToProfit = false;
 	private ArrayList<Event> liveEvents = new ArrayList<Event>();
 	private int ticksBetweenCheck = 400;
 	private final String closingMessage = null;
 
-	//Handles all trading related calls
+	// Handles all trading related calls
 	private final TradeController tradeController;
 
 	private double fibResistanceRate;
@@ -58,15 +59,15 @@ public class EURUSDLowFreq extends Strategy {
 
 	private int counter = 0;
 
-	//	private final int count = 0;
+	// private final int count = 0;
 
-	//Live feed
+	// Live feed
 	@Override
 	public void onTick(O2GOfferTableRow row) {
-		//		strategyAlgoritm(row);
+		// strategyAlgoritm(row);
 	}
 
-	//Backtrace feed
+	// Backtrace feed
 	@Override
 	public void onTick(Offer data) {
 		// TODO Auto-generated method stub
@@ -108,10 +109,10 @@ public class EURUSDLowFreq extends Strategy {
 
 	}
 
-	//	@Override
-	//	public O2GTradeRow getCurrentTrade() {
-	//		return currentTrade;
-	//	}
+	// @Override
+	// public O2GTradeRow getCurrentTrade() {
+	// return currentTrade;
+	// }
 
 	@Override
 	public void notifyClosedTrade(O2GClosedTradeRow trade) {
@@ -129,11 +130,11 @@ public class EURUSDLowFreq extends Strategy {
 	}
 
 	@Override
-	public void strategyAlgorithm(OfferData row) {
-		//Handle live events
+	public void strategyAlgorithm(Offer row) {
+		// Handle live events
 		handleLiveEvents();
 
-		//An order strategy		
+		// An order strategy
 		double resistanceDistanceFromPosition = 0.002;
 		double supportDistanceFromPosition = 0.002;
 		double limit = 0;
@@ -153,25 +154,25 @@ public class EURUSDLowFreq extends Strategy {
 					BACKTRACE_BAR_AMOUNT, historicData.size() - 1,
 					historicData, null, null, null, null, null, null);
 
-			//criterias for opening position
+			// criterias for opening position
 			if (fibData.getTrend() != FibonacciData.Trend.CONSOLIDATION) {
 				fibResistanceRate = fibData.getResistanceRate();
 				fibSupportRate = fibData.getSupportRate();
 
-				//Do something if the upcoming events are EUR/USD concerned
-				//				for (Event event : upcomingEvents) {
-				//					if (event.getInstrument().contains("EUR")
-				//							|| event.getInstrument().contains("USD")) {
-				//						//do something
-				//					}
+				// Do something if the upcoming events are EUR/USD concerned
+				// for (Event event : upcomingEvents) {
+				// if (event.getInstrument().contains("EUR")
+				// || event.getInstrument().contains("USD")) {
+				// //do something
+				// }
 				//
-				//				}
+				// }
 
-				//Only trade if fibonacci backtrace is reliable
+				// Only trade if fibonacci backtrace is reliable
 				if (fibData.getReliability() == FibonacciData.Reliability.STRONG
 						&& !eventIsLive) {
 
-					//BUY CONDITIONS
+					// BUY CONDITIONS
 					if (trendData.getTrend() == TrendData.Trend.UP
 							&& trendData.getReliability() == TrendData.Reliability.STRONG) {
 						System.out.println("UP TREND (STRONG)");
@@ -186,11 +187,11 @@ public class EURUSDLowFreq extends Strategy {
 								"Long position (Strong) \n" + "EUR/USD Rate: "
 										+ row.getBidClose() + "\n" + "Limit: "
 										+ limit + " Stop: " + stopLoss + "\n"
-										+ "Time: " + row.getTime().getTime());
+										+ "Time: " + row.getTime());
 
 					}
 
-					//SELL CONDITIONS
+					// SELL CONDITIONS
 					if (trendData.getTrend() == TrendData.Trend.DOWN
 							&& trendData.getReliability() == TrendData.Reliability.STRONG) {
 						System.out.println("DOWN TREND (STRONG)");
@@ -205,13 +206,13 @@ public class EURUSDLowFreq extends Strategy {
 								"Short position (Strong) \n" + "EUR/USD Rate: "
 										+ row.getBidClose() + "\n" + "Limit: "
 										+ limit + " Stop: " + stopLoss + "\n"
-										+ "Time: " + row.getTime().getTime());
+										+ "Time: " + row.getTime());
 					}
 
 				} else if (fibData.getReliability() != FibonacciData.Reliability.STRONG
 						&& !eventIsLive) {
 
-					//BUY CONDITION
+					// BUY CONDITION
 					if (trendData.getTrend() == TrendData.Trend.UP
 							&& trendData.getReliability() == TrendData.Reliability.STRONG) {
 						System.out.println("UP TREND (MEDIUM)");
@@ -224,10 +225,10 @@ public class EURUSDLowFreq extends Strategy {
 								"Long position (Medium) \n" + "EUR/USD Rate: "
 										+ row.getBidClose() + "\n" + "Limit: "
 										+ limit + " Stop: " + stopLoss + "\n"
-										+ "Time: " + row.getTime().getTime());
+										+ "Time: " + row.getTime());
 					}
 
-					//SELL CONDITION
+					// SELL CONDITION
 					if (trendData.getTrend() == TrendData.Trend.DOWN
 							&& trendData.getReliability() == TrendData.Reliability.STRONG) {
 						System.out.println("DOWN TREND (MEDIUM)");
@@ -240,13 +241,13 @@ public class EURUSDLowFreq extends Strategy {
 								"Short position (Medium) \n" + "EUR/USD Rate: "
 										+ row.getBidClose() + "\n" + "Limit: "
 										+ limit + " Stop: " + stopLoss + "\n"
-										+ "Time: " + row.getTime().getTime());
+										+ "Time: " + row.getTime());
 					}
 
 				}
-				//				} else
-				//					System.out
-				//							.println("Resistance or support (fibonacci) is too close to opening rate");
+				// } else
+				// System.out
+				// .println("Resistance or support (fibonacci) is too close to opening rate");
 			}
 
 			if (trendData.getTrend() == TrendData.Trend.CONSOLIDATION)
@@ -254,93 +255,95 @@ public class EURUSDLowFreq extends Strategy {
 			counter = 1;
 			ticksBetweenCheck = 400;
 		}
-		//		else if (currentTrade != null && counter % ticksBetweenCheck / 8 == 0) {
-		//			IndicatorData trendData = Indicator.findTrend(BACKTRACE_BAR_AMOUNT,
-		//					historicData.size() - 1, historicData);
+		// else if (currentTrade != null && counter % ticksBetweenCheck / 8 ==
+		// 0) {
+		// IndicatorData trendData = Indicator.findTrend(BACKTRACE_BAR_AMOUNT,
+		// historicData.size() - 1, historicData);
 		//
-		//			if (trendData.getTrend() == IndicatorData.Trend.UP
-		//					&& currentTrade.getBuySell().equals("S")) {
-		//				tradeController.closePosition(currentTrade);
-		//				closingMessage = "Up trend with short position, time to close";
-		//			} else if (trendData.getTrend() == IndicatorData.Trend.DOWN
-		//					&& currentTrade.getBuySell().equals("B")) {
-		//				tradeController.closePosition(currentTrade);
-		//				closingMessage = "Down trend with long position, time to close";
-		//			}
+		// if (trendData.getTrend() == IndicatorData.Trend.UP
+		// && currentTrade.getBuySell().equals("S")) {
+		// tradeController.closePosition(currentTrade);
+		// closingMessage = "Up trend with short position, time to close";
+		// } else if (trendData.getTrend() == IndicatorData.Trend.DOWN
+		// && currentTrade.getBuySell().equals("B")) {
+		// tradeController.closePosition(currentTrade);
+		// closingMessage = "Down trend with long position, time to close";
+		// }
 		//
-		//		}
+		// }
 		counter++;
 
-		//If rate comes close to the limit, move the stop to avoid any unnecessary losses
+		// If rate comes close to the limit, move the stop to avoid any
+		// unnecessary losses
 		if (!stopLossMovedToProfit) {
 
 			if (currentTrade != null && currentTrade.getBuySell().equals("B")) {
 				if (row.getBidClose() >= currentTrade.getOpenRate() + 0.0006) {
-					//move stop loss up
+					// move stop loss up
 					System.out.println("Stop loss was moved up");
 					tradeController.editStopLoss(
 							currentTrade.getOpenRate() + 0.0003,
 							stopLossOrderID, this);
 					sendEmailNotification("tob.wikstrom@gmail.com",
 							"Stop loss moved up " + STRATEGY_NAME, "Time: "
-									+ row.getTime().getTime());
+									+ row.getTime());
 					stopLossMovedToProfit = true;
 				}
 			} else if (currentTrade != null
 					&& currentTrade.getBuySell().equals("S")) {
 				if (row.getBidClose() <= currentTrade.getOpenRate() - 0.0006) {
-					//move stoploss down
+					// move stoploss down
 					System.out.println("Stop loss was moved down");
 					tradeController.editStopLoss(
 							currentTrade.getOpenRate() - 0.0003,
 							stopLossOrderID, this);
 					sendEmailNotification("tob.wikstrom@gmail.com",
 							"Stop loss moved down " + STRATEGY_NAME, "Time: "
-									+ row.getTime().getTime());
+									+ row.getTime());
 					stopLossMovedToProfit = true;
 				}
 			}
 		}
 
-		//end of order strategy
+		// end of order strategy
 
 	}
 
 	private void handleLiveEvents() {
-		//Handle live events
-		//		if (eventIsLive && awaitingEventResult && !fetchingEvent) {
+		// Handle live events
+		// if (eventIsLive && awaitingEventResult && !fetchingEvent) {
 		//
-		//			for (Event event : liveEvents) {
-		//				fetchingEvent = true;
-		//				//TODO göra i en annan tråd?
-		//				Event eventResult = getEventResult(event);
-		//				fetchingEvent = false;
+		// for (Event event : liveEvents) {
+		// fetchingEvent = true;
+		// //TODO gï¿½ra i en annan trï¿½d?
+		// Event eventResult = getEventResult(event);
+		// fetchingEvent = false;
 		//
-		//				System.out.println(eventResult.getTitle() + " --- "
-		//						+ eventResult.getInstrument());
-		//				//				System.out.println("Impact: " + eventResult.getImpact());
-		//				//				System.out.println("Time left: " + eventResult.getTime());
-		//				//				System.out
-		//				//						.println("Instrument: " + eventResult.getInstrument());
+		// System.out.println(eventResult.getTitle() + " --- "
+		// + eventResult.getInstrument());
+		// // System.out.println("Impact: " + eventResult.getImpact());
+		// // System.out.println("Time left: " + eventResult.getTime());
+		// // System.out
+		// // .println("Instrument: " + eventResult.getInstrument());
 		//
-		//				if (eventResult.getResult() == EventResult.NONE) {
-		//					System.out.println("Result: NOT FOUND YET");
-		//					awaitingEventResult = true;
-		//				} else if (eventResult.getResult() == EventResult.BETTER) {
-		//					//gör något om det är bättre då
-		//					System.out.println("Result: BETTER");
-		//					awaitingEventResult = false;
-		//				} else if (eventResult.getResult() == EventResult.WORSE) {
-		//					//gör något om det är sämre då
-		//					System.out.println("Result: WORSE");
-		//					awaitingEventResult = false;
-		//				} else if (eventResult.getResult() == EventResult.UNCHANGED) {
-		//					System.out.println("UNCHANGED");
-		//					//awaitingEventResult = false;
-		//				}
-		//			}
+		// if (eventResult.getResult() == EventResult.NONE) {
+		// System.out.println("Result: NOT FOUND YET");
+		// awaitingEventResult = true;
+		// } else if (eventResult.getResult() == EventResult.BETTER) {
+		// //gï¿½r nï¿½got om det ï¿½r bï¿½ttre dï¿½
+		// System.out.println("Result: BETTER");
+		// awaitingEventResult = false;
+		// } else if (eventResult.getResult() == EventResult.WORSE) {
+		// //gï¿½r nï¿½got om det ï¿½r sï¿½mre dï¿½
+		// System.out.println("Result: WORSE");
+		// awaitingEventResult = false;
+		// } else if (eventResult.getResult() == EventResult.UNCHANGED) {
+		// System.out.println("UNCHANGED");
+		// //awaitingEventResult = false;
+		// }
+		// }
 		//
-		//		}
+		// }
 	}
 
 	@Override

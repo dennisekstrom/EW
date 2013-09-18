@@ -16,6 +16,8 @@ import client.gui.UpcomingEvents;
 import com.fxcore2.O2GClosedTradeRow;
 import com.fxcore2.O2GTradeRow;
 
+import forex.Offer;
+
 /**
  * Class to handle all strategies.
  * 
@@ -97,8 +99,7 @@ public class StrategyController {
 		if (strategies.contains(strategy)) {
 			activateStrategy(strategy);
 
-			Messages
-					.addMessage(strategy.getStrategyName() + " just launched");
+			Messages.addMessage(strategy.getStrategyName() + " just launched");
 			strategy.onStart();
 			strategy.setLaunched(true);
 

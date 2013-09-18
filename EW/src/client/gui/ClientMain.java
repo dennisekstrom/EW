@@ -6,8 +6,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -25,8 +23,6 @@ import swingjd.util.Theme;
 import trading.TradeController;
 
 import chart.ChartFrame;
-
-import feed.RealTimeFeed;
 import forex.ForexConstants;
 
 /**
@@ -43,7 +39,7 @@ public class ClientMain extends JFrame {
 	private static final String TITLE = "WEForex Alpha";
 	private static final Dimension FRAME_SIZE = new Dimension(1024, 512);
 
-	//private RealTimeFeed feed;
+	// private RealTimeFeed feed;
 
 	private final User loggedInUser;
 	private final TradeController tradeController;
@@ -68,7 +64,7 @@ public class ClientMain extends JFrame {
 	private BottomPanel bottomPanel;
 
 	// other frames
-	//private ChartFrame chartFrame;
+	private ChartFrame chartFrame;
 
 	// south panel
 	public JLabel balanceLabel;
@@ -86,8 +82,7 @@ public class ClientMain extends JFrame {
 	 * @param start
 	 *            time of feed
 	 */
-	public ClientMain(User user, long startTime,
-			TradeController tradeController) {
+	public ClientMain(User user, long startTime, TradeController tradeController) {
 		super(TITLE);
 
 		this.loggedInUser = user;
@@ -98,10 +93,10 @@ public class ClientMain extends JFrame {
 		// TempConstants.defaultTickInterval,
 		// TempConstants.defaultTickBarSize, TempConstants.defaultSpeed,
 		// startTime, TempConstants.defaultUpdateInterval);
-//		feed = new RealTimeFeed(TempConstants.defaultInstrument,
-//				TempConstants.defaultTickInterval,
-//				TempConstants.defaultTickBarSize, TempConstants.defaultSpeed,
-//				startTime, TempConstants.defaultUpdateInterval);
+		// feed = new RealTimeFeed(TempConstants.defaultInstrument,
+		// TempConstants.defaultTickInterval,
+		// TempConstants.defaultTickBarSize, TempConstants.defaultSpeed,
+		// startTime, TempConstants.defaultUpdateInterval);
 
 		closedPositionPanel = new ClosedPositionPanel();
 		positionPanel = new PositionPanel();
@@ -110,35 +105,17 @@ public class ClientMain extends JFrame {
 
 		initChart(startTime);
 
-		this.positionController = new PositionController(this, feed,
-				loggedInUser, positionPanel, closedPositionPanel);
+		this.positionController = new PositionController(this, loggedInUser,
+				positionPanel, closedPositionPanel);
 		tradeController.addPositionController(positionController);
 		positionController.updateGUI(tradeController, true);
 
-		feed.addListener(new PropertyChangeListener() {
-
-			@Override
-			public void propertyChange(PropertyChangeEvent evt) {
-				time.setTimeInMillis((Long) evt.getNewValue());
-				clockLabel.setText(String.format("%1$tY/%1$tm/%1$td %1$tR",
-						time));
-			}
-		});
-		// feed.addCurrentTimeListener(new PropertyChangeListener() {
-		//
-		// @Override
-		// public void propertyChange(PropertyChangeEvent evt) {
-		// time.setTimeInMillis((Long) evt.getNewValue());
-		// clockLabel.setText(String.format("%1$tY/%1$tm/%1$td %1$tR",
-		// time));
-		// }
-		// });
-
-		// start feed
-		feed.startFeed();
-
-		// create components
 		initGUI();
+
+		this.positionController = new PositionController(this, loggedInUser,
+				positionPanel, closedPositionPanel);
+
+		repaint();
 
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -150,12 +127,12 @@ public class ClientMain extends JFrame {
 	}
 
 	private void initChart(long startTime) {
-//		chartFrame = new ChartFrame(feed, TempConstants.defaultInstrument,
-//				TempConstants.defaultTickBarSize, TempConstants.defaultPeriod,
-//				TempConstants.defaultOfferSide, startTime, true);
-//
-//		chartFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//		chartFrame.setLocationRelativeTo(null);
+		// chartFrame = new ChartFrame(feed, TempConstants.defaultInstrument,
+		// TempConstants.defaultTickBarSize, TempConstants.defaultPeriod,
+		// TempConstants.defaultOfferSide, startTime, true);
+		//
+		// chartFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		// chartFrame.setLocationRelativeTo(null);
 	}
 
 	/**
@@ -211,25 +188,12 @@ public class ClientMain extends JFrame {
 		this.setSize(FRAME_SIZE);
 	}
 
-	public void setStartTime(long startTime) {
-		chartFrame.setVisible(false);
-
-		initChart(startTime);
-
-		initGUI();
-
-		this.positionController = new PositionController(this, feed,
-				loggedInUser, positionPanel, closedPositionPanel);
-
-		repaint();
-
-		// TODO these parameters should be set in a separate window
-		feed = new RealTimeFeed(TempConstants.defaultInstrument,
-				TempConstants.defaultTickInterval,
-				TempConstants.defaultTickBarSize, TempConstants.defaultSpeed,
-				startTime, TempConstants.defaultUpdateInterval);
-
-	}
+	// public void setStartTime(long startTime) {
+	// chartFrame.setVisible(false);
+	//
+	// initChart(startTime);
+	//
+	// }
 
 	public WestPanel getEntryPanel() {
 		return entryPanel;
@@ -254,13 +218,13 @@ public class ClientMain extends JFrame {
 		openProfitLabel.repaint();
 	}
 
-	//	public void repaintPositionPanel() {
-	//		positionPanel.repaint();
-	//	}
+	// public void repaintPositionPanel() {
+	// positionPanel.repaint();
+	// }
 	//
-	//	public void repaintClosedPositionPanel() {
-	//		closedPositionPanel.repaint();
-	//	}
+	// public void repaintClosedPositionPanel() {
+	// closedPositionPanel.repaint();
+	// }
 
 	public void updateClock() {
 		String dateTime = User.getDateTime() + " ";

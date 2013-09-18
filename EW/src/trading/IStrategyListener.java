@@ -8,6 +8,8 @@ import com.fxcore2.O2GClosedTradeRow;
 import com.fxcore2.O2GOfferTableRow;
 import com.fxcore2.O2GTradeRow;
 
+import forex.Offer;
+
 /**
  * Interface to be implemented by all strategies.
  * 

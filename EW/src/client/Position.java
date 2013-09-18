@@ -10,7 +10,7 @@ import forex.ForexConstants;
 import forex.ForexException;
 
 /**
- * Position class. TODO Šndra sŒ att den bara behšver ta typ en trade som
+ * Position class. TODO ï¿½ndra sï¿½ att den bara behï¿½ver ta typ en trade som
  * inparameter.
  * 
  * @author Tobias
@@ -21,7 +21,7 @@ public class Position {
 
 	private static Calendar cal = new GregorianCalendar(ForexConstants.GMT);
 
-	private double profit;
+	private final double profit;
 	private final double openRate;
 	private Date openTime;
 	private long openTimeMillis;
@@ -189,14 +189,14 @@ public class Position {
 	// // size = 1000
 	// }
 
-	/**
-	 * Set spread to position
-	 * 
-	 * @param spread
-	 */
-	public void setSpreadLoss(double spread) {
-		profit -= spread * TempConstants.LEVERAGE;
-	}
+	// /**
+	// * Set spread to position
+	// *
+	// * @param spread
+	// */
+	// public void setSpreadLoss(double spread) {
+	// profit -= spread * TempConstants.LEVERAGE;
+	// }
 
 	@Override
 	public String toString() {

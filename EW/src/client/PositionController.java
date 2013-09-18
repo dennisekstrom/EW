@@ -19,7 +19,6 @@ import com.fxcore2.O2GClosedTradesTable;
 import com.fxcore2.O2GTradeTableRow;
 import com.fxcore2.O2GTradesTable;
 
-
 /**
  * Handles orders and positions. Implements feed to update each positions
  * accordingly. Also updates the host (Client UI) to display the current values.
@@ -100,7 +99,7 @@ public class PositionController {
 		}
 
 		openPositions.add(pos);
-		pos.setSpreadLoss(spread);
+		// pos.setSpreadLoss(spread);
 
 		if (order.getOrderCommand().equals(OrderCommand.BUY)) {
 			// drawingHost.draw(new UpSignalArrow(drawingHost, new
@@ -112,10 +111,10 @@ public class PositionController {
 		}
 
 		// write to file
-//		printRead.writeToFile(order, feed.getCurrentTime());
+		// printRead.writeToFile(order, feed.getCurrentTime());
 
 		// update positionPanel
-		// TODO beh�vs denna?
+		// TODO beh���vs denna?
 		updateGUI(host.getTradeController(), false);
 	}
 
@@ -225,36 +224,34 @@ public class PositionController {
 				user.getBalance()));
 	}
 
-
-
 	public ClientMain getHost() {
 		return host;
 	}
 
-//	@Override
-//	public void onTick(Instrument instrument, ITick tick) {
+	// @Override
+	// public void onTick(Instrument instrument, ITick tick) {
 
-		// previousAskRate = currentAskRate;
-		// previousBidRate = currentBidRate;
-		//
-		// // use closed bar rate as current rate
-		// currentAskRate = tick.getAsk();
-		// currentBidRate = tick.getBid();
+	// previousAskRate = currentAskRate;
+	// previousBidRate = currentBidRate;
+	//
+	// // use closed bar rate as current rate
+	// currentAskRate = tick.getAsk();
+	// currentBidRate = tick.getBid();
 
-		// for (Position position : openPositions)
-		// position.adjustProfit(tick);
+	// for (Position position : openPositions)
+	// position.adjustProfit(tick);
 
-		// host.repaintPositionPanel();
+	// host.repaintPositionPanel();
 
-		// update rate label in client
-		// updateRateLabel();
-		// update balance label
-		// updateBalanceLabel();
-		// update daily profit label
-		// updateDynamicDailyProfit();
-		// updateOpenProfitLabel();
+	// update rate label in client
+	// updateRateLabel();
+	// update balance label
+	// updateBalanceLabel();
+	// update daily profit label
+	// updateDynamicDailyProfit();
+	// updateOpenProfitLabel();
 
-//	}
+	// }
 
 	/**
 	 * Update positions, closed positions and active stategies in the GUI.

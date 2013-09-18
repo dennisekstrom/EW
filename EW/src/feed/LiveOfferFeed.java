@@ -1,13 +1,11 @@
 package feed;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
-import trading.OfferData;
 import com.fxcore2.IO2GTableListener;
 import com.fxcore2.O2GOfferTableRow;
 import com.fxcore2.O2GRow;
 import com.fxcore2.O2GTableStatus;
+
+import forex.Offer;
 
 /*
  * 
@@ -54,6 +52,11 @@ public final class LiveOfferFeed extends OfferFeed implements IO2GTableListener 
 	public void onStatusChanged(O2GTableStatus status) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public long getCurrentTime() {
+		return System.currentTimeMillis();
 	}
 
 }

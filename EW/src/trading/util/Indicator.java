@@ -1,5 +1,6 @@
 package trading.util;
 
+import forex.Offer;
 import indicator.data.FibonacciData;
 import indicator.data.RecoilData;
 import indicator.data.TrendData;
@@ -47,14 +48,13 @@ public class Indicator {
 		}
 
 		double minVolatilityConstant = 0.001;
-		//		double strengthIndicatorOfExtremes = 0.1;
+		// double strengthIndicatorOfExtremes = 0.1;
 		double strengthResistanceAndSupport = 0.001;
-		//Make a sublist of the specified interval
+		// Make a sublist of the specified interval
 		List<Offer> subList = new ArrayList<Offer>();
-		subList = new ArrayList<Offer>(history.subList(from - interval,
-				from));
+		subList = new ArrayList<Offer>(history.subList(from - interval, from));
 
-		//take max and min
+		// take max and min
 		Offer globalMax = getMax(subList);
 		Offer globalMin = getMin(subList);
 
@@ -67,12 +67,12 @@ public class Indicator {
 		}
 
 		boolean foundLocals = false;
-		//check if not consolidating
+		// check if not consolidating
 		Offer highestPeak;
 		Offer lowestValley;
 		if (globalMax.getBidClose() - globalMin.getBidClose() > minVolatilityConstant) {
 
-			//test with timing TODO remove this
+			// test with timing TODO remove this
 			long startTime = System.currentTimeMillis();
 
 			highestPeak = getHighestPeak(subList, globalMax);
@@ -89,19 +89,19 @@ public class Indicator {
 
 			if (highestPeak != null && lowestValley == null)
 				System.out.println("Highest peak: " + highestPeak.getBidHigh()
-						+ " (" + highestPeak.getTime().getTime() + ")");
+						+ " (" + highestPeak.getTime() + ")");
 			else if (highestPeak == null && lowestValley != null)
 				System.out.println("Lowest valley: " + lowestValley.getBidLow()
-						+ " (" + lowestValley.getTime().getTime() + ")");
+						+ " (" + lowestValley.getTime() + ")");
 			else if (highestPeak == null || lowestValley == null) {
 				System.out.println("No locals!");
 			} else {
 				foundLocals = true;
 
 				System.out.println("Highest peak: " + highestPeak.getBidHigh()
-						+ " (" + highestPeak.getTime().getTime() + ")");
+						+ " (" + highestPeak.getTime() + ")");
 				System.out.println("Lowest valley: " + lowestValley.getBidLow()
-						+ " (" + lowestValley.getTime().getTime() + ")");
+						+ " (" + lowestValley.getTime() + ")");
 			}
 
 		} else {
@@ -116,10 +116,10 @@ public class Indicator {
 		}
 
 		System.out.println("Global max: " + globalMax.getBidClose() + " ("
-				+ globalMax.getTime().getTime() + ")");
+				+ globalMax.getTime() + ")");
 
 		System.out.println("Global min: " + globalMin.getBidClose() + " ("
-				+ globalMin.getTime().getTime() + ")");
+				+ globalMin.getTime() + ")");
 
 		FibonacciData id = new FibonacciData();
 		id.setError(FibonacciData.Error.NO_ERROR);
@@ -194,7 +194,7 @@ public class Indicator {
 			Double maxErrorConstant, Double rSquaredStrongReliability,
 			Double rSquaredMinimum) {
 
-		//If set to null, use default values
+		// If set to null, use default values
 		if (minVolatilityConstant == null || minVolatilityConstant < 0)
 			minVolatilityConstant = 0.001;
 		if (regressionMinPosSlope == null || regressionMinPosSlope <= 0)
@@ -216,23 +216,21 @@ public class Indicator {
 			return id;
 		}
 
-		//		System.out.println("Finding a trend");
+		// System.out.println("Finding a trend");
 		TrendData id = new TrendData();
 
-		//Make a sublist of the specified interval
+		// Make a sublist of the specified interval
 		List<Offer> subList = new ArrayList<Offer>();
-		subList = new ArrayList<Offer>(history.subList(from - interval,
-				from));
+		subList = new ArrayList<Offer>(history.subList(from - interval, from));
 		System.out.println("Last bar date: "
-				+ subList.get(subList.size() - 1).getTime().getTime());
-		System.out.println("First bar date: "
-				+ subList.get(0).getTime().getTime());
+				+ subList.get(subList.size() - 1).getTime());
+		System.out.println("First bar date: " + subList.get(0).getTime());
 
-		//take max and min
+		// take max and min
 		Offer globalMax = getMax(subList);
 		Offer globalMin = getMin(subList);
 
-		//Linear Least Squares method
+		// Linear Least Squares method
 		SimpleRegression regression = new SimpleRegression();
 
 		int xValue = 0;
@@ -241,10 +239,8 @@ public class Indicator {
 			xValue = i;
 		}
 
-		System.out.println("Trend range\n"
-				+ history.get(from).getTime().getTime());
-		System.out.println("to "
-				+ history.get(from - interval).getTime().getTime());
+		System.out.println("Trend range\n" + history.get(from).getTime());
+		System.out.println("to " + history.get(from - interval).getTime());
 		System.out.println("-Linear regression-");
 		System.out.println("Regression slope: " + regression.getSlope());
 		System.out.println("Prediction: " + regression.predict(xValue + 20));
@@ -254,8 +250,9 @@ public class Indicator {
 				+ regression.getSlopeConfidenceInterval());
 		System.out.println("R square: " + regression.getRSquare());
 
-		//check if regression correlation coefficient is trust worthy and if error is OK.
-		//continue if error is ok
+		// check if regression correlation coefficient is trust worthy and if
+		// error is OK.
+		// continue if error is ok
 		if (regression.getMeanSquareError() > maxErrorConstant) {
 
 			if (regression.getRSquare() < rSquaredMinimum) {
@@ -268,7 +265,7 @@ public class Indicator {
 			System.out.println("Error is large, but R Squared is OK.");
 		}
 
-		//check for consolidation
+		// check for consolidation
 		if (globalMax.getBidClose() - globalMin.getBidClose() < minVolatilityConstant) {
 			id.setError(TrendData.Error.NO_ERROR);
 			id.setTrend(TrendData.Trend.CONSOLIDATION);
@@ -290,10 +287,11 @@ public class Indicator {
 			return id;
 		}
 
-		//make sure the max and min are on the right "side" and that the slope is in the correct angle
+		// make sure the max and min are on the right "side" and that the slope
+		// is in the correct angle
 		if (regression.getSlope() > 0) {
 
-			//Set reliability to medium if the error is large
+			// Set reliability to medium if the error is large
 			if (regression.getMeanSquareError() > maxErrorConstant) {
 				System.out
 						.println("Reliability trend: Medium (Error too large)");
@@ -317,7 +315,7 @@ public class Indicator {
 			return id;
 		} else {
 
-			//Set reliability to medium if the error is large
+			// Set reliability to medium if the error is large
 			if (regression.getMeanSquareError() > maxErrorConstant) {
 				System.out
 						.println("Reliability trend: Medium (Error too large)");
@@ -359,7 +357,7 @@ public class Indicator {
 
 		RecoilData rd = new RecoilData();
 
-		//Make a sublist of the specified interval
+		// Make a sublist of the specified interval
 		List<Offer> subList = new ArrayList<Offer>();
 		subList = new ArrayList<Offer>(history.subList(history.size()
 				- interval, history.size() - 1));
@@ -379,7 +377,8 @@ public class Indicator {
 					break;
 				}
 				if (downFallList.indexOf(bar) == downFallList.size() - 1) {
-					//No volumes is over the min volume, which means there's no fall
+					// No volumes is over the min volume, which means there's no
+					// fall
 					rd.setReliability(RecoilData.Reliability.NO_RELIABILITY);
 					return rd;
 				}
@@ -387,7 +386,7 @@ public class Indicator {
 			}
 
 			if (downFallList.size() > 15) {
-				//Low recoil potential
+				// Low recoil potential
 			} else {
 				boolean allApprovedVolumes = true;
 				for (Offer bar : downFallList) {
@@ -407,7 +406,7 @@ public class Indicator {
 		} else if (subList.indexOf(globalMax) + 4 >= subList.size() - 1) {
 			// Potential recoil down
 			rd.setRecoil(RecoilData.Recoil.DOWN);
-			//TODO
+			// TODO
 		}
 
 		return null;
@@ -427,8 +426,7 @@ public class Indicator {
 	 * @return
 	 */
 
-	public static Offer getHighestPeak(List<Offer> list,
-			Offer startGuess) {
+	public static Offer getHighestPeak(List<Offer> list, Offer startGuess) {
 		if (peakCondition(list, startGuess))
 			return startGuess;
 		else {
@@ -442,15 +440,15 @@ public class Indicator {
 
 	}
 
-	private static Offer getPeak(List<Offer> list,
-			Offer splitPoint, int recursionCounter) {
+	private static Offer getPeak(List<Offer> list, Offer splitPoint,
+			int recursionCounter) {
 		if (recursionCounter > 100) {
 			System.out.println("Couldn't find more peaks");
 			return null;
 		}
 		recursionCounter++;
 		Offer peak;
-		//get sublists of each side of the max
+		// get sublists of each side of the max
 		List<Offer> leftMaxList = new ArrayList<Offer>();
 
 		if (list.indexOf(splitPoint) < 0) {
@@ -481,8 +479,8 @@ public class Indicator {
 		else
 			peak = rightMax;
 
-		//If peak conditions are fulfilled, return the guess.
-		//Otherwise use recursion to test more possibilities
+		// If peak conditions are fulfilled, return the guess.
+		// Otherwise use recursion to test more possibilities
 		int indexOfBottom = list.indexOf(peak);
 		if (peakCondition(list, peak))
 			return peak;
@@ -499,7 +497,7 @@ public class Indicator {
 	}
 
 	private static boolean peakCondition(List<Offer> list, Offer guess) {
-		//Linear Least Squares method
+		// Linear Least Squares method
 		SimpleRegression regression = new SimpleRegression();
 
 		int indexOfTop = list.indexOf(guess);
@@ -508,7 +506,7 @@ public class Indicator {
 			regression.addData(i, list.get(i).getBidHigh());
 		}
 
-		//How much this calculated top differ from the regression line
+		// How much this calculated top differ from the regression line
 		double estimateAtIndexTop = regression.getIntercept()
 				+ regression.getSlope() * indexOfTop;
 		double errorOfEstimate = Math.abs(observationAtIndexOfTop
@@ -516,14 +514,14 @@ public class Indicator {
 
 		if (indexOfTop - 18 > 0 && indexOfTop + 18 < list.size() - 1) {
 
-			//Check so that the top is surrounded by values which are lower
+			// Check so that the top is surrounded by values which are lower
 			for (int i = indexOfTop - 15; i < indexOfTop + 15; i++) {
 				if (i == indexOfTop)
 					continue;
 				else {
 					if (list.get(i).getBidHigh() > list.get(indexOfTop)
 							.getBidHigh()) {
-						//The top is really not a top
+						// The top is really not a top
 						return false;
 					}
 
@@ -536,7 +534,7 @@ public class Indicator {
 		return true;
 	}
 
-	//	private static int recursionCounterValley = 0;
+	// private static int recursionCounterValley = 0;
 
 	/**
 	 * Get the lowest valley in the list. A valley is defined inside the method.
@@ -550,8 +548,7 @@ public class Indicator {
 	 *            min value for the list
 	 * @return
 	 */
-	public static Offer getLowestValley(List<Offer> list,
-			Offer startGuess) {
+	public static Offer getLowestValley(List<Offer> list, Offer startGuess) {
 		if (valleyCondition(list, startGuess))
 			return startGuess;
 		else {
@@ -565,8 +562,8 @@ public class Indicator {
 
 	}
 
-	private static Offer getValley(List<Offer> list,
-			Offer splitPoint, int recursionCounter) {
+	private static Offer getValley(List<Offer> list, Offer splitPoint,
+			int recursionCounter) {
 		if (recursionCounter > 100) {
 			System.out.println("Couldn't find more valleys");
 			return null;
@@ -574,15 +571,14 @@ public class Indicator {
 
 		recursionCounter++;
 		Offer valley;
-		//get sublists of each side of the max
+		// get sublists of each side of the max
 		List<Offer> leftMinList = new ArrayList<Offer>();
 		int indexOfSplitPoint = list.indexOf(splitPoint);
 		if (indexOfSplitPoint < 0) {
 			System.out.println("Split point index is under 0");
 			return null;
 		}
-		leftMinList = new ArrayList<Offer>(list.subList(0,
-				indexOfSplitPoint));
+		leftMinList = new ArrayList<Offer>(list.subList(0, indexOfSplitPoint));
 		List<Offer> rightMinList = new ArrayList<Offer>();
 		rightMinList = new ArrayList<Offer>(list.subList(indexOfSplitPoint,
 				list.size() - 1));
@@ -604,8 +600,8 @@ public class Indicator {
 		else
 			valley = rightMin;
 
-		//If valley conditions are fulfilled, return the guess.
-		//Otherwise use recursion to test more possibilities
+		// If valley conditions are fulfilled, return the guess.
+		// Otherwise use recursion to test more possibilities
 		int indexOfBottom = list.indexOf(valley);
 		if (valleyCondition(list, valley))
 			return valley;
@@ -621,9 +617,9 @@ public class Indicator {
 
 	}
 
-	//Conditions for a valley
+	// Conditions for a valley
 	private static boolean valleyCondition(List<Offer> list, Offer guess) {
-		//Linear Least Squares method
+		// Linear Least Squares method
 		SimpleRegression regression = new SimpleRegression();
 
 		int indexOfBottom = list.indexOf(guess);
@@ -632,13 +628,13 @@ public class Indicator {
 			regression.addData(i, list.get(i).getBidLow());
 		}
 
-		//How much this calculated top differ from the regression line
+		// How much this calculated top differ from the regression line
 		double estimateAtIndexBottom = regression.getIntercept()
 				+ regression.getSlope() * indexOfBottom;
 		double errorOfEstimate = Math.abs(observationAtIndexOfBottom
 				- estimateAtIndexBottom);
 
-		//Check so that the bottom is surrounded by values which are higher
+		// Check so that the bottom is surrounded by values which are higher
 		if (indexOfBottom - 18 > 0 && indexOfBottom + 18 < list.size() - 1) {
 			for (int i = indexOfBottom - 15; i < indexOfBottom + 15; i++) {
 				if (i == indexOfBottom)
@@ -646,22 +642,22 @@ public class Indicator {
 				else {
 					if (list.get(i).getBidLow() < list.get(indexOfBottom)
 							.getBidLow()) {
-						//The bottom is really not a bottom
+						// The bottom is really not a bottom
 						return false;
 					}
 
 				}
 			}
 		} else {
-			//The bottom is really not a bottom
+			// The bottom is really not a bottom
 			return false;
 		}
 
 		return true;
-		//		if (errorOfEstimate > 0.0006)
-		//			return true;
-		//		else
-		//			return false;
+		// if (errorOfEstimate > 0.0006)
+		// return true;
+		// else
+		// return false;
 	}
 
 	/**
@@ -800,7 +796,7 @@ public class Indicator {
 			if (tempMaxList.size() <= 1)
 				return null;
 			max = Collections.max(tempMaxList);
-			//if the max is a rand, then don't count and continue searching
+			// if the max is a rand, then don't count and continue searching
 			if (tempMaxList.indexOf(max) == tempMaxList.size() - 1
 					|| tempMaxList.indexOf(max) == 0) {
 				maxFound = false;
@@ -836,7 +832,7 @@ public class Indicator {
 			if (tempMinList.size() <= 1)
 				return null;
 			min = Collections.min(tempMinList);
-			//if the min is a rand, then don't count and continue searching
+			// if the min is a rand, then don't count and continue searching
 			if (tempMinList.indexOf(min) == tempMinList.size() - 1
 					|| tempMinList.indexOf(min) == 0) {
 				minFound = false;

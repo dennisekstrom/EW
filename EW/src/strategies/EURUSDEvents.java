@@ -1,5 +1,6 @@
 package strategies;
 
+import forex.Offer;
 import indicator.data.TrendData;
 
 import java.util.ArrayList;
@@ -9,7 +10,6 @@ import com.fxcore2.O2GOfferTableRow;
 
 import trading.util.Event;
 import trading.util.Indicator;
-import trading.util.OfferData;
 import trading.Strategy;
 import trading.StrategyController;
 import trading.TradeController;
@@ -19,14 +19,14 @@ import trading.util.Event.EventResult;
 public class EURUSDEvents extends Strategy {
 
 	private static final String STRATEGY_NAME = "Event EUR/USD strategy";
-	private static final int HISTORY_MINUTES_BACKTRACE = 60 * 24 * 5; //one day
+	private static final int HISTORY_MINUTES_BACKTRACE = 60 * 24 * 5; // one day
 	private static final String TIME_FRAME = "m5";
 	private static final String STRAT_INSTRUMENT = "EUR/USD";
 	private static final String INSTRUMENT = "EUR/USD";
 
 	private static final int BACKTRACE_BAR_AMOUNT = 100;
 
-	//Total gross of closed trades with the strategy
+	// Total gross of closed trades with the strategy
 	private long totalGross = 0;
 
 	private boolean awaitingEventResult = true;
@@ -36,7 +36,7 @@ public class EURUSDEvents extends Strategy {
 	private int ticksBetweenCheck = 400;
 	private final String closingMessage = null;
 
-	//Handles all trading related calls
+	// Handles all trading related calls
 	private final TradeController tradeController;
 
 	private int counter = 0;
@@ -50,15 +50,15 @@ public class EURUSDEvents extends Strategy {
 
 	}
 
-	//Live feed
+	// Live feed
 	@Override
 	public void onTick(O2GOfferTableRow row) {
-		//		strategyAlgoritm(row);
+		// strategyAlgoritm(row);
 	}
 
-	//Backtrace feed
+	// Backtrace feed
 	@Override
-	public void onTick(OfferData data) {
+	public void onTick(Offer data) {
 		// TODO Auto-generated method stub
 
 	}
@@ -123,10 +123,10 @@ public class EURUSDEvents extends Strategy {
 
 	}
 
-	//	@Override
-	//	public O2GTradeRow getCurrentTrade() {
-	//		return currentTrade;
-	//	}
+	// @Override
+	// public O2GTradeRow getCurrentTrade() {
+	// return currentTrade;
+	// }
 
 	@Override
 	public void notifyClosedTrade(O2GClosedTradeRow trade) {
@@ -145,8 +145,8 @@ public class EURUSDEvents extends Strategy {
 	}
 
 	@Override
-	public void strategyAlgorithm(OfferData row) {
-		//An order strategy		
+	public void strategyAlgorithm(Offer row) {
+		// An order strategy
 
 		handleLiveEvents(row);
 
@@ -176,17 +176,17 @@ public class EURUSDEvents extends Strategy {
 
 		counter++;
 
-		//end of order strategy
+		// end of order strategy
 
 	}
 
-	private void handleLiveEvents(OfferData row) {
-		//Handle live events
+	private void handleLiveEvents(Offer row) {
+		// Handle live events
 		if (eventIsLive && awaitingEventResult && !fetchingEvent) {
 			boolean sentEmail = false;
 			for (Event event : liveEvents) {
 				fetchingEvent = true;
-				//TODO göra i en annan tråd?
+				// TODO g��ra i en annan tr��d?
 				System.out.println(STRATEGY_NAME + " is fetching event maybe "
 						+ event.getInstrument());
 				if (event.getInstrument() != "EUR"
@@ -196,8 +196,9 @@ public class EURUSDEvents extends Strategy {
 				Event eventResult = getEventResult(event);
 				fetchingEvent = false;
 
-				System.out.println("Strat två event: " + eventResult.getTitle()
-						+ " --- " + eventResult.getInstrument());
+				System.out.println("Strat tv�� event: "
+						+ eventResult.getTitle() + " --- "
+						+ eventResult.getInstrument());
 
 				if (!sentEmail) {
 					sendEmailNotification(
@@ -227,10 +228,10 @@ public class EURUSDEvents extends Strategy {
 										+ eventResult.getTitle() + " "
 										+ eventResult.getInstrument() + " "
 										+ eventResult.getResult() + "\n"
-										+ "Time: " + row.getTime().getTime());
+										+ "Time: " + row.getTime());
 						awaitingEventResult = false;
 					} else if (eventResult.getResult() == EventResult.WORSE) {
-						//gör något om det är sämre då
+						// g��r n��got om det ��r s��mre d��
 						System.out.println("Result: WORSE");
 						tradeController.openPosition("EUR/USD", "S", 20000,
 								row.getBidClose() + 0.001,
@@ -243,11 +244,11 @@ public class EURUSDEvents extends Strategy {
 										+ eventResult.getTitle() + " "
 										+ eventResult.getInstrument() + " "
 										+ eventResult.getResult() + "\n"
-										+ "Time: " + row.getTime().getTime());
+										+ "Time: " + row.getTime());
 						awaitingEventResult = false;
 					} else if (eventResult.getResult() == EventResult.UNCHANGED) {
 						System.out.println("UNCHANGED");
-						//awaitingEventResult = false;
+						// awaitingEventResult = false;
 					}
 				} else if (eventResult.getInstrument().equals("USD")
 						&& eventResult.getImpact() == EventImpact.HIGH) {
@@ -267,10 +268,10 @@ public class EURUSDEvents extends Strategy {
 										+ eventResult.getTitle() + " "
 										+ eventResult.getInstrument() + " "
 										+ eventResult.getResult() + "\n"
-										+ "Time: " + row.getTime().getTime());
+										+ "Time: " + row.getTime());
 						awaitingEventResult = false;
 					} else if (eventResult.getResult() == EventResult.WORSE) {
-						//gör något om det är sämre då
+						// g��r n��got om det ��r s��mre d��
 						System.out.println("Result: WORSE");
 						tradeController.openPosition("EUR/USD", "B", 20000,
 								row.getBidClose() + 0.001,
@@ -283,11 +284,11 @@ public class EURUSDEvents extends Strategy {
 										+ eventResult.getTitle() + " "
 										+ eventResult.getInstrument() + " "
 										+ eventResult.getResult() + "\n"
-										+ "Time: " + row.getTime().getTime());
+										+ "Time: " + row.getTime());
 						awaitingEventResult = false;
 					} else if (eventResult.getResult() == EventResult.UNCHANGED) {
 						System.out.println("UNCHANGED");
-						//awaitingEventResult = false;
+						// awaitingEventResult = false;
 					}
 
 				}

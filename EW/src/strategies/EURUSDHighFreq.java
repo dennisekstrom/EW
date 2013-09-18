@@ -1,5 +1,6 @@
 package strategies;
 
+import forex.Offer;
 import indicator.data.TrendData;
 
 import java.util.ArrayList;
@@ -7,7 +8,6 @@ import java.util.List;
 
 import trading.util.Event;
 import trading.util.Indicator;
-import trading.util.OfferData;
 import trading.Strategy;
 import trading.StrategyController;
 import trading.TradeController;
@@ -29,20 +29,20 @@ public class EURUSDHighFreq extends Strategy {
 
 	private static final String STRATEGY_NAME = "High frequency trade strategy";
 
-	private static final int HISTORY_MINUTES_BACKTRACE = 60 * 24; //one day
+	private static final int HISTORY_MINUTES_BACKTRACE = 60 * 24; // one day
 	private static final int BACKTRACE_BAR_AMOUNT = 50;
 	private static final int BACKTRACE_BAR_AMOUNT_PEAKS_VALLEYS = 100;
 	private static final String TIME_FRAME = "m5";
 	private static final String STRAT_INSTRUMENT = "EUR/USD";
 	private static final String INSTRUMENT = "EUR/USD";
 
-	//Total gross of closed trades with the strategy
+	// Total gross of closed trades with the strategy
 	private long totalGross = 0;
 
-	private int ticksBetweenCheck = 100;
+	private final int ticksBetweenCheck = 100;
 	private final String closingMessage = null;
 
-	//Handles all trading related calls
+	// Handles all trading related calls
 	private final TradeController tradeController;
 
 	public EURUSDHighFreq(StrategyController strategy,
@@ -53,17 +53,17 @@ public class EURUSDHighFreq extends Strategy {
 
 	private int counter = 0;
 
-	//	private final int count = 0;
+	// private final int count = 0;
 
-	//Live feed
+	// Live feed
 	@Override
 	public void onTick(O2GOfferTableRow row) {
-		//		strategyAlgoritm(row);
+		// strategyAlgoritm(row);
 	}
 
-	//Backtrace feed
+	// Backtrace feed
 	@Override
-	public void onTick(OfferData data) {
+	public void onTick(Offer data) {
 		// TODO Auto-generated method stub
 
 	}
@@ -113,8 +113,8 @@ public class EURUSDHighFreq extends Strategy {
 	}
 
 	@Override
-	public void strategyAlgorithm(OfferData row) {
-		//An order strategy		
+	public void strategyAlgorithm(Offer row) {
+		// An order strategy
 		if (currentTrade == null && counter % ticksBetweenCheck == 0) {
 
 			System.out.println();
@@ -129,33 +129,33 @@ public class EURUSDHighFreq extends Strategy {
 			if (trendData.getTrend() == TrendData.Trend.UP
 					&& (trendData.getReliability() == TrendData.Reliability.MEDIUM || trendData
 							.getReliability() == TrendData.Reliability.STRONG)) {
-				List<OfferData> subList = historicData.subList(
-						historicData.size()
-								- BACKTRACE_BAR_AMOUNT_PEAKS_VALLEYS,
+				List<Offer> subList = historicData.subList(historicData.size()
+						- BACKTRACE_BAR_AMOUNT_PEAKS_VALLEYS,
 						historicData.size() - 1);
 
 				double limit = Indicator.getHighestPeak(subList,
 						Indicator.getMax(subList)).getBidHigh();
-				List<OfferData> valleys = Indicator.getAllValleys(subList);
+				List<Offer> valleys = Indicator.getAllValleys(subList);
 				double stopLoss = valleys.get(valleys.size() - 1).getBidLow();
 
 				tradeController.openPosition("EUR/USD", "B", 20000, limit,
 						stopLoss, this);
-				sendEmailNotification("tob.wikstrom@gmail.com", "Long trade "
-						+ STRATEGY_NAME, "Long position \n" + "EUR/USD Rate: "
-						+ row.getBidClose() + "\n" + "Limit: " + limit
-						+ " Stop: " + stopLoss + "\n" + "Time: "
-						+ row.getTime().getTime());
+				sendEmailNotification(
+						"tob.wikstrom@gmail.com",
+						"Long trade " + STRATEGY_NAME,
+						"Long position \n" + "EUR/USD Rate: "
+								+ row.getBidClose() + "\n" + "Limit: " + limit
+								+ " Stop: " + stopLoss + "\n" + "Time: "
+								+ row.getTime());
 
 			} else if (trendData.getTrend() == TrendData.Trend.DOWN
 					&& (trendData.getReliability() == TrendData.Reliability.MEDIUM || trendData
 							.getReliability() == TrendData.Reliability.STRONG)) {
-				List<OfferData> subList = historicData.subList(
-						historicData.size()
-								- BACKTRACE_BAR_AMOUNT_PEAKS_VALLEYS,
+				List<Offer> subList = historicData.subList(historicData.size()
+						- BACKTRACE_BAR_AMOUNT_PEAKS_VALLEYS,
 						historicData.size() - 1);
 
-				List<OfferData> peaks = Indicator.getAllPeaks(subList);
+				List<Offer> peaks = Indicator.getAllPeaks(subList);
 
 				double stopLoss = peaks.get(0).getBidHigh();
 				double limit = Indicator.getLowestValley(subList,
@@ -164,11 +164,13 @@ public class EURUSDHighFreq extends Strategy {
 				System.out.println("Peak: " + stopLoss);
 				tradeController.openPosition("EUR/USD", "S", 20000, limit,
 						stopLoss, this);
-				sendEmailNotification("tob.wikstrom@gmail.com", "Short trade "
-						+ STRATEGY_NAME, "Short position \n" + "EUR/USD Rate: "
-						+ row.getBidClose() + "\n" + "Limit: " + limit
-						+ " Stop: " + stopLoss + "\n" + "Time: "
-						+ row.getTime().getTime());
+				sendEmailNotification(
+						"tob.wikstrom@gmail.com",
+						"Short trade " + STRATEGY_NAME,
+						"Short position \n" + "EUR/USD Rate: "
+								+ row.getBidClose() + "\n" + "Limit: " + limit
+								+ " Stop: " + stopLoss + "\n" + "Time: "
+								+ row.getTime());
 
 			}
 
@@ -176,7 +178,7 @@ public class EURUSDHighFreq extends Strategy {
 		}
 		counter++;
 
-		//end of order strategy
+		// end of order strategy
 
 	}
 

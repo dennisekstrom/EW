@@ -1,0 +1,8 @@
+eclipse.preferences.version=1
+encoding//src/client/Position.java=UTF-8
+encoding//src/client/PositionController.java=UTF-8
+encoding//src/strategies/AUDUSDEvents.java=UTF-8
+encoding//src/strategies/EURUSDEvents.java=UTF-8
+encoding//src/strategies/EURUSDLowFreq.java=UTF-8
+encoding//src/trading/Strategy.java=UTF-8
+encoding//src/trading/TradeController.java=UTF-8

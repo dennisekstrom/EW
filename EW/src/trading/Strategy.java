@@ -16,9 +16,12 @@ import javax.mail.internet.MimeMessage;
 
 import trading.util.Event;
 import trading.util.EventInterpreter;
+import trading.util.HistData;
 
 import com.fxcore2.O2GTradeRow;
 import com.sun.mail.smtp.SMTPTransport;
+
+import forex.Offer;
 
 /**
  * Abstract class for a strategy. A strategy is designed to have a maximum of
@@ -30,34 +33,37 @@ import com.sun.mail.smtp.SMTPTransport;
  */
 public abstract class Strategy implements IStrategyListener {
 
-	//Protected fields to be used in strategies
+	// Protected fields to be used in strategies
 
 	protected final StrategyController stratControl;
-	//Strategy instrument 
+	// Strategy instrument
 	protected String instrument;
-	//Historic data list, recommended to initialize in onStart(), with the getHistoricData method
-	protected ArrayList<OfferData> historicData;
-	//Current trade opened by strategy (a strategy has max one trade)
+	// Historic data list, recommended to initialize in onStart(), with the
+	// getHistoricData method
+	protected ArrayList<Offer> historicData;
+	// Current trade opened by strategy (a strategy has max one trade)
 	protected O2GTradeRow currentTrade = null;
-	//The order ID for the stop loss for the current trade ("" if it doesn't exist)
+	// The order ID for the stop loss for the current trade ("" if it doesn't
+	// exist)
 	protected String stopLossOrderID = "";
-	//The order ID for the limit for the current trade ("" if it doesn't exist)
+	// The order ID for the limit for the current trade ("" if it doesn't exist)
 	protected String limitOrderID = "";
-	//List of upcoming events (events which occur on the next event scheduled time)
+	// List of upcoming events (events which occur on the next event scheduled
+	// time)
 	protected ArrayList<Event> upcomingEvents;
 	// Used to check if algorithm is active by Strategy Controller
 	protected boolean isAlgorithmActive = false;
 
-	//Private fields to be used in this class
-	//Trade controller
+	// Private fields to be used in this class
+	// Trade controller
 	private final TradeController tradeControl;
-	//Historic Data object
+	// Historic Data object
 	private final HistData histData;
-	//Keeps track if a trade is being opened
+	// Keeps track if a trade is being opened
 	private boolean incomingTrade = false;
 
-	//	private int backTraceInMillis;
-	private OfferData previousRow;
+	// private int backTraceInMillis;
+	private Offer previousRow;
 	private boolean firstTick = true;
 	private boolean isActive = false;
 	private boolean hasLaunched = false;
@@ -71,8 +77,7 @@ public abstract class Strategy implements IStrategyListener {
 		this.setStrategyName(strategyName);
 		histData = new HistData(tradeController.getSession(),
 				tradeController.getStatusListener(),
-				tradeController.getResponseListener(),
-				tradeController.getSimpleLog());
+				tradeController.getResponseListener());
 		tradeControl = tradeController;
 	}
 
@@ -93,7 +98,7 @@ public abstract class Strategy implements IStrategyListener {
 	public ArrayList<Offer> getHistoricData(String instrument,
 			String timeFrame, int minutesBack) {
 
-		//		double backTraceInMillis = getBackTraceInMillis(timeFrame);
+		// double backTraceInMillis = getBackTraceInMillis(timeFrame);
 
 		Date date = new Date();
 
@@ -127,12 +132,11 @@ public abstract class Strategy implements IStrategyListener {
 			previousRow = data;
 			firstTick = false;
 		}
-		if (data.getTime().getTimeInMillis()
-				- previousRow.getTime().getTimeInMillis() >= getBackTraceInMillis(strat
-					.getTimeFrame())) {
+		if (data.getTime() - previousRow.getTime() >= getBackTraceInMillis(strat
+				.getTimeFrame())) {
 			previousRow = data;
 			strat.historicData.add(data);
-			//			this.historicData.add(OfferData.convertRow(row));
+			// this.historicData.add(OfferData.convertRow(row));
 		}
 	}
 
@@ -183,7 +187,7 @@ public abstract class Strategy implements IStrategyListener {
 	 * tick is received. The strategy instrument is defined when you add a
 	 * strategy to the StrategyController.
 	 */
-	public abstract void strategyAlgorithm(OfferData row);
+	public abstract void strategyAlgorithm(Offer row);
 
 	public boolean isActive() {
 		return isActive;
@@ -225,17 +229,17 @@ public abstract class Strategy implements IStrategyListener {
 	private double stopLoss = 0;
 	private boolean withLimitAndStop = false;
 
-	//	/**
-	//	 * Set limit to a position
-	//	 */
+	// /**
+	// * Set limit to a position
+	// */
 	//
-	//	protected void setLimit(O2GTradeRow trade, double limit) {
-	//		tradeControl.setLimit(trade, limit);
-	//	}
+	// protected void setLimit(O2GTradeRow trade, double limit) {
+	// tradeControl.setLimit(trade, limit);
+	// }
 
 	/**
-	 * TODO var tvungen att gšra sŒhŠr, eftersom tradeCOntroller.openPosition
-	 * returnerade null av nŒgon anledning nŠr den kallades i onTick()-metoden
+	 * TODO var tvungen att gï¿½ra sï¿½hï¿½r, eftersom tradeCOntroller.openPosition
+	 * returnerade null av nï¿½gon anledning nï¿½r den kallades i onTick()-metoden
 	 * (annars inte!).
 	 */
 	@Override

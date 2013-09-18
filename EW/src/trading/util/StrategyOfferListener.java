@@ -5,12 +5,15 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import trading.StrategyController;
+import trading.TradeController;
 
 import client.PositionController;
-import client.UIUpcomingEvents;
+import client.gui.UpcomingEvents;
 
-import feed.IOffersListener;
 import feed.LiveOfferFeed;
+import feed.OfferFeed;
+import feed.OfferListener;
+import forex.Offer;
 
 /**
  * Offer rate listener. Prints out for every tick received. Uses an offer table
@@ -24,7 +27,7 @@ import feed.LiveOfferFeed;
  * 
  */
 
-public class OffersListener implements IOffersListener {
+public class StrategyOfferListener implements OfferListener {
 
 	private String mInstrument = null;
 	private final StrategyController strategyController;
@@ -32,11 +35,11 @@ public class OffersListener implements IOffersListener {
 	private final int previousTradeTableSize = 0;
 
 	private boolean hasInformedLiveEvent = false;
-	private UIUpcomingEvents eventsPanel = null;
+	private UpcomingEvents eventsPanel = null;
 
 	Executor executor = Executors.newFixedThreadPool(2);
 
-	public OffersListener(StrategyController strategy,
+	public StrategyOfferListener(StrategyController strategy,
 			TradeController tradeController) {
 		this.strategyController = strategy;
 		this.tradeController = tradeController;
@@ -62,11 +65,11 @@ public class OffersListener implements IOffersListener {
 	}
 
 	public void addToFeed() {
-		OfferFeed.getInstance().registerListener(this);
+		LiveOfferFeed.getInstance().addListener(this);
 	}
 
 	public void removeFromFeed() {
-		OfferFeed.getInstance().unRegisterListener(this);
+		LiveOfferFeed.getInstance().removeListener(this);
 	}
 
 	/**
@@ -113,11 +116,11 @@ public class OffersListener implements IOffersListener {
 				for (Event e : eventsPanel.getUpcomingEvents())
 					eventsToListeners.add(e);
 				strategyController.onEventLive(eventsToListeners);
-				//Orsaken till at den tar n???sta event:
+				// Orsaken till at den tar n???sta event:
 				executor.execute(new UpdateEvents());
 
 			}
-			//eventsPanel.updateEvents(false);
+			// eventsPanel.updateEvents(false);
 		} else
 			hasInformedLiveEvent = false;
 
@@ -136,10 +139,10 @@ public class OffersListener implements IOffersListener {
 	}
 
 	private class UpdateEvents implements Runnable {
-		//StatusWindow member variable and constructor
+		// StatusWindow member variable and constructor
 		@Override
 		public void run() {
-			//alot of code
+			// alot of code
 			eventsPanel.updateEvents(false);
 		}
 	}

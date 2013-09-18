@@ -19,6 +19,8 @@ import com.fxcore2.O2GTimeConverterTimeZone;
 import com.fxcore2.O2GTimeframe;
 import com.fxcore2.O2GTimeframeCollection;
 
+import forex.Offer;
+
 /**
  * Handles historic data
  * 
@@ -33,17 +35,16 @@ public class HistData {
 	// private SimpleLog mSimpleLog;
 
 	// Test
-	private final ArrayList<OfferData> historyArray = new ArrayList<OfferData>();
+	private final ArrayList<Offer> historyArray = new ArrayList<Offer>();
 
-	//private String mInstrument;
+	// private String mInstrument;
 
 	public HistData(O2GSession session, SessionStatusListener statusListener,
-			ResponseListener responseListener, SimpleLog simpleLog) {
+			ResponseListener responseListener) {
 
 		this.mSession = session;
 		this.statusListener = statusListener;
 		this.responseListener = responseListener;
-		// this.mSimpleLog = simpleLog;
 
 	}
 
@@ -190,9 +191,10 @@ public class HistData {
 										reader.getAskOpen(i),
 										reader.getAskHigh(i),
 										reader.getAskLow(i),
-										reader.getAskClose(i),
-										reader.getDate(i), reader.getVolume(i));
-								//TODO ta bort 0an bara om ordningen ska ?ndras
+										reader.getAskClose(i), reader
+												.getDate(i).getTimeInMillis(),
+										reader.getVolume(i));
+								// TODO ta bort 0an bara om ordningen ska ?ndras
 								historyArray.add(0, data);
 
 							}
