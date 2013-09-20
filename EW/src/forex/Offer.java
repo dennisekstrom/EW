@@ -1,11 +1,8 @@
 package forex;
 
-import java.util.Calendar;
+import util.Period;
 
 import com.fxcore2.O2GOfferTableRow;
-
-import util.Instrument;
-import util.Period;
 
 /**
  * Datatype for a offer - a row.
@@ -17,8 +14,8 @@ import util.Period;
 
 public class Offer implements Comparable<Offer> {
 
-	private final Instrument instrument;
-	private final Period period;
+	private final String instrument;
+	private final String timeFrame;
 	private final double bidOpen;
 	private final double bidHigh;
 	private final double bidLow;
@@ -45,12 +42,12 @@ public class Offer implements Comparable<Offer> {
 	 * @param time
 	 * @param volume
 	 */
-	public Offer(Instrument instrument, Period period, double bidOpen,
+	public Offer(String instrument, String timeFrame, double bidOpen,
 			double bidHigh, double bidLow, double bidClose, double askOpen,
 			double askHigh, double askLow, double askClose, long time,
 			int volume) {
 		this.instrument = instrument;
-		this.period = period;
+		this.timeFrame = timeFrame;
 		this.bidOpen = bidOpen;
 		this.bidHigh = bidHigh;
 		this.bidLow = bidLow;
@@ -69,10 +66,10 @@ public class Offer implements Comparable<Offer> {
 	 * @param row
 	 * @return
 	 */
-	public static Offer convertRow(O2GOfferTableRow row) {
-		Offer data = new Offer(row.getInstrument(), row.getBid(),
+	public static Offer convertRow(O2GOfferTableRow row, String timeFrame) {
+		Offer data = new Offer(row.getInstrument(), timeFrame, row.getBid(),
 				row.getHigh(), row.getLow(), row.getBid(), row.getAsk(),
-				row.getAsk(), row.getAsk(), row.getAsk(), row.getTime()
+				row.getHigh(), row.getLow(), row.getAsk(), row.getTime()
 						.getTimeInMillis(), row.getVolume());
 
 		return data;
@@ -118,12 +115,24 @@ public class Offer implements Comparable<Offer> {
 		return time;
 	}
 
-	public Instrument getInstrument() {
+	public String getInstrument() {
 		return instrument;
 	}
 
+	public String getTimeFrame() {
+		return timeFrame;
+	}
+
+	// TODO ändra Period-intervallen och sedan ha alla cases för denna
 	public Period getPeriod() {
-		return period;
+		if (timeFrame.equals("t1"))
+			return Period.TICK;
+		else if (timeFrame.equals("m5"))
+			return Period.M5;
+		else if (timeFrame.equals("h1"))
+			return Period.H1;
+
+		return null;
 	}
 
 	@Override

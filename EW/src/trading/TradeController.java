@@ -4,8 +4,6 @@ import client.PositionController;
 
 import com.fxcore2.*;
 
-import java.io.FileNotFoundException;
-
 import strategies.EURUSDLowFreq;
 import strategies.EURUSDEvents;
 import strategies.EURUSDHighFreq;
@@ -22,9 +20,7 @@ import feed.LiveOfferFeed;
  * TradeController handles the ForexConnect API provided by FXCM. This class can
  * be used to both trade with a FXCM demo account or a real account.
  * 
- * Important: Add the library path as your working directory (Run
- * configurations->Arguments->At the bottom) e.g
- * /Users/tobbew92/Projects/WEForex/ForexConnectAPI-1.2.2/lib
+ * Important: Add the library path as your working directory
  * 
  * @author Tobias W
  * 
@@ -214,59 +210,10 @@ public class TradeController {
 		return account;
 	}
 
-	// /**
-	// * TODO Varf������r fungerar den inte?
-	// *
-	// * @param sOfferID
-	// * @param sAccountID
-	// * @param sTradeID
-	// * @param iAmount
-	// * @param dRate
-	// * @param sBuySell
-	// */
-	// public void createLimitOrder(String sOfferID, String sAccountID,
-	// String sTradeID, int iAmount, double dRate, String sBuySell) {
-	//
-	// O2GRequestFactory requestFactory = session.getRequestFactory();
-	//
-	// O2GValueMap valuemap = requestFactory.createValueMap();
-	//
-	// valuemap.setString(O2GRequestParamsEnum.COMMAND,
-	// Constants.Commands.CreateOrder);
-	// valuemap.setString(O2GRequestParamsEnum.ORDER_TYPE,
-	// Constants.Orders.CloseLimit);
-	// valuemap.setString(O2GRequestParamsEnum.ACCOUNT_ID, sAccountID);
-	// valuemap.setString(O2GRequestParamsEnum.OFFER_ID, sOfferID); // The
-	// identifier of the instrument the order should be placed for
-	// valuemap.setString(O2GRequestParamsEnum.TRADE_ID, sTradeID); // The
-	// identifier of the trade to be closed
-	// valuemap.setString(O2GRequestParamsEnum.BUY_SELL, sBuySell); // The order
-	// direction(Constants.Buy for Buy, Constants.Sell for Sell). Must be
-	// opposite to the direction of the trade
-	// valuemap.setInt(O2GRequestParamsEnum.AMOUNT, iAmount); // The quantity of
-	// the instrument to be bought or sold. Must == the size of the position
-	// (Lot of the trade).
-	// valuemap.setDouble(O2GRequestParamsEnum.RATE, dRate); // The dRate at
-	// which the order must be filled ( market for Sell, < market for Buy)
-	// valuemap.setString(O2GRequestParamsEnum.CUSTOM_ID, "L"); // The custom
-	// identifier of the order
-	// O2GRequest request = requestFactory.createOrderRequest(valuemap);
-	// // tableListener.setRequestID(request.getRequestId());
-	// session.sendRequest(request);
-	// // try {
-	// // tableListener.waitEvents();
-	// // } catch (InterruptedException e) {
-	// // e.printStackTrace();
-	// // }
-	// }
-
 	/**
 	 * Create a position with limit and stop attached
 	 * 
-	 * TODO fixa s������ att den fungerar bra. Beh������vs ocks������ en
-	 * EditLimit/EditStop om man vill ������ndra. Under tiden testar jag med att
-	 * bara k������ra custom limits och stops (d������r jag sj������lv
-	 * definierar n������r man ska st������nga en position)
+	 * TODO fixa (fungerar inte)
 	 */
 
 	// public O2GTradeTableRow createELS(String instrument, String orderType,
@@ -476,7 +423,7 @@ public class TradeController {
 			// responseListener.waitEvents();
 			// Call to PositionController is done in ResponseListener
 
-			Thread.sleep(1000);
+			// Thread.sleep(1000);
 			// position opened successfully
 			result = true;
 		} else {
@@ -565,17 +512,6 @@ public class TradeController {
 			session.sendRequest(request);
 			tableListener.waitEvents();
 			// close position was succcessful
-
-			// if (positionController != null) {
-			// for (Position pos : positionController.openPositions) {
-			// if (tradeRow.getTradeID() == pos.getTradeID()) {
-			// positionController.closePosition(pos, this);
-			// }
-			// }
-			// } else {
-			// System.out
-			// .println("PositionController hasn't been constructed yet, but the trade was successful");
-			// }
 
 			result = true;
 		} else {
@@ -721,25 +657,6 @@ public class TradeController {
 		return offerRow.getInstrument();
 	}
 
-	// /**
-	// * Get historic rates. Note: Will print over whatever was in the
-	// * simplelog.txt before.
-	// *
-	// * @param instrument
-	// * @param timeFrame
-	// * @param dateFrom
-	// * (yyy-mm-hh hh:mm:ss)
-	// * @param dateTo
-	// * (yyy-mm-hh hh:mm:ss)
-	// */
-	// public void getHist(String instrument, String timeFrame, String dateFrom,
-	// String dateTo) {
-	// HistData hist = new HistData(session, getStatusListener(),
-	// getResponseListener(), getSimpleLog());
-	//
-	// hist.getHist(instrument, timeFrame, dateFrom, dateTo);
-	// }
-
 	/**
 	 * Print current offers from all availabe instruments.
 	 * 
@@ -761,22 +678,6 @@ public class TradeController {
 					+ e.getMessage());
 		}
 	}
-
-	// // Print Trades Table
-	// public static void printTrades(O2GTradesTable table) {
-	// try {
-	// System.out.println("\nPrinting Trades Table\n");
-	// for (int i = 0; i < table.size(); i++) {
-	// O2GTradeRow trade = table.getRow(i);
-	// System.out.println("TradeID = " + trade.getTradeID()
-	// + " BuySell = " + trade.getBuySell() + " Amount = "
-	// + trade.getAmount());
-	// }
-	// } catch (Exception e) {
-	// System.out.println("Exception in getTrades().\n\t "
-	// + e.getMessage());
-	// }
-	// }
 
 	/**
 	 * Get current session

@@ -37,7 +37,7 @@ public final class LiveOfferFeed extends OfferFeed implements IO2GTableListener 
 
 	@Override
 	public void onChanged(String rowID, O2GRow row) {
-		Offer offer = Offer.convertRow((O2GOfferTableRow) row);
+		Offer offer = Offer.convertRow((O2GOfferTableRow) row, "t1");
 
 		supplyOffer(offer);
 	}

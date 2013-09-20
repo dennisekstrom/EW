@@ -22,7 +22,8 @@ import com.fxcore2.O2GTimeframeCollection;
 import forex.Offer;
 
 /**
- * Handles historic data
+ * Handles historic data. Use getHist to fetch historic data, using specified
+ * dates, instrument and timeframe.
  * 
  * @author Tobias W
  * 
@@ -50,9 +51,9 @@ public class HistData {
 
 	/**
 	 * Get hist stores historic data in a log file in your working directory. It
-	 * stores blocks of 300 rows at a time. Returns an arraylist with TradeData.
-	 * Most recent data is put at the back of the array (should this be changed
-	 * for efficiency?)
+	 * stores blocks of 300 rows at a time. Returns an arraylist with Offer
+	 * elements. Most recent data is put at the back of the array (should this
+	 * be changed for efficiency?)
 	 * 
 	 * @param mInstrument
 	 * @param mTimeFrame
@@ -104,16 +105,9 @@ public class HistData {
 				System.exit(1);
 			}
 		}
-		// Open log for writing info
-		// try {
-		// mSimpleLog = new SimpleLog(String.format("%s.log", mUserID));
-		// } catch (FileNotFoundException e) {
-		// e.printStackTrace();
-		// }
 
-		// Create a session, subscribe to session listener, login, get historic
-		// prices, logout
 		if (!statusListener.hasError()) {
+			// Request specified time frame
 			O2GRequestFactory requestFactory = mSession.getRequestFactory();
 			O2GTimeframeCollection timeFrames = requestFactory
 					.getTimeFrameCollection();
@@ -123,6 +117,7 @@ public class HistData {
 				mContinue = false;
 			}
 			if (mContinue) {
+				// Request a historic data fetch
 				request = requestFactory
 						.createMarketDataSnapshotRequestInstrument(instrument,
 								timeFrame, mMaxBars);
@@ -136,7 +131,9 @@ public class HistData {
 				do {
 					requestFactory.fillMarketDataSnapshotRequestTime(request,
 							calFrom, calTo, false);
+					// Send historic data request
 					mSession.sendRequest(request);
+					// Behövs denna sleep verkligen?
 					try {
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {
@@ -167,23 +164,9 @@ public class HistData {
 							calDate = converter.convert(calDate,
 									O2GTimeConverterTimeZone.LOCAL);
 							if (i <= mReaderSize - 1 - mBorder) {
-								// TODO test (tog bort loggningen)
-								// mSimpleLog
-								// .log("Date = {0}, BidOpen = {1}, BidHigh = {2}, BidLow = {3}, BidClose = {4}, "
-								// +
-								// "AskOpen = {5}, AskHigh = {6}, AskLow = {7}, AskClose = {8}",
-								// calDate.getTime(),
-								// reader.getBidOpen(i),
-								// reader.getBidHigh(i),
-								// reader.getBidLow(i),
-								// reader.getBidClose(i),
-								// reader.getAskOpen(i),
-								// reader.getAskHigh(i),
-								// reader.getAskLow(i),
-								// reader.getAskClose(i));
 
 								// create a data object to send
-								Offer data = new Offer(instrument,
+								Offer data = new Offer(instrument, mTimeFrame,
 										reader.getBidOpen(i),
 										reader.getBidHigh(i),
 										reader.getBidLow(i),
@@ -194,7 +177,7 @@ public class HistData {
 										reader.getAskClose(i), reader
 												.getDate(i).getTimeInMillis(),
 										reader.getVolume(i));
-								// TODO ta bort 0an bara om ordningen ska ?ndras
+
 								historyArray.add(0, data);
 
 							}
