@@ -1,12 +1,9 @@
 package client.gui;
 
-import io.StoreHistory;
-
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -52,7 +49,6 @@ public class MenuBar extends JMenuBar {
 		// create items
 		JMenuItem loginItem = new JMenuItem("Login");
 		JMenuItem exitItem = new JMenuItem("Exit");
-		JMenuItem historyItem = new JMenuItem("History");
 		JMenuItem comingSoonItem = new JMenuItem("Coming features");
 		JMenuItem openChartViewItem = new JMenuItem("Open ChartView");
 		JMenuItem detailsItem = new JMenuItem("Login Details");
@@ -72,14 +68,12 @@ public class MenuBar extends JMenuBar {
 
 		// trading menu
 		strategiesAction(strategiesItem);
-		historyAction(historyItem);
 
 		// add items
 		systemMenu.add(loginItem);
 		systemMenu.add(exitItem);
 
 		tradingMenu.add(strategiesItem);
-		tradingMenu.add(historyItem);
 
 		chartsMenu.add(openChartViewItem);
 
@@ -141,7 +135,7 @@ public class MenuBar extends JMenuBar {
 
 	private void strategiesAction(JMenuItem strategiesItem) {
 		strategiesItem.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<Strategy> strategies = host.getTradeController()
@@ -149,47 +143,12 @@ public class MenuBar extends JMenuBar {
 
 				strategyUI = new Strategies(strategies, host
 						.getTradeController().getStrategyController());
-				
 
 				strategyUI.setLocationRelativeTo(null);
 				strategyUI.setVisible(true);
 			}
 		});
-		
-	}
-	/**
-	 * Open history text file action
-	 * 
-	 * @param history
-	 */
-	private void historyAction(JMenuItem history) {
-		history.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				StoreHistory storer = new StoreHistory();
-
-				String filePath = storer.getFile().getAbsolutePath();
-
-				String nameOS = "os.name";
-				Runtime load = Runtime.getRuntime();
-				try {
-					if (System.getProperty(nameOS).contains("Mac OS X")) {
-						load.exec("/Applications/TextEdit.app/Contents/MacOS/TextEdit "
-								+ filePath);
-					} else {
-						String newPath = filePath.replaceAll("\\\\", "/");
-						load.exec("C:/Program Files/Windows NT/Accessories/wordpad.exe "
-								+ newPath);
-					}
-				} catch (IOException io) {
-					System.out.println("Couldn't open file" + " "
-							+ io.getMessage());
-				}
-
-			}
-		});
 	}
 
 	public void loginDetailsAction(JMenuItem detailsItem) {

@@ -1,7 +1,6 @@
 package strategies;
 
 import forex.Offer;
-import indicator.data.TrendData;
 
 import java.util.ArrayList;
 
@@ -9,7 +8,6 @@ import com.fxcore2.O2GClosedTradeRow;
 import com.fxcore2.O2GOfferTableRow;
 
 import trading.util.Event;
-import trading.util.Indicator;
 import trading.Strategy;
 import trading.StrategyController;
 import trading.TradeController;
@@ -24,8 +22,6 @@ public class EURUSDEvents extends Strategy {
 	private static final String STRAT_INSTRUMENT = "EUR/USD";
 	private static final String INSTRUMENT = "EUR/USD";
 
-	private static final int BACKTRACE_BAR_AMOUNT = 100;
-
 	// Total gross of closed trades with the strategy
 	private long totalGross = 0;
 
@@ -33,15 +29,10 @@ public class EURUSDEvents extends Strategy {
 	private boolean eventIsLive = false;
 	private boolean fetchingEvent = false;
 	private ArrayList<Event> liveEvents = new ArrayList<Event>();
-	private int ticksBetweenCheck = 400;
 	private final String closingMessage = null;
 
 	// Handles all trading related calls
 	private final TradeController tradeController;
-
-	private int counter = 0;
-
-	private TrendData.Trend currentTrend;
 
 	public EURUSDEvents(StrategyController stratControl,
 			TradeController tradeController) {
@@ -114,6 +105,8 @@ public class EURUSDEvents extends Strategy {
 		eventIsLive = true;
 		awaitingEventResult = true;
 		System.out.println("EURUSDEvents received live event!");
+		sendEmailNotification("tob.wikstrom@gmail.com", "Event is live",
+				"Event live method works" + " " + liveEvents.size());
 	}
 
 	@Override
@@ -138,7 +131,6 @@ public class EURUSDEvents extends Strategy {
 						+ trade.getOpenTime().getTime() + "\n" + "Close Time: "
 						+ trade.getCloseTime().getTime() + "P/L: "
 						+ trade.getGrossPL() + "EUR\n" + closingMessage);
-		counter = 1;
 
 		totalGross += trade.getGrossPL();
 
@@ -149,32 +141,6 @@ public class EURUSDEvents extends Strategy {
 		// An order strategy
 
 		handleLiveEvents(row);
-
-		if (currentTrade == null && counter % ticksBetweenCheck == 0) {
-
-			System.out.println();
-			System.out.println("--");
-			System.out.println(STRATEGY_NAME);
-			System.out.println("--");
-
-			TrendData trendData = Indicator.findLinearTrend(
-					BACKTRACE_BAR_AMOUNT, historicData.size() - 1,
-					historicData, null, null, null, null, null, null);
-
-			if (trendData.getTrend() == TrendData.Trend.CONSOLIDATION)
-				currentTrend = TrendData.Trend.CONSOLIDATION;
-			else if (trendData.getTrend() == TrendData.Trend.UP)
-				currentTrend = TrendData.Trend.DOWN;
-			else if (trendData.getTrend() == TrendData.Trend.DOWN)
-				currentTrend = TrendData.Trend.DOWN;
-			else
-				currentTrend = TrendData.Trend.NO_TREND;
-
-			counter = 1;
-			ticksBetweenCheck = 400;
-		}
-
-		counter++;
 
 		// end of order strategy
 

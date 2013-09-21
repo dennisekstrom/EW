@@ -6,8 +6,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,7 +21,6 @@ import swingjd.util.Theme;
 import trading.TradeController;
 
 import chart.ChartFrame;
-import forex.ForexConstants;
 
 /**
  * Main client frame. Functions as a host frame for other components. Other than
@@ -73,7 +70,7 @@ public class ClientMain extends JFrame {
 	private JLabel clockLabel;
 	private JLabel userNameLabel;
 
-	private static Calendar time = new GregorianCalendar(ForexConstants.GMT);
+	// private static Calendar time = new GregorianCalendar(ForexConstants.GMT);
 
 	/**
 	 * Create the main frame and start feed.
@@ -87,16 +84,6 @@ public class ClientMain extends JFrame {
 
 		this.loggedInUser = user;
 		this.tradeController = tradeController;
-
-		// TODO these parameters should be set in a login window
-		// feed = new TimeRelativeFeed(TempConstants.defaultInstrument,
-		// TempConstants.defaultTickInterval,
-		// TempConstants.defaultTickBarSize, TempConstants.defaultSpeed,
-		// startTime, TempConstants.defaultUpdateInterval);
-		// feed = new RealTimeFeed(TempConstants.defaultInstrument,
-		// TempConstants.defaultTickInterval,
-		// TempConstants.defaultTickBarSize, TempConstants.defaultSpeed,
-		// startTime, TempConstants.defaultUpdateInterval);
 
 		closedPositionPanel = new ClosedPositionPanel();
 		positionPanel = new PositionPanel();
@@ -217,14 +204,6 @@ public class ClientMain extends JFrame {
 		openProfitLabel.setText(text);
 		openProfitLabel.repaint();
 	}
-
-	// public void repaintPositionPanel() {
-	// positionPanel.repaint();
-	// }
-	//
-	// public void repaintClosedPositionPanel() {
-	// closedPositionPanel.repaint();
-	// }
 
 	public void updateClock() {
 		String dateTime = User.getDateTime() + " ";

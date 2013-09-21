@@ -47,7 +47,7 @@ public class Strategies extends JFrame implements ActionListener {
 	private final JButton launchButton = new GradientButton(
 			"Launch selected strategies", Theme.GRADIENT_BLUEGRAY_THEME,
 			ButtonType.BUTTON_ROUNDED_RECTANGLUR);
-	private JProgressBar progressBar = new JProgressBar(0, 100);
+	private final JProgressBar progressBar = new JProgressBar(0, 100);
 
 	private DefaultListModel listModel = new DefaultListModel();
 	private ArrayList<Strategy> strategies = new ArrayList<Strategy>();
@@ -112,17 +112,16 @@ public class Strategies extends JFrame implements ActionListener {
 						activatingStrats++;
 				}
 
-				EnableStratTask est = new EnableStratTask(strategyController,
-						activatingStrats);
+				EnableStratTask est = new EnableStratTask(activatingStrats);
 				ProgressBarTask pbt = new ProgressBarTask(progressBar, est,
 						activatingStrats);
 
 				pbt.execute();
 				est.execute();
 
-				//				strategyController.enableStrategies();
+				// strategyController.enableStrategies();
 				// thisClass.setVisible(false);
-				//				initGUI();
+				// initGUI();
 			}
 		});
 
@@ -181,13 +180,10 @@ public class Strategies extends JFrame implements ActionListener {
 		this.repaint();
 	}
 
-	// TODO l?gg till en knapp "Remove strategy" som tar bort strategier fr?n
-	// strategies arrayen i stratcontrol.
-
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 
-		//		progressBar.setVisible(true);
+		// progressBar.setVisible(true);
 
 		for (int i = 0; i < checkBoxList.getModel().getSize(); i++) {
 			StrategyCheckBox checkBox = (StrategyCheckBox) checkBoxList
@@ -203,15 +199,15 @@ public class Strategies extends JFrame implements ActionListener {
 		}
 
 		strategyController.enableStrategies();
-		//		this.setVisible(false);
+		// this.setVisible(false);
 		initGUI();
 	}
 
 	private class ProgressBarTask extends SwingWorker<Void, Integer> {
 
-		private JProgressBar pb;
-		private EnableStratTask est;
-		private int activatingStrats;
+		private final JProgressBar pb;
+		private final EnableStratTask est;
+		private final int activatingStrats;
 
 		public ProgressBarTask(JProgressBar progressBar, EnableStratTask est,
 				int activatingStrats) {
@@ -226,7 +222,7 @@ public class Strategies extends JFrame implements ActionListener {
 
 		@Override
 		protected void done() {
-			//			pb.setValue(100);
+			// pb.setValue(100);
 		}
 
 		@Override
@@ -272,12 +268,9 @@ public class Strategies extends JFrame implements ActionListener {
 
 	private class EnableStratTask extends SwingWorker<Void, Integer> {
 
-		private StrategyController stratControl;
-		private int activatingStrats;
+		private final int activatingStrats;
 
-		public EnableStratTask(StrategyController stratControl,
-				int activatingStrats) {
-			this.stratControl = stratControl;
+		public EnableStratTask(int activatingStrats) {
 			this.activatingStrats = activatingStrats;
 
 		}

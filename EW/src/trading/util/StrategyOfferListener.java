@@ -11,7 +11,6 @@ import client.PositionController;
 import client.gui.UpcomingEvents;
 
 import feed.LiveOfferFeed;
-import feed.OfferFeed;
 import feed.OfferListener;
 import forex.Offer;
 
@@ -32,7 +31,6 @@ public class StrategyOfferListener implements OfferListener {
 	private String mInstrument = null;
 	private final StrategyController strategyController;
 	private final TradeController tradeController;
-	private final int previousTradeTableSize = 0;
 
 	private boolean hasInformedLiveEvent = false;
 	private UpcomingEvents eventsPanel = null;
@@ -111,7 +109,7 @@ public class StrategyOfferListener implements OfferListener {
 				/ (1000 * 60) < 0) {
 			if (!hasInformedLiveEvent) {
 				hasInformedLiveEvent = true;
-				strategyController.addEventPanel(eventsPanel);
+				// strategyController.addEventPanel(eventsPanel);
 				ArrayList<Event> eventsToListeners = new ArrayList<Event>();
 				for (Event e : eventsPanel.getUpcomingEvents())
 					eventsToListeners.add(e);

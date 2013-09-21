@@ -1,7 +1,5 @@
 package client;
 
-import io.StoreHistory;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -23,8 +21,6 @@ import com.fxcore2.O2GTradesTable;
  * Handles orders and positions. Implements feed to update each positions
  * accordingly. Also updates the host (Client UI) to display the current values.
  * 
- * TODO needs to be adjusted to handle backtrace feed and not noly realtime
- * FXCM.
  * 
  * @author Tobias
  * 
@@ -37,8 +33,6 @@ public class PositionController {
 	public ArrayList<Position> closedPositions;
 	// stores open positions
 	public ArrayList<Position> openPositions;
-
-	private final StoreHistory printRead;
 
 	private double currentAskRate;
 	private double currentBidRate;
@@ -64,7 +58,7 @@ public class PositionController {
 		openPositions = new ArrayList<Position>();
 		closedPositions = new ArrayList<Position>();
 
-		printRead = new StoreHistory();
+		// printRead = new StoreHistory();
 
 		this.host = host;
 		this.user = user;
@@ -85,7 +79,7 @@ public class PositionController {
 	 */
 	public void handleOrder(Order order) {
 		Position pos = null;
-		double spread = currentAskRate - currentBidRate;
+		// double spread = currentAskRate - currentBidRate;
 
 		// Create and add positions
 		if (ClientMain.isLive) {
@@ -117,37 +111,6 @@ public class PositionController {
 		// TODO beh���vs denna?
 		updateGUI(host.getTradeController(), false);
 	}
-
-	// /**
-	// * Closes this position.
-	// *
-	// * @param position
-	// */
-	// public void closePosition(Position position, TradeController
-	// tradeController) {
-	//
-	// if (position.getOrder().getOrderCommand().equals(OrderCommand.BUY)) {
-	// position.close(currentAskRate, feed.getCurrentTime());
-	// // draw line from open to close
-	// } else if (position.getOrder().getOrderCommand()
-	// .equals(OrderCommand.SELL)) {
-	// position.close(currentBidRate, feed.getCurrentTime());
-	// // draw line from open to close
-	// } else
-	// throw new ForexException(
-	// "position shouldn't have close order as order");
-	//
-	// // update stuff
-	// openPositions.remove(position);
-	// closedPosPanel.addClosedPosition(position);
-	// positionPanel.setPositions(openPositions);
-	// tradeController.closePosition(position.getOrder().getTrade());
-	//
-	// // Update balance and daily profit
-	// dailyProfit += position.getProfit();
-	// user.setBalance(user.getBalance() + position.getProfit()
-	// * TempConstants.LEVERAGE);
-	// }
 
 	public void closePosition(O2GClosedTradeRow trade) {
 
@@ -227,31 +190,6 @@ public class PositionController {
 	public ClientMain getHost() {
 		return host;
 	}
-
-	// @Override
-	// public void onTick(Instrument instrument, ITick tick) {
-
-	// previousAskRate = currentAskRate;
-	// previousBidRate = currentBidRate;
-	//
-	// // use closed bar rate as current rate
-	// currentAskRate = tick.getAsk();
-	// currentBidRate = tick.getBid();
-
-	// for (Position position : openPositions)
-	// position.adjustProfit(tick);
-
-	// host.repaintPositionPanel();
-
-	// update rate label in client
-	// updateRateLabel();
-	// update balance label
-	// updateBalanceLabel();
-	// update daily profit label
-	// updateDynamicDailyProfit();
-	// updateOpenProfitLabel();
-
-	// }
 
 	/**
 	 * Update positions, closed positions and active stategies in the GUI.

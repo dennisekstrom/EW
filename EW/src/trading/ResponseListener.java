@@ -28,14 +28,12 @@ public class ResponseListener implements IO2GResponseListener {
 	private List<O2GTradeRow> mTrades;
 	private OrderMonitor mOrderMonitor;
 	private final TradeController tradeController;
-	private String changeOrderID;
 	private Strategy activeStrategy = null;
 
-	//The strategy that made the incoming trade
+	// The strategy that made the incoming trade
 	private Strategy strategy = null;
 
-	public ResponseListener(O2GSession session,
-			TradeController tradeController) {
+	public ResponseListener(O2GSession session, TradeController tradeController) {
 		mRequestID = "";
 		mOrderMonitor = null;
 		mTrades = new ArrayList<O2GTradeRow>();
@@ -67,7 +65,7 @@ public class ResponseListener implements IO2GResponseListener {
 	@Override
 	public void onRequestCompleted(String requestID, O2GResponse response) {
 		mResponse = response;
-		System.out.println("Request {0} completed");
+		System.out.println("Request " + requestID + " completed");
 		// mError = false;
 		// if (response.getType() == O2GResponseType.GET_OFFERS) {
 		// mResponse = response;
@@ -109,157 +107,152 @@ public class ResponseListener implements IO2GResponseListener {
 			for (int i = 0; i < reader.size(); i++) {
 				O2GOrderRow orderRow;
 				switch (reader.getUpdateTable(i)) {
-					case ACCOUNTS:
-						O2GAccountRow account = reader.getAccountRow(i);
-						// Show balance updates
-						System.out.format("Balance: %.2f%n",
-								account.getBalance());
-						tradeController.updateAccount(account);
-						break;
-					case ORDERS:
-						orderRow = reader.getOrderRow(i);
-						//if stop order
-						if (orderRow.getType().trim().equals("S")) {
-							activeStrategy.stopLossOrderID = orderRow
-									.getOrderID();
-						}
-						//if limit order
-						if (orderRow.getType().trim().equals("L")) {
-							activeStrategy.limitOrderID = orderRow.getOrderID();
-						}
+				case ACCOUNTS:
+					O2GAccountRow account = reader.getAccountRow(i);
+					// Show balance updates
+					System.out.format("Balance: %.2f%n", account.getBalance());
+					tradeController.updateAccount(account);
+					break;
+				case ORDERS:
+					orderRow = reader.getOrderRow(i);
+					// if stop order
+					if (orderRow.getType().trim().equals("S")) {
+						activeStrategy.stopLossOrderID = orderRow.getOrderID();
+					}
+					// if limit order
+					if (orderRow.getType().trim().equals("L")) {
+						activeStrategy.limitOrderID = orderRow.getOrderID();
+					}
 
-						if (mRequestID.equals(orderRow.getRequestID())) {
-							switch (reader.getUpdateType(i)) {
-								case INSERT:
-									if ((OrderMonitor.isClosingOrder(orderRow) || OrderMonitor
-											.isOpeningOrder(orderRow))
-											&& mOrderMonitor == null) {
-										System.out
-												.println("The order has been added. Order ID: "
-														+ orderRow.getOrderID()
-														+ " Rate: "
-														+ orderRow.getRate()
-														+ " Time In Force: "
-														+ orderRow
-																.getTimeInForce());
-										mOrderMonitor = new OrderMonitor(
-												orderRow);
-									}
-									break;
-								case DELETE:
-									if (mOrderMonitor != null) {
-										System.out
-												.println("The order has been deleted. Order ID: "
-														+ orderRow.getOrderID());
-										mOrderMonitor.onOrderDeleted(orderRow);
-										if (mOrderMonitor.isOrderCompleted()) {
-											printResult();
-											mSemaphore.release();
-										}
-									}
-									break;
-								default:
-									break;
+					if (mRequestID.equals(orderRow.getRequestID())) {
+						switch (reader.getUpdateType(i)) {
+						case INSERT:
+							if ((OrderMonitor.isClosingOrder(orderRow) || OrderMonitor
+									.isOpeningOrder(orderRow))
+									&& mOrderMonitor == null) {
+								System.out
+										.println("The order has been added. Order ID: "
+												+ orderRow.getOrderID()
+												+ " Rate: "
+												+ orderRow.getRate()
+												+ " Time In Force: "
+												+ orderRow.getTimeInForce());
+								mOrderMonitor = new OrderMonitor(orderRow);
 							}
-						}
-						break;
-					case TRADES:
-						O2GTradeRow trade = reader.getTradeRow(i);
-						PositionController positionController = null;
-						if (reader.getUpdateType(i) == O2GTableUpdateType.INSERT) {
+							break;
+						case DELETE:
 							if (mOrderMonitor != null) {
-								mOrderMonitor.onTradeAdded(trade);
-								if (mOrderMonitor.isOrderCompleted()) {
-									mTrades = mOrderMonitor.getTrades();
-									printResult();
-									mSemaphore.release();
-
-								}
-							}
-
-							//Notify strategies that a position has been opened
-							tradeController.getStrategyController()
-									.notifyOpenedTrade(trade);
-
-							//Add position to the client.
-							positionController = tradeController
-									.getPositionController();
-							O2GTradesTable tradesTable = tradeController
-									.getTradesTable();
-							String instrument = tradeController
-									.getInstrumentName(trade);
-
-							//check if trade comes from a strategy or not
-							if (strategy == null) {
-								if (trade.getBuySell().equals("B")) {
-									positionController.handleOrder(new Order(
-											instrument, OrderCommand.BUY, trade
-													.getAmount(), tradesTable
-													.getRow(0)));
-								} else if (trade.getBuySell().equals("S")) {
-
-									positionController.handleOrder(new Order(
-											instrument, OrderCommand.SELL,
-											trade.getAmount(), tradesTable
-													.getRow(0)));
-								}
-							} else {
-								if (trade.getBuySell().equals("B")) {
-									positionController.handleOrder(new Order(
-											instrument, OrderCommand.BUY, trade
-													.getAmount(), tradesTable
-													.getRow(0), strategy));
-								} else if (trade.getBuySell().equals("S")) {
-
-									positionController.handleOrder(new Order(
-											instrument, OrderCommand.SELL,
-											trade.getAmount(), tradesTable
-													.getRow(0), strategy));
-								}
-							}
-
-							//reset if trade came from strategy
-							strategy = null;
-
-						}
-						break;
-					case CLOSED_TRADES:
-						O2GClosedTradeRow closedTrade = reader
-								.getClosedTradeRow(i);
-						if (reader.getUpdateType(i) == O2GTableUpdateType.INSERT) {
-							if (mOrderMonitor != null) {
-								mOrderMonitor.onClosedTradeAdded(closedTrade);
+								System.out
+										.println("The order has been deleted. Order ID: "
+												+ orderRow.getOrderID());
+								mOrderMonitor.onOrderDeleted(orderRow);
 								if (mOrderMonitor.isOrderCompleted()) {
 									printResult();
 									mSemaphore.release();
 								}
 							}
-
-							positionController = tradeController
-									.getPositionController();
-
-							positionController.closePosition(closedTrade);
-							tradeController.getStrategyController()
-									.notifyClosedTrade(closedTrade);
-							//							tradeController.getStrategyController()
-							//									.getActiveStrategiesPanel().setStrategies();
-							// positionController.updatePositions(tradeController);
+							break;
+						default:
+							break;
 						}
-						break;
-					case MESSAGES:
-						O2GMessageRow message = reader.getMessageRow(i);
-						if (reader.getUpdateType(i) == O2GTableUpdateType.INSERT) {
-							if (mOrderMonitor != null) {
-								mOrderMonitor.onMessageAdded(message);
-								if (mOrderMonitor.isOrderCompleted()) {
-									printResult();
-									mSemaphore.release();
-								}
+					}
+					break;
+				case TRADES:
+					O2GTradeRow trade = reader.getTradeRow(i);
+					PositionController positionController = null;
+					if (reader.getUpdateType(i) == O2GTableUpdateType.INSERT) {
+						if (mOrderMonitor != null) {
+							mOrderMonitor.onTradeAdded(trade);
+							if (mOrderMonitor.isOrderCompleted()) {
+								mTrades = mOrderMonitor.getTrades();
+								printResult();
+								mSemaphore.release();
+
 							}
 						}
-						break;
-					default:
-						break;
+
+						// Notify strategies that a position has been opened
+						tradeController.getStrategyController()
+								.notifyOpenedTrade(trade);
+
+						// Add position to the client.
+						positionController = tradeController
+								.getPositionController();
+						O2GTradesTable tradesTable = tradeController
+								.getTradesTable();
+						String instrument = tradeController
+								.getInstrumentName(trade);
+
+						// check if trade comes from a strategy or not
+						if (strategy == null) {
+							if (trade.getBuySell().equals("B")) {
+								positionController.handleOrder(new Order(
+										instrument, OrderCommand.BUY, trade
+												.getAmount(), tradesTable
+												.getRow(0)));
+							} else if (trade.getBuySell().equals("S")) {
+
+								positionController.handleOrder(new Order(
+										instrument, OrderCommand.SELL, trade
+												.getAmount(), tradesTable
+												.getRow(0)));
+							}
+						} else {
+							if (trade.getBuySell().equals("B")) {
+								positionController.handleOrder(new Order(
+										instrument, OrderCommand.BUY, trade
+												.getAmount(), tradesTable
+												.getRow(0), strategy));
+							} else if (trade.getBuySell().equals("S")) {
+
+								positionController.handleOrder(new Order(
+										instrument, OrderCommand.SELL, trade
+												.getAmount(), tradesTable
+												.getRow(0), strategy));
+							}
+						}
+
+						// reset if trade came from strategy
+						strategy = null;
+
+					}
+					break;
+				case CLOSED_TRADES:
+					O2GClosedTradeRow closedTrade = reader.getClosedTradeRow(i);
+					if (reader.getUpdateType(i) == O2GTableUpdateType.INSERT) {
+						if (mOrderMonitor != null) {
+							mOrderMonitor.onClosedTradeAdded(closedTrade);
+							if (mOrderMonitor.isOrderCompleted()) {
+								printResult();
+								mSemaphore.release();
+							}
+						}
+
+						positionController = tradeController
+								.getPositionController();
+
+						positionController.closePosition(closedTrade);
+						tradeController.getStrategyController()
+								.notifyClosedTrade(closedTrade);
+						// tradeController.getStrategyController()
+						// .getActiveStrategiesPanel().setStrategies();
+						// positionController.updatePositions(tradeController);
+					}
+					break;
+				case MESSAGES:
+					O2GMessageRow message = reader.getMessageRow(i);
+					if (reader.getUpdateType(i) == O2GTableUpdateType.INSERT) {
+						if (mOrderMonitor != null) {
+							mOrderMonitor.onMessageAdded(message);
+							if (mOrderMonitor.isOrderCompleted()) {
+								printResult();
+								mSemaphore.release();
+							}
+						}
+					}
+					break;
+				default:
+					break;
 				}
 			}
 		}
@@ -275,44 +268,43 @@ public class ResponseListener implements IO2GResponseListener {
 			trades = mOrderMonitor.getTrades();
 			closedTrades = mOrderMonitor.getClosedTrades();
 			switch (result) {
-				case Canceled:
-					if (trades.size() > 0) {
-						printTrades(trades, orderID);
-						printClosedTrades(closedTrades, orderID);
-						System.out
-								.println("A part of the order has been canceled. Amount = "
-										+ mOrderMonitor.getRejectAmount());
-					} else {
-						System.out.println("The order: OrderID = " + orderID
-								+ " has been canceled.");
-						System.out.println("The cancel amount = "
-								+ mOrderMonitor.getRejectAmount() + ".");
-					}
-					break;
-				case FullyRejected:
-					System.out
-							.println("The order has been rejected. OrderID = "
-									+ orderID);
-					System.out.println("The rejected amount = "
-							+ mOrderMonitor.getRejectAmount());
-					System.out.println("Rejection cause: "
-							+ mOrderMonitor.getRejectMessage());
-					break;
-				case PartialRejected:
+			case Canceled:
+				if (trades.size() > 0) {
 					printTrades(trades, orderID);
 					printClosedTrades(closedTrades, orderID);
 					System.out
-							.println("A part of the order has been rejected. Amount = "
+							.println("A part of the order has been canceled. Amount = "
 									+ mOrderMonitor.getRejectAmount());
-					System.out.println("Rejection cause: "
-							+ mOrderMonitor.getRejectMessage());
-					break;
-				case Executed:
-					printTrades(trades, orderID);
-					printClosedTrades(closedTrades, orderID);
-					break;
-				default:
-					break;
+				} else {
+					System.out.println("The order: OrderID = " + orderID
+							+ " has been canceled.");
+					System.out.println("The cancel amount = "
+							+ mOrderMonitor.getRejectAmount() + ".");
+				}
+				break;
+			case FullyRejected:
+				System.out.println("The order has been rejected. OrderID = "
+						+ orderID);
+				System.out.println("The rejected amount = "
+						+ mOrderMonitor.getRejectAmount());
+				System.out.println("Rejection cause: "
+						+ mOrderMonitor.getRejectMessage());
+				break;
+			case PartialRejected:
+				printTrades(trades, orderID);
+				printClosedTrades(closedTrades, orderID);
+				System.out
+						.println("A part of the order has been rejected. Amount = "
+								+ mOrderMonitor.getRejectAmount());
+				System.out.println("Rejection cause: "
+						+ mOrderMonitor.getRejectMessage());
+				break;
+			case Executed:
+				printTrades(trades, orderID);
+				printClosedTrades(closedTrades, orderID);
+				break;
+			default:
+				break;
 			}
 		}
 	}

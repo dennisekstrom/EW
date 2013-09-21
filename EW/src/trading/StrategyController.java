@@ -11,7 +11,6 @@ import trading.util.Event;
 import client.gui.ActiveStrategies;
 import client.gui.ClientMain;
 import client.gui.Messages;
-import client.gui.UpcomingEvents;
 
 import com.fxcore2.O2GClosedTradeRow;
 import com.fxcore2.O2GTradeRow;
@@ -39,7 +38,7 @@ public class StrategyController {
 	// Strategies added to the controller, but not necessarily active.
 	private final ArrayList<Strategy> strategies;
 
-	private UpcomingEvents eventPanel;
+	// private UpcomingEvents eventPanel;
 	private ActiveStrategies activeStrategiesPanel;
 
 	// boolean to control strategies on/off
@@ -328,30 +327,6 @@ public class StrategyController {
 	}
 
 	/**
-	 * Is called whenever a new tick is received from fxcm.
-	 */
-	// public void onTick(O2GOfferTableRow row) {
-	// //Update strategies
-	// strategyAlgorithm(row);
-	//
-	// if (run && UIClientMain.isLive) {
-	// for (IStrategyListener listener : strategyListeners)
-	// listener.onTick(row);
-	//
-	// //Update historic data
-	// for (Strategy strat : activeStrategies) {
-	// if (strat.instrument.equals(row.getInstrument()))
-	// strat.addRowToHistoricData(row, strat);
-	// }
-	//
-	// if (isEventLive)
-	// checkEventDuration();
-	//
-	// }
-	//
-	// };
-
-	/**
 	 * Is called whenever a new tick is received.
 	 */
 	public void onTick(Offer data) {
@@ -400,9 +375,9 @@ public class StrategyController {
 		}
 	}
 
-	public void addEventPanel(UpcomingEvents eventPanel) {
-		this.eventPanel = eventPanel;
-	}
+	// public void addEventPanel(UpcomingEvents eventPanel) {
+	// this.eventPanel = eventPanel;
+	// }
 
 	public void addActiveStrategiesPanel(ActiveStrategies activeStrategiesPanel) {
 		this.activeStrategiesPanel = activeStrategiesPanel;

@@ -82,11 +82,8 @@ public class TradeController {
 					&& !getStatusListener().hasError()) {
 				Thread.sleep(50);
 			}
-			// create and prepare order controller
-			orderController = new OrderController(this.getSession(),
-					responseListener);
-			orderController.prepareParamsFromLoginRules(this.getSession()
-					.getLoginRules());
+			// create order controller
+			orderController = new OrderController(this.getSession());
 
 			// Get live feed
 			O2GTableManager manager = session.getTableManager();
@@ -104,10 +101,6 @@ public class TradeController {
 				// Set EUR/USD offer listener
 				offersListener = new StrategyOfferListener(stratControl, this);
 				offersListener.SetInstrumentFilter(getInstrument());
-
-				// TODO removed for testing
-				// offers.subscribeUpdate(O2GTableUpdateType.UPDATE,
-				// OffersFeed.getInstance());
 
 				// Set up trade table
 				tableManager = session.getTableManager();
@@ -369,11 +362,11 @@ public class TradeController {
 
 						if (strat == null) {
 							responseListener.setStrategyTrade(null);
-							openPosition(session, mAccountID, mOfferID,
+							orderController.openPosition(mAccountID, mOfferID,
 									mBuySell, amount, getResponseListener());
 						} else {
 							responseListener.setStrategyTrade(strat);
-							openPosition(session, mAccountID, mOfferID,
+							orderController.openPosition(mAccountID, mOfferID,
 									mBuySell, amount, getResponseListener());
 						}
 
@@ -394,44 +387,6 @@ public class TradeController {
 		}
 
 		return true;
-	}
-
-	// Opens a position (only used by the openPosition method)
-	private boolean openPosition(O2GSession session, String accountID,
-			String offerID, String buySell, int amount,
-			ResponseListener responseListener) throws InterruptedException {
-		boolean result;
-		O2GRequestFactory requestFactory = session.getRequestFactory();
-		if (requestFactory == null) {
-			System.out.println("Cannot create request factory");
-			return false;
-		}
-		O2GValueMap valuemap = requestFactory.createValueMap();
-		valuemap.setString(O2GRequestParamsEnum.COMMAND,
-				Constants.Commands.CreateOrder);
-		valuemap.setString(O2GRequestParamsEnum.ORDER_TYPE,
-				Constants.Orders.TrueMarketOpen);
-		valuemap.setString(O2GRequestParamsEnum.ACCOUNT_ID, accountID);
-		valuemap.setString(O2GRequestParamsEnum.OFFER_ID, offerID);
-		valuemap.setString(O2GRequestParamsEnum.BUY_SELL, buySell);
-		valuemap.setInt(O2GRequestParamsEnum.AMOUNT, amount);
-		valuemap.setString(O2GRequestParamsEnum.CUSTOM_ID, "OpenMarketOrder");
-		O2GRequest request = requestFactory.createOrderRequest(valuemap);
-		if (request != null) {
-			responseListener.setRequestID(request.getRequestId());
-			session.sendRequest(request);
-			// responseListener.waitEvents();
-			// Call to PositionController is done in ResponseListener
-
-			// Thread.sleep(1000);
-			// position opened successfully
-			result = true;
-		} else {
-			System.out.println(requestFactory.getLastError());
-			result = false;
-		}
-
-		return result;
 	}
 
 	/**
@@ -458,7 +413,8 @@ public class TradeController {
 				tableListener.subscribeTableListener(tableManager);
 
 				try {
-					if (closePosition(session, trade, tableListener)) {
+					if (orderController.closePosition(trade, tableListener,
+							instrument)) {
 						// TODO BEH���������VS DENNA?
 						// Thread.sleep(1000);
 					}
@@ -473,52 +429,6 @@ public class TradeController {
 			System.out.println("Cannot find offer for specified instrument: "
 					+ instrument);
 		}
-	}
-
-	private boolean closePosition(O2GSession session, O2GTradeRow tradeRow,
-			TableListener tableListener) throws InterruptedException {
-		boolean result;
-		O2GRequestFactory requestFactory = session.getRequestFactory();
-		if (requestFactory == null) {
-			System.out.println("Cannot create request factory");
-			return false;
-		}
-		O2GLoginRules loginRules = session.getLoginRules();
-		O2GPermissionChecker permissionChecker = loginRules
-				.getPermissionChecker();
-		O2GValueMap valuemap = requestFactory.createValueMap();
-		valuemap.setString(O2GRequestParamsEnum.COMMAND, "CreateOrder");
-		valuemap.setString(O2GRequestParamsEnum.ACCOUNT_ID,
-				tradeRow.getAccountID());
-		valuemap.setString(O2GRequestParamsEnum.OFFER_ID, tradeRow.getOfferID());
-		valuemap.setString(O2GRequestParamsEnum.BUY_SELL, tradeRow.getBuySell()
-				.equals(Constants.Buy) ? Constants.Sell : Constants.Buy);
-		valuemap.setString(O2GRequestParamsEnum.CUSTOM_ID, "CloseMarketOrder");
-		valuemap.setInt(O2GRequestParamsEnum.AMOUNT, tradeRow.getAmount());
-		if (permissionChecker.canCreateMarketCloseOrder(instrument) != O2GPermissionStatus.PERMISSION_ENABLED) {
-			valuemap.setString(O2GRequestParamsEnum.ORDER_TYPE,
-					Constants.Orders.TrueMarketOpen); // in USA you need to use
-														// "OM" to close a
-														// position.
-		} else {
-			valuemap.setString(O2GRequestParamsEnum.ORDER_TYPE,
-					Constants.Orders.TrueMarketClose);
-			valuemap.setString(O2GRequestParamsEnum.TRADE_ID,
-					tradeRow.getTradeID());
-		}
-		O2GRequest request = requestFactory.createOrderRequest(valuemap);
-		if (request != null) {
-			tableListener.setRequestID(request.getRequestId());
-			session.sendRequest(request);
-			tableListener.waitEvents();
-			// close position was succcessful
-
-			result = true;
-		} else {
-			System.out.println(requestFactory.getLastError());
-			result = false;
-		}
-		return result;
 	}
 
 	/**

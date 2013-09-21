@@ -46,18 +46,18 @@ public class ToolBar extends JPanel {
 	private final GradientButton closeAllButton;
 	private final GradientButton pauseButton;
 	private final GradientButton liveButton;
-	//	private final JComboBox speedComboBox;
+	// private final JComboBox speedComboBox;
 
-	//	private final JPanel speedPanel;
+	// private final JPanel speedPanel;
 
 	private boolean isPaused;
 
-	//	private final Double[] speeds = { 1D, 10D, 100D, 1000D, 3000D, 5000D,
-	//			7000D, 10000D, 20000D, 50000D, 100000D, 1000000D };
+	// private final Double[] speeds = { 1D, 10D, 100D, 1000D, 3000D, 5000D,
+	// 7000D, 10000D, 20000D, 50000D, 100000D, 1000000D };
 
 	public ToolBar(TradeController tradeController,
 			PositionController positionController, PositionPanel positionPanel) {
-		//super(new FlowLayout(FlowLayout.LEFT, 4, -3));
+		// super(new FlowLayout(FlowLayout.LEFT, 4, -3));
 		// super(Theme.STANDARD_BLACK_THEME, PanelType.PANEL_RECTANGULAR);
 		this.setLayout(new FlowLayout(FlowLayout.LEFT, 4, -3));
 
@@ -72,9 +72,9 @@ public class ToolBar extends JPanel {
 				"Toolbar"));
 		this.setBackground(color);
 
-		//		speedPanel = new JPanel();
-		//		speedPanel.setBackground(color);
-		//		speedComboBox = new JComboBox(speeds);
+		// speedPanel = new JPanel();
+		// speedPanel.setBackground(color);
+		// speedComboBox = new JComboBox(speeds);
 		updateButton = new GradientButton("UPDATE",
 				Theme.GRADIENT_BLUEGRAY_THEME,
 				ButtonType.BUTTON_ROUNDED_RECTANGLUR);
@@ -105,26 +105,26 @@ public class ToolBar extends JPanel {
 		pauseButton.setFont(new Font("helvetiva", Font.PLAIN, 13));
 		liveButton.setFont(new Font("helvetiva", Font.PLAIN, 13));
 
-		//		speedComboBox.addActionListener(new ActionListener() {
+		// speedComboBox.addActionListener(new ActionListener() {
 		//
-		//			@Override
-		//			public void actionPerformed(ActionEvent e) {
-		//				getPositionController().getFeed().setSpeed(
-		//						(Double) speedComboBox.getSelectedItem());
-		//			}
-		//		});
+		// @Override
+		// public void actionPerformed(ActionEvent e) {
+		// getPositionController().getFeed().setSpeed(
+		// (Double) speedComboBox.getSelectedItem());
+		// }
+		// });
 
 		// make sure to display default speed at initalization
-		//		speedComboBox.setSelectedItem(TempConstants.defaultSpeed);
+		// speedComboBox.setSelectedItem(TempConstants.defaultSpeed);
 
-		//		speedPanel.add(speedComboBox);
+		// speedPanel.add(speedComboBox);
 
 		// speedPanel.setBorder(BorderFactory.createTitledBorder(
 		// BorderFactory.createEmptyBorder(), "Speeds"));
 
-		//		speedPanel.setBorder(BorderFactory.createTitledBorder(null, "Speeds",
-		//				TitledBorder.LEFT, TitledBorder.TOP, new Font("helvetica",
-		//						Font.PLAIN, 13), Color.BLACK));
+		// speedPanel.setBorder(BorderFactory.createTitledBorder(null, "Speeds",
+		// TitledBorder.LEFT, TitledBorder.TOP, new Font("helvetica",
+		// Font.PLAIN, 13), Color.BLACK));
 
 		this.add(updateButton);
 		this.add(closeButton);
@@ -133,7 +133,7 @@ public class ToolBar extends JPanel {
 		this.add(liveButton);
 
 		this.setPreferredSize(new Dimension(600, 60));
-		//		this.add(speedPanel);
+		// this.add(speedPanel);
 
 		closeAction(closeButton);
 		closeAllAction(closeAllButton);
@@ -158,10 +158,6 @@ public class ToolBar extends JPanel {
 			closeButton.setEnabled(false);
 		else
 			closeButton.setEnabled(true);
-	}
-
-	private PositionController getPositionController() {
-		return positionController;
 	}
 
 	private void closeAction(JButton close) {
@@ -194,8 +190,8 @@ public class ToolBar extends JPanel {
 				positionController.closeAllPositions(tradeController);
 
 				positionPanel.deSelectAll();
-				//				positionPanel.setPositions(positionController
-				//						.getOpenPositions());
+				// positionPanel.setPositions(positionController
+				// .getOpenPositions());
 			}
 		});
 	}
