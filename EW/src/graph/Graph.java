@@ -54,12 +54,12 @@ public abstract class Graph extends ChartView implements InteractiveGraph,
 	 */
 	@SuppressWarnings("unchecked")
 	// @formatter:off
-	public static final Class<? extends Graph>[] types = new Class[] { 
+	public static final Class<? extends Graph>[] types = new Class[] {
 			SingleLineGraph.class,
-//			TickBarGraph.class,
+			// TickBarGraph.class,
 			CandleGraph.class,
-//			TwinLineGraph.class
-			};
+	// TwinLineGraph.class
+	};
 	// @formatter:on
 
 	// constants for extending classes
@@ -77,8 +77,8 @@ public abstract class Graph extends ChartView implements InteractiveGraph,
 	private static final Color BEAR_RED = new Color(200, 0, 0);
 	private static final Color NEUTRAL_COLOR = Color.black;
 
-	private TimeAxis correspondingTimeAxis;
-	private RateAxis correspondingRateAxis;
+	private final TimeAxis correspondingTimeAxis;
+	private final RateAxis correspondingRateAxis;
 
 	private Color bullColor;
 	private Color bearColor;
@@ -98,19 +98,25 @@ public abstract class Graph extends ChartView implements InteractiveGraph,
 	private Dimension oldSize;
 
 	// listeners to be informed about changes of rateAdjustingToFeed
-	private ArrayList<PropertyChangeListener> registeredListeners;
+	private final ArrayList<PropertyChangeListener> registeredListeners;
 
 	private final OfferFeed offerFeed;
 
 	/**
 	 * Create a graph.
 	 * 
-	 * @param controller the controller of this graph
-	 * @param correspondingTimeAxis the time axis to adjust or adjust to
-	 * @param correspondingRateAxis the rate axis to adjust
-	 * @param feed the feed providing the graph with ticks and bars
-	 * @param initOfferSide the initial offer side of the graph
-	 * @throws IllegalArgumentException if any of the arguments is null
+	 * @param controller
+	 *            the controller of this graph
+	 * @param correspondingTimeAxis
+	 *            the time axis to adjust or adjust to
+	 * @param correspondingRateAxis
+	 *            the rate axis to adjust
+	 * @param feed
+	 *            the feed providing the graph with ticks and bars
+	 * @param initOfferSide
+	 *            the initial offer side of the graph
+	 * @throws IllegalArgumentException
+	 *             if any of the arguments is null
 	 */
 	protected Graph(ChartController controller, TimeAxis correspondingTimeAxis,
 			RateAxis correspondingRateAxis, OfferFeed offerFeed) {
@@ -141,7 +147,8 @@ public abstract class Graph extends ChartView implements InteractiveGraph,
 	 * Returns a graph of given type working on the same set of parameters as
 	 * this graph, null if no such graph could be constructed.
 	 * 
-	 * @param type the type of the graph to be returned
+	 * @param type
+	 *            the type of the graph to be returned
 	 * @return a graph of given type working on the same set of parameters as
 	 *         this graph
 	 */
@@ -153,9 +160,9 @@ public abstract class Graph extends ChartView implements InteractiveGraph,
 			Constructor<? extends Graph> constructor = type.getConstructor(
 					ChartController.class, TimeAxis.class, RateAxis.class,
 					OfferFeed.class);
-			
+
 			System.out.println(constructor);
-			
+
 			graph = constructor.newInstance(controller, correspondingTimeAxis,
 					correspondingRateAxis, offerFeed);
 
@@ -189,7 +196,8 @@ public abstract class Graph extends ChartView implements InteractiveGraph,
 	 * feed means listening to supplies of all possible types of elements
 	 * depending on which types of feed listeners this graph is an instance of.
 	 * 
-	 * @param listening set to true if graph should be listening to the feed,
+	 * @param listening
+	 *            set to true if graph should be listening to the feed,
 	 *            otherwise false
 	 */
 	public void setListeningToFeed(boolean listening) {
@@ -224,7 +232,8 @@ public abstract class Graph extends ChartView implements InteractiveGraph,
 	/**
 	 * Draw the displaying elements on the given graphics.
 	 * 
-	 * @param g the graphics to draw on
+	 * @param g
+	 *            the graphics to draw on
 	 */
 	protected abstract void drawDisplayingElements(Graphics g);
 
@@ -256,7 +265,8 @@ public abstract class Graph extends ChartView implements InteractiveGraph,
 	 * Sets the time of the front of this Graph, only effects horizontal
 	 * scrolling if graph is currently following feed.
 	 * 
-	 * @param timeOfFront the time to set
+	 * @param timeOfFront
+	 *            the time to set
 	 */
 	protected void setTimeOfFront(long timeOfFront) {
 		if (timeOfFront < 0)
@@ -351,7 +361,8 @@ public abstract class Graph extends ChartView implements InteractiveGraph,
 	/**
 	 * Sets the color of bullish development
 	 * 
-	 * @param bullColor the color to set
+	 * @param bullColor
+	 *            the color to set
 	 */
 	protected void setBullColor(Color bullColor) {
 		this.bullColor = bullColor;
@@ -369,7 +380,8 @@ public abstract class Graph extends ChartView implements InteractiveGraph,
 	/**
 	 * Sets the color of bearish development
 	 * 
-	 * @param bullColor the color to set
+	 * @param bullColor
+	 *            the color to set
 	 */
 	protected void setBearColor(Color bearColor) {
 		this.bearColor = bearColor;
@@ -387,7 +399,8 @@ public abstract class Graph extends ChartView implements InteractiveGraph,
 	/**
 	 * Sets the color of neutral development
 	 * 
-	 * @param neutralColor the color to set
+	 * @param neutralColor
+	 *            the color to set
 	 */
 	protected void setNeutralColor(Color neutralColor) {
 		this.neutralColor = neutralColor;
@@ -523,9 +536,12 @@ public abstract class Graph extends ChartView implements InteractiveGraph,
 	 * time axis. If time is not within the current time range, the new time
 	 * range is set by equally adjusting both ends of the time range.
 	 * 
-	 * @param newTimeRange the time range to set
-	 * @param time the time which to focus about
-	 * @param stayInPlace the time stamp which to focus about
+	 * @param newTimeRange
+	 *            the time range to set
+	 * @param time
+	 *            the time which to focus about
+	 * @param stayInPlace
+	 *            the time stamp which to focus about
 	 */
 	protected void focusAboutTime(long newTimeRange, long time) {
 		long oldTimeRange = correspondingTimeAxis.getRangeInterval();
@@ -554,8 +570,8 @@ public abstract class Graph extends ChartView implements InteractiveGraph,
 	 * Keeps range unchanged but moves start and end time forward by
 	 * timeToMoveForward.
 	 * 
-	 * @param timeToMoveForward the time to move forward, set to negative to
-	 *            move backwards
+	 * @param timeToMoveForward
+	 *            the time to move forward, set to negative to move backwards
 	 */
 	public void changeTimeRange(long timeToMoveForward) {
 		changeTimeRange(correspondingTimeAxis.getStartTime()
@@ -566,8 +582,10 @@ public abstract class Graph extends ChartView implements InteractiveGraph,
 	/**
 	 * Adjusts start and end time according to given values.
 	 * 
-	 * @param newStartTime the start time to set
-	 * @param newEndTime the end time to set
+	 * @param newStartTime
+	 *            the start time to set
+	 * @param newEndTime
+	 *            the end time to set
 	 */
 	public void changeTimeRange(long newStartTime, long newEndTime) {
 		if (newStartTime >= newEndTime)
@@ -576,12 +594,12 @@ public abstract class Graph extends ChartView implements InteractiveGraph,
 
 		if (newEndTime > correspondingTimeAxis.getEndTime()) {
 			// change end time first since end time is increasing
-			((ChartController) controller).changeEndTime(newEndTime);
-			((ChartController) controller).changeStartTime(newStartTime);
+			controller.changeEndTime(newEndTime);
+			controller.changeStartTime(newStartTime);
 		} else {
 			// change start time first since end time is decreasing
-			((ChartController) controller).changeStartTime(newStartTime);
-			((ChartController) controller).changeEndTime(newEndTime);
+			controller.changeStartTime(newStartTime);
+			controller.changeEndTime(newEndTime);
 		}
 
 		if (inTimeRange(timeOfFront)) {
@@ -594,8 +612,10 @@ public abstract class Graph extends ChartView implements InteractiveGraph,
 	/**
 	 * Adjusts high and low rate according to given values.
 	 * 
-	 * @param newLowRate the low rate to set
-	 * @param newHighRate the high rate to set
+	 * @param newLowRate
+	 *            the low rate to set
+	 * @param newHighRate
+	 *            the high rate to set
 	 */
 	public void changeRateRange(double newLowRate, double newHighRate) {
 		if (newLowRate >= newHighRate)
@@ -604,12 +624,12 @@ public abstract class Graph extends ChartView implements InteractiveGraph,
 
 		if (newHighRate > correspondingRateAxis.getHighRate()) {
 			// change high rate first since high rate is increasing
-			((ChartController) controller).changeHighRate(newHighRate);
-			((ChartController) controller).changeLowRate(newLowRate);
+			controller.changeHighRate(newHighRate);
+			controller.changeLowRate(newLowRate);
 		} else {
 			// change low rate first since high rate is decreasing
-			((ChartController) controller).changeLowRate(newLowRate);
-			((ChartController) controller).changeHighRate(newHighRate);
+			controller.changeLowRate(newLowRate);
+			controller.changeHighRate(newHighRate);
 		}
 	}
 
@@ -677,10 +697,8 @@ public abstract class Graph extends ChartView implements InteractiveGraph,
 
 	protected boolean graphicsDependentParametersChanged() {
 		// @formatter:off
-		return getStartTime() != oldStartTime 
-				|| getEndTime() != oldEndTime 
-				|| getHighRate() != oldHighRate
-				|| getLowRate() != oldLowRate
+		return getStartTime() != oldStartTime || getEndTime() != oldEndTime
+				|| getHighRate() != oldHighRate || getLowRate() != oldLowRate
 				|| !getSize().equals(oldSize);
 		// @formatter:on
 	}
@@ -718,31 +736,28 @@ public abstract class Graph extends ChartView implements InteractiveGraph,
 	 * Propagates offers onto children that takes instrument, period and
 	 * offerSide as separate arguments.
 	 */
+	@Override
 	public void onOffer(Offer offer) {
 		if (offer.getPeriod() == Period.TICK) {
 			Tick tick = new Tick(offer.getTime(), offer.getAskClose(),
 					offer.getBidClose(), offer.getVolume());
-			onTick(offer.getInstrument(), tick);
+			onTick(offer.getInstrument2(), tick);
 		} else {
 			if (this.getOfferSide() == OfferSide.ASK) {
-				//@formatter:off
-				Bar bar = new Bar(
-						offer.getTime(), 
-						offer.getAskOpen(),
-						offer.getAskClose(), 
-						offer.getAskHigh(),
-						offer.getAskLow(), 
-						offer.getVolume());
-				
-				onBar(offer.getInstrument(), offer.getPeriod(), OfferSide.ASK,
+				// @formatter:off
+				Bar bar = new Bar(offer.getTime(), offer.getAskOpen(),
+						offer.getAskClose(), offer.getAskHigh(),
+						offer.getAskLow(), offer.getVolume());
+
+				onBar(offer.getInstrument2(), offer.getPeriod(), OfferSide.ASK,
 						bar);
 			} else {
 				Bar bar = new Bar(offer.getTime(), offer.getBidOpen(),
 						offer.getAskClose(), offer.getAskHigh(),
 						offer.getAskLow(), offer.getVolume());
-				onBar(offer.getInstrument(), offer.getPeriod(), OfferSide.ASK,
+				onBar(offer.getInstrument2(), offer.getPeriod(), OfferSide.ASK,
 						bar);
-				//@formatter:on
+				// @formatter:on
 			}
 
 		}

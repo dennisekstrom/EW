@@ -66,12 +66,6 @@ public class ResponseListener implements IO2GResponseListener {
 	public void onRequestCompleted(String requestID, O2GResponse response) {
 		mResponse = response;
 		System.out.println("Request " + requestID + " completed");
-		// mError = false;
-		// if (response.getType() == O2GResponseType.GET_OFFERS) {
-		// mResponse = response;
-		// mRequest = "getoffers";
-		// }
-		// printOffers(mSession, mResponse, mInstrument);
 	}
 
 	// Implementation of IO2GResponseListener interface public method

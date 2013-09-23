@@ -19,8 +19,12 @@ import client.User;
 import swingjd.util.PanelType;
 import swingjd.util.Theme;
 import trading.TradeController;
+import util.Instrument;
+import util.OfferSide;
+import util.Period;
 
 import chart.ChartFrame;
+import feed.LiveOfferFeed;
 
 /**
  * Main client frame. Functions as a host frame for other components. Other than
@@ -117,9 +121,14 @@ public class ClientMain extends JFrame {
 		// chartFrame = new ChartFrame(feed, TempConstants.defaultInstrument,
 		// TempConstants.defaultTickBarSize, TempConstants.defaultPeriod,
 		// TempConstants.defaultOfferSide, startTime, true);
+
+		// chartFrame = new ChartFrame()
+		chartFrame = new ChartFrame(LiveOfferFeed.getInstance(),
+				Instrument.EURUSD, Period.M5, OfferSide.BID,
+				System.currentTimeMillis(), true);
 		//
-		// chartFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		// chartFrame.setLocationRelativeTo(null);
+		chartFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		chartFrame.setLocationRelativeTo(null);
 	}
 
 	/**

@@ -1,722 +1,686 @@
 <?xml version="1.0" encoding="windows-1252"?>
 <weeklyevents>
 	<event>
-		<title>REINZ HPI m/m</title>
-		<country>NZD</country>
-		<date><![CDATA[09-15-2013]]></date>
-		<time><![CDATA[9:45pm]]></time>
-		<impact><![CDATA[Low]]></impact>
+		<title>German Federal Elections</title>
+		<country>EUR</country>
+		<date><![CDATA[09-22-2013]]></date>
+		<time><![CDATA[8:30am]]></time>
+		<impact><![CDATA[High]]></impact>
 		<forecast />
-		<previous><![CDATA[-0.5%]]></previous>
-	</event>
-	<event>
-		<title>Westpac Consumer Sentiment</title>
-		<country>NZD</country>
-		<date><![CDATA[09-15-2013]]></date>
-		<time><![CDATA[10:00pm]]></time>
-		<impact><![CDATA[Medium]]></impact>
-		<forecast />
-		<previous><![CDATA[116.6]]></previous>
-	</event>
-	<event>
-		<title>Rightmove HPI m/m</title>
-		<country>GBP</country>
-		<date><![CDATA[09-15-2013]]></date>
-		<time><![CDATA[11:01pm]]></time>
-		<impact><![CDATA[Low]]></impact>
-		<forecast />
-		<previous><![CDATA[-1.8%]]></previous>
+		<previous />
 	</event>
 	<event>
 		<title>Bank Holiday</title>
 		<country>JPY</country>
-		<date><![CDATA[09-16-2013]]></date>
+		<date><![CDATA[09-23-2013]]></date>
 		<time><![CDATA[12:00am]]></time>
 		<impact><![CDATA[Holiday]]></impact>
 		<forecast />
 		<previous />
 	</event>
 	<event>
-		<title>Italian Trade Balance</title>
+		<title>HSBC Flash Manufacturing PMI</title>
+		<country>CNY</country>
+		<date><![CDATA[09-23-2013]]></date>
+		<time><![CDATA[1:45am]]></time>
+		<impact><![CDATA[High]]></impact>
+		<forecast><![CDATA[50.9]]></forecast>
+		<previous><![CDATA[50.1]]></previous>
+	</event>
+	<event>
+		<title>French Flash Manufacturing PMI</title>
 		<country>EUR</country>
-		<date><![CDATA[09-16-2013]]></date>
+		<date><![CDATA[09-23-2013]]></date>
+		<time><![CDATA[7:00am]]></time>
+		<impact><![CDATA[High]]></impact>
+		<forecast><![CDATA[50.2]]></forecast>
+		<previous><![CDATA[49.7]]></previous>
+	</event>
+	<event>
+		<title>French Flash Services PMI</title>
+		<country>EUR</country>
+		<date><![CDATA[09-23-2013]]></date>
+		<time><![CDATA[7:00am]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast><![CDATA[49.3]]></forecast>
+		<previous><![CDATA[47.7]]></previous>
+	</event>
+	<event>
+		<title>German Flash Manufacturing PMI</title>
+		<country>EUR</country>
+		<date><![CDATA[09-23-2013]]></date>
+		<time><![CDATA[7:30am]]></time>
+		<impact><![CDATA[High]]></impact>
+		<forecast><![CDATA[52.3]]></forecast>
+		<previous><![CDATA[52.0]]></previous>
+	</event>
+	<event>
+		<title>German Flash Services PMI</title>
+		<country>EUR</country>
+		<date><![CDATA[09-23-2013]]></date>
+		<time><![CDATA[7:30am]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast><![CDATA[53.2]]></forecast>
+		<previous><![CDATA[52.4]]></previous>
+	</event>
+	<event>
+		<title>Flash Manufacturing PMI</title>
+		<country>EUR</country>
+		<date><![CDATA[09-23-2013]]></date>
 		<time><![CDATA[8:00am]]></time>
-		<impact><![CDATA[Low]]></impact>
-		<forecast><![CDATA[4.13B]]></forecast>
-		<previous><![CDATA[3.62B]]></previous>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast><![CDATA[51.8]]></forecast>
+		<previous><![CDATA[51.3]]></previous>
+	</event>
+	<event>
+		<title>Flash Services PMI</title>
+		<country>EUR</country>
+		<date><![CDATA[09-23-2013]]></date>
+		<time><![CDATA[8:00am]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast><![CDATA[51.1]]></forecast>
+		<previous><![CDATA[51.0]]></previous>
+	</event>
+	<event>
+		<title>German Buba Monthly Report</title>
+		<country>EUR</country>
+		<date><![CDATA[09-23-2013]]></date>
+		<time><![CDATA[10:00am]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast />
+		<previous />
+	</event>
+	<event>
+		<title>Flash Manufacturing PMI</title>
+		<country>USD</country>
+		<date><![CDATA[09-23-2013]]></date>
+		<time><![CDATA[1:00pm]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast><![CDATA[54.2]]></forecast>
+		<previous><![CDATA[53.9]]></previous>
 	</event>
 	<event>
 		<title>ECB President Draghi Speaks</title>
 		<country>EUR</country>
-		<date><![CDATA[09-16-2013]]></date>
+		<date><![CDATA[09-23-2013]]></date>
+		<time><![CDATA[1:00pm]]></time>
+		<impact><![CDATA[High]]></impact>
+		<forecast />
+		<previous />
+	</event>
+	<event>
+		<title>FOMC Member Dudley Speaks</title>
+		<country>USD</country>
+		<date><![CDATA[09-23-2013]]></date>
+		<time><![CDATA[1:30pm]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast />
+		<previous />
+	</event>
+	<event>
+		<title>SNB Chairman Jordan Speaks</title>
+		<country>CHF</country>
+		<date><![CDATA[09-23-2013]]></date>
+		<time><![CDATA[3:15pm]]></time>
+		<impact><![CDATA[High]]></impact>
+		<forecast />
+		<previous />
+	</event>
+	<event>
+		<title>MPC Member Broadbent Speaks</title>
+		<country>GBP</country>
+		<date><![CDATA[09-23-2013]]></date>
+		<time><![CDATA[6:00pm]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast />
+		<previous />
+	</event>
+	<event>
+		<title>German Ifo Business Climate</title>
+		<country>EUR</country>
+		<date><![CDATA[09-24-2013]]></date>
 		<time><![CDATA[8:00am]]></time>
 		<impact><![CDATA[High]]></impact>
+		<forecast><![CDATA[108.4]]></forecast>
+		<previous><![CDATA[107.5]]></previous>
+	</event>
+	<event>
+		<title>BBA Mortgage Approvals</title>
+		<country>GBP</country>
+		<date><![CDATA[09-24-2013]]></date>
+		<time><![CDATA[8:30am]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast><![CDATA[38.6K]]></forecast>
+		<previous><![CDATA[37.2K]]></previous>
+	</event>
+	<event>
+		<title>MPC Member Miles Speaks</title>
+		<country>GBP</country>
+		<date><![CDATA[09-24-2013]]></date>
+		<time><![CDATA[10:30am]]></time>
+		<impact><![CDATA[Medium]]></impact>
 		<forecast />
 		<previous />
 	</event>
 	<event>
-		<title>Core CPI y/y</title>
-		<country>EUR</country>
-		<date><![CDATA[09-16-2013]]></date>
-		<time><![CDATA[9:00am]]></time>
-		<impact><![CDATA[Medium]]></impact>
-		<forecast><![CDATA[1.1%]]></forecast>
-		<previous><![CDATA[1.1%]]></previous>
-	</event>
-	<event>
-		<title>CPI y/y</title>
-		<country>EUR</country>
-		<date><![CDATA[09-16-2013]]></date>
-		<time><![CDATA[9:00am]]></time>
-		<impact><![CDATA[Medium]]></impact>
-		<forecast><![CDATA[1.3%]]></forecast>
-		<previous><![CDATA[1.3%]]></previous>
-	</event>
-	<event>
-		<title>Foreign Securities Purchases</title>
+		<title>Core Retail Sales m/m</title>
 		<country>CAD</country>
-		<date><![CDATA[09-16-2013]]></date>
-		<time><![CDATA[12:30pm]]></time>
-		<impact><![CDATA[Medium]]></impact>
-		<forecast><![CDATA[-2.23B]]></forecast>
-		<previous><![CDATA[-15.41B]]></previous>
-	</event>
-	<event>
-		<title>Empire State Manufacturing Index</title>
-		<country>USD</country>
-		<date><![CDATA[09-16-2013]]></date>
-		<time><![CDATA[12:30pm]]></time>
-		<impact><![CDATA[Medium]]></impact>
-		<forecast><![CDATA[9.2]]></forecast>
-		<previous><![CDATA[8.2]]></previous>
-	</event>
-	<event>
-		<title>Industrial Production m/m</title>
-		<country>USD</country>
-		<date><![CDATA[09-16-2013]]></date>
-		<time><![CDATA[1:15pm]]></time>
-		<impact><![CDATA[Medium]]></impact>
-		<forecast><![CDATA[0.5%]]></forecast>
-		<previous><![CDATA[0.0%]]></previous>
-	</event>
-	<event>
-		<title>Capacity Utilization Rate</title>
-		<country>USD</country>
-		<date><![CDATA[09-16-2013]]></date>
-		<time><![CDATA[1:15pm]]></time>
-		<impact><![CDATA[Medium]]></impact>
-		<forecast><![CDATA[77.8%]]></forecast>
-		<previous><![CDATA[77.6%]]></previous>
-	</event>
-	<event>
-		<title>BOE Quarterly Bulletin</title>
-		<country>GBP</country>
-		<date><![CDATA[09-16-2013]]></date>
-		<time><![CDATA[11:01pm]]></time>
-		<impact><![CDATA[Low]]></impact>
-		<forecast />
-		<previous />
-	</event>
-	<event>
-		<title>Monetary Policy Meeting Minutes</title>
-		<country>AUD</country>
-		<date><![CDATA[09-17-2013]]></date>
-		<time><![CDATA[1:30am]]></time>
-		<impact><![CDATA[High]]></impact>
-		<forecast />
-		<previous />
-	</event>
-	<event>
-		<title>New Motor Vehicle Sales m/m</title>
-		<country>AUD</country>
-		<date><![CDATA[09-17-2013]]></date>
-		<time><![CDATA[1:30am]]></time>
-		<impact><![CDATA[Medium]]></impact>
-		<forecast />
-		<previous><![CDATA[-3.5%]]></previous>
-	</event>
-	<event>
-		<title>Foreign Direct Investment ytd/y</title>
-		<country>CNY</country>
-		<date><![CDATA[09-17-2013]]></date>
-		<time><![CDATA[2:00am]]></time>
-		<impact><![CDATA[Low]]></impact>
-		<forecast />
-		<previous><![CDATA[7.1%]]></previous>
-	</event>
-	<event>
-		<title>CB Leading Index m/m</title>
-		<country>CNY</country>
-		<date><![CDATA[09-17-2013]]></date>
-		<time><![CDATA[2:00am]]></time>
-		<impact><![CDATA[Low]]></impact>
-		<forecast />
-		<previous><![CDATA[1.4%]]></previous>
-	</event>
-	<event>
-		<title>Current Account</title>
-		<country>EUR</country>
-		<date><![CDATA[09-17-2013]]></date>
-		<time><![CDATA[8:00am]]></time>
-		<impact><![CDATA[Medium]]></impact>
-		<forecast><![CDATA[18.3B]]></forecast>
-		<previous><![CDATA[16.9B]]></previous>
-	</event>
-	<event>
-		<title>HPI y/y</title>
-		<country>GBP</country>
-		<date><![CDATA[09-17-2013]]></date>
-		<time><![CDATA[8:30am]]></time>
-		<impact><![CDATA[Low]]></impact>
-		<forecast><![CDATA[3.4%]]></forecast>
-		<previous><![CDATA[3.1%]]></previous>
-	</event>
-	<event>
-		<title>CPI y/y</title>
-		<country>GBP</country>
-		<date><![CDATA[09-17-2013]]></date>
-		<time><![CDATA[8:30am]]></time>
-		<impact><![CDATA[High]]></impact>
-		<forecast><![CDATA[2.7%]]></forecast>
-		<previous><![CDATA[2.8%]]></previous>
-	</event>
-	<event>
-		<title>Core CPI y/y</title>
-		<country>GBP</country>
-		<date><![CDATA[09-17-2013]]></date>
-		<time><![CDATA[8:30am]]></time>
-		<impact><![CDATA[Low]]></impact>
-		<forecast><![CDATA[2.1%]]></forecast>
-		<previous><![CDATA[2.0%]]></previous>
-	</event>
-	<event>
-		<title>RPI y/y</title>
-		<country>GBP</country>
-		<date><![CDATA[09-17-2013]]></date>
-		<time><![CDATA[8:30am]]></time>
-		<impact><![CDATA[Medium]]></impact>
-		<forecast><![CDATA[3.2%]]></forecast>
-		<previous><![CDATA[3.1%]]></previous>
-	</event>
-	<event>
-		<title>PPI Input m/m</title>
-		<country>GBP</country>
-		<date><![CDATA[09-17-2013]]></date>
-		<time><![CDATA[8:30am]]></time>
-		<impact><![CDATA[Medium]]></impact>
-		<forecast><![CDATA[0.3%]]></forecast>
-		<previous><![CDATA[1.1%]]></previous>
-	</event>
-	<event>
-		<title>PPI Output m/m</title>
-		<country>GBP</country>
-		<date><![CDATA[09-17-2013]]></date>
-		<time><![CDATA[8:30am]]></time>
-		<impact><![CDATA[Low]]></impact>
-		<forecast><![CDATA[0.2%]]></forecast>
-		<previous><![CDATA[0.2%]]></previous>
-	</event>
-	<event>
-		<title>Trade Balance</title>
-		<country>EUR</country>
-		<date><![CDATA[09-17-2013]]></date>
-		<time><![CDATA[9:00am]]></time>
-		<impact><![CDATA[Low]]></impact>
-		<forecast><![CDATA[15.3B]]></forecast>
-		<previous><![CDATA[14.9B]]></previous>
-	</event>
-	<event>
-		<title>German ZEW Economic Sentiment</title>
-		<country>EUR</country>
-		<date><![CDATA[09-17-2013]]></date>
-		<time><![CDATA[9:00am]]></time>
-		<impact><![CDATA[High]]></impact>
-		<forecast><![CDATA[45.3]]></forecast>
-		<previous><![CDATA[42.0]]></previous>
-	</event>
-	<event>
-		<title>ZEW Economic Sentiment</title>
-		<country>EUR</country>
-		<date><![CDATA[09-17-2013]]></date>
-		<time><![CDATA[9:00am]]></time>
-		<impact><![CDATA[Medium]]></impact>
-		<forecast><![CDATA[47.2]]></forecast>
-		<previous><![CDATA[44.0]]></previous>
-	</event>
-	<event>
-		<title>Treasury Sec Lew Speaks</title>
-		<country>USD</country>
-		<date><![CDATA[09-17-2013]]></date>
-		<time><![CDATA[12:15pm]]></time>
-		<impact><![CDATA[Medium]]></impact>
-		<forecast />
-		<previous />
-	</event>
-	<event>
-		<title>Core CPI m/m</title>
-		<country>USD</country>
-		<date><![CDATA[09-17-2013]]></date>
-		<time><![CDATA[12:30pm]]></time>
-		<impact><![CDATA[High]]></impact>
-		<forecast><![CDATA[0.1%]]></forecast>
-		<previous><![CDATA[0.2%]]></previous>
-	</event>
-	<event>
-		<title>CPI m/m</title>
-		<country>USD</country>
-		<date><![CDATA[09-17-2013]]></date>
-		<time><![CDATA[12:30pm]]></time>
-		<impact><![CDATA[Medium]]></impact>
-		<forecast><![CDATA[0.2%]]></forecast>
-		<previous><![CDATA[0.2%]]></previous>
-	</event>
-	<event>
-		<title>Manufacturing Sales m/m</title>
-		<country>CAD</country>
-		<date><![CDATA[09-17-2013]]></date>
+		<date><![CDATA[09-24-2013]]></date>
 		<time><![CDATA[12:30pm]]></time>
 		<impact><![CDATA[High]]></impact>
 		<forecast><![CDATA[0.6%]]></forecast>
-		<previous><![CDATA[-0.5%]]></previous>
-	</event>
-	<event>
-		<title>TIC Long-Term Purchases</title>
-		<country>USD</country>
-		<date><![CDATA[09-17-2013]]></date>
-		<time><![CDATA[1:00pm]]></time>
-		<impact><![CDATA[Medium]]></impact>
-		<forecast><![CDATA[-45.3B]]></forecast>
-		<previous><![CDATA[-66.9B]]></previous>
-	</event>
-	<event>
-		<title>NAHB Housing Market Index</title>
-		<country>USD</country>
-		<date><![CDATA[09-17-2013]]></date>
-		<time><![CDATA[2:00pm]]></time>
-		<impact><![CDATA[Medium]]></impact>
-		<forecast><![CDATA[59]]></forecast>
-		<previous><![CDATA[59]]></previous>
-	</event>
-	<event>
-		<title>Current Account</title>
-		<country>NZD</country>
-		<date><![CDATA[09-17-2013]]></date>
-		<time><![CDATA[10:45pm]]></time>
-		<impact><![CDATA[Medium]]></impact>
-		<forecast><![CDATA[-1.85B]]></forecast>
-		<previous><![CDATA[-0.66B]]></previous>
-	</event>
-	<event>
-		<title>CB Leading Index m/m</title>
-		<country>AUD</country>
-		<date><![CDATA[09-18-2013]]></date>
-		<time><![CDATA[12:00am]]></time>
-		<impact><![CDATA[Medium]]></impact>
-		<forecast />
-		<previous><![CDATA[-0.2%]]></previous>
-	</event>
-	<event>
-		<title>MI Leading Index m/m</title>
-		<country>AUD</country>
-		<date><![CDATA[09-18-2013]]></date>
-		<time><![CDATA[12:30am]]></time>
-		<impact><![CDATA[Low]]></impact>
-		<forecast />
-		<previous><![CDATA[0.0%]]></previous>
-	</event>
-	<event>
-		<title>RBA Assist Gov Edey Speaks</title>
-		<country>AUD</country>
-		<date><![CDATA[09-18-2013]]></date>
-		<time><![CDATA[1:30am]]></time>
-		<impact><![CDATA[Medium]]></impact>
-		<forecast />
-		<previous />
-	</event>
-	<event>
-		<title>MPC Official Bank Rate Votes</title>
-		<country>GBP</country>
-		<date><![CDATA[09-18-2013]]></date>
-		<time><![CDATA[8:30am]]></time>
-		<impact><![CDATA[High]]></impact>
-		<forecast><![CDATA[0-0-9]]></forecast>
-		<previous><![CDATA[0-0-9]]></previous>
-	</event>
-	<event>
-		<title>MPC Asset Purchase Facility Votes</title>
-		<country>GBP</country>
-		<date><![CDATA[09-18-2013]]></date>
-		<time><![CDATA[8:30am]]></time>
-		<impact><![CDATA[High]]></impact>
-		<forecast><![CDATA[0-0-9]]></forecast>
-		<previous><![CDATA[0-0-9]]></previous>
-	</event>
-	<event>
-		<title>ZEW Economic Expectations</title>
-		<country>CHF</country>
-		<date><![CDATA[09-18-2013]]></date>
-		<time><![CDATA[9:00am]]></time>
-		<impact><![CDATA[Medium]]></impact>
-		<forecast />
-		<previous><![CDATA[7.2]]></previous>
-	</event>
-	<event>
-		<title>Building Permits</title>
-		<country>USD</country>
-		<date><![CDATA[09-18-2013]]></date>
-		<time><![CDATA[12:30pm]]></time>
-		<impact><![CDATA[High]]></impact>
-		<forecast><![CDATA[0.95M]]></forecast>
-		<previous><![CDATA[0.94M]]></previous>
-	</event>
-	<event>
-		<title>Housing Starts</title>
-		<country>USD</country>
-		<date><![CDATA[09-18-2013]]></date>
-		<time><![CDATA[12:30pm]]></time>
-		<impact><![CDATA[Medium]]></impact>
-		<forecast><![CDATA[0.93M]]></forecast>
-		<previous><![CDATA[0.90M]]></previous>
-	</event>
-	<event>
-		<title>Crude Oil Inventories</title>
-		<country>USD</country>
-		<date><![CDATA[09-18-2013]]></date>
-		<time><![CDATA[2:30pm]]></time>
-		<impact><![CDATA[Medium]]></impact>
-		<forecast><![CDATA[-1.2M]]></forecast>
-		<previous><![CDATA[-0.2M]]></previous>
-	</event>
-	<event>
-		<title>BOC Gov Poloz Speaks</title>
-		<country>CAD</country>
-		<date><![CDATA[09-18-2013]]></date>
-		<time><![CDATA[2:40pm]]></time>
-		<impact><![CDATA[Medium]]></impact>
-		<forecast />
-		<previous />
-	</event>
-	<event>
-		<title>FOMC Statement</title>
-		<country>USD</country>
-		<date><![CDATA[09-18-2013]]></date>
-		<time><![CDATA[6:00pm]]></time>
-		<impact><![CDATA[High]]></impact>
-		<forecast />
-		<previous />
-	</event>
-	<event>
-		<title>Federal Funds Rate</title>
-		<country>USD</country>
-		<date><![CDATA[09-18-2013]]></date>
-		<time><![CDATA[6:00pm]]></time>
-		<impact><![CDATA[Medium]]></impact>
-		<forecast><![CDATA[&lt;0.25%]]></forecast>
-		<previous><![CDATA[&lt;0.25%]]></previous>
-	</event>
-	<event>
-		<title>FOMC Economic Projections</title>
-		<country>USD</country>
-		<date><![CDATA[09-18-2013]]></date>
-		<time><![CDATA[6:00pm]]></time>
-		<impact><![CDATA[High]]></impact>
-		<forecast />
-		<previous />
-	</event>
-	<event>
-		<title>FOMC Press Conference</title>
-		<country>USD</country>
-		<date><![CDATA[09-18-2013]]></date>
-		<time><![CDATA[6:30pm]]></time>
-		<impact><![CDATA[High]]></impact>
-		<forecast />
-		<previous />
-	</event>
-	<event>
-		<title>GDP q/q</title>
-		<country>NZD</country>
-		<date><![CDATA[09-18-2013]]></date>
-		<time><![CDATA[10:45pm]]></time>
-		<impact><![CDATA[High]]></impact>
-		<forecast><![CDATA[0.2%]]></forecast>
-		<previous><![CDATA[0.3%]]></previous>
-	</event>
-	<event>
-		<title>Trade Balance</title>
-		<country>JPY</country>
-		<date><![CDATA[09-18-2013]]></date>
-		<time><![CDATA[11:50pm]]></time>
-		<impact><![CDATA[Medium]]></impact>
-		<forecast><![CDATA[-0.83T]]></forecast>
-		<previous><![CDATA[-0.94T]]></previous>
-	</event>
-	<event>
-		<title>Bank Holiday</title>
-		<country>CNY</country>
-		<date><![CDATA[09-19-2013]]></date>
-		<time><![CDATA[12:01am]]></time>
-		<impact><![CDATA[Holiday]]></impact>
-		<forecast />
-		<previous />
-	</event>
-	<event>
-		<title>RBA Bulletin</title>
-		<country>AUD</country>
-		<date><![CDATA[09-19-2013]]></date>
-		<time><![CDATA[1:30am]]></time>
-		<impact><![CDATA[Low]]></impact>
-		<forecast />
-		<previous />
-	</event>
-	<event>
-		<title>All Industries Activity m/m</title>
-		<country>JPY</country>
-		<date><![CDATA[09-19-2013]]></date>
-		<time><![CDATA[4:30am]]></time>
-		<impact><![CDATA[Low]]></impact>
-		<forecast><![CDATA[0.3%]]></forecast>
-		<previous><![CDATA[-0.6%]]></previous>
-	</event>
-	<event>
-		<title>SECO Economic Forecasts</title>
-		<country>CHF</country>
-		<date><![CDATA[09-19-2013]]></date>
-		<time><![CDATA[5:45am]]></time>
-		<impact><![CDATA[Low]]></impact>
-		<forecast />
-		<previous />
-	</event>
-	<event>
-		<title>Trade Balance</title>
-		<country>CHF</country>
-		<date><![CDATA[09-19-2013]]></date>
-		<time><![CDATA[6:00am]]></time>
-		<impact><![CDATA[Low]]></impact>
-		<forecast><![CDATA[2.74B]]></forecast>
-		<previous><![CDATA[2.38B]]></previous>
-	</event>
-	<event>
-		<title>BOJ Gov Kuroda Speaks</title>
-		<country>JPY</country>
-		<date><![CDATA[09-19-2013]]></date>
-		<time><![CDATA[6:32am]]></time>
-		<impact><![CDATA[High]]></impact>
-		<forecast />
-		<previous />
-	</event>
-	<event>
-		<title>Libor Rate</title>
-		<country>CHF</country>
-		<date><![CDATA[09-19-2013]]></date>
-		<time><![CDATA[7:30am]]></time>
-		<impact><![CDATA[High]]></impact>
-		<forecast><![CDATA[&lt;0.25%]]></forecast>
-		<previous><![CDATA[&lt;0.25%]]></previous>
-	</event>
-	<event>
-		<title>SNB Monetary Policy Assessment</title>
-		<country>CHF</country>
-		<date><![CDATA[09-19-2013]]></date>
-		<time><![CDATA[7:30am]]></time>
-		<impact><![CDATA[High]]></impact>
-		<forecast />
-		<previous />
+		<previous><![CDATA[-0.8%]]></previous>
 	</event>
 	<event>
 		<title>Retail Sales m/m</title>
-		<country>GBP</country>
-		<date><![CDATA[09-19-2013]]></date>
-		<time><![CDATA[8:30am]]></time>
-		<impact><![CDATA[High]]></impact>
-		<forecast><![CDATA[0.4%]]></forecast>
-		<previous><![CDATA[1.1%]]></previous>
-	</event>
-	<event>
-		<title>CBI Industrial Order Expectations</title>
-		<country>GBP</country>
-		<date><![CDATA[09-19-2013]]></date>
-		<time><![CDATA[10:00am]]></time>
-		<impact><![CDATA[Medium]]></impact>
-		<forecast><![CDATA[2]]></forecast>
-		<previous><![CDATA[0]]></previous>
-	</event>
-	<event>
-		<title>Unemployment Claims</title>
-		<country>USD</country>
-		<date><![CDATA[09-19-2013]]></date>
-		<time><![CDATA[12:30pm]]></time>
-		<impact><![CDATA[High]]></impact>
-		<forecast><![CDATA[331K]]></forecast>
-		<previous><![CDATA[292K]]></previous>
-	</event>
-	<event>
-		<title>Current Account</title>
-		<country>USD</country>
-		<date><![CDATA[09-19-2013]]></date>
-		<time><![CDATA[12:30pm]]></time>
-		<impact><![CDATA[Medium]]></impact>
-		<forecast><![CDATA[-96B]]></forecast>
-		<previous><![CDATA[-106B]]></previous>
-	</event>
-	<event>
-		<title>Wholesale Sales m/m</title>
 		<country>CAD</country>
-		<date><![CDATA[09-19-2013]]></date>
+		<date><![CDATA[09-24-2013]]></date>
 		<time><![CDATA[12:30pm]]></time>
 		<impact><![CDATA[Medium]]></impact>
-		<forecast><![CDATA[1.1%]]></forecast>
-		<previous><![CDATA[-2.8%]]></previous>
-	</event>
-	<event>
-		<title>Existing Home Sales</title>
-		<country>USD</country>
-		<date><![CDATA[09-19-2013]]></date>
-		<time><![CDATA[2:00pm]]></time>
-		<impact><![CDATA[High]]></impact>
-		<forecast><![CDATA[5.27M]]></forecast>
-		<previous><![CDATA[5.39M]]></previous>
-	</event>
-	<event>
-		<title>Philly Fed Manufacturing Index</title>
-		<country>USD</country>
-		<date><![CDATA[09-19-2013]]></date>
-		<time><![CDATA[2:00pm]]></time>
-		<impact><![CDATA[High]]></impact>
-		<forecast><![CDATA[10.2]]></forecast>
-		<previous><![CDATA[9.3]]></previous>
-	</event>
-	<event>
-		<title>CB Leading Index m/m</title>
-		<country>USD</country>
-		<date><![CDATA[09-19-2013]]></date>
-		<time><![CDATA[2:00pm]]></time>
-		<impact><![CDATA[Low]]></impact>
 		<forecast><![CDATA[0.6%]]></forecast>
-		<previous><![CDATA[0.6%]]></previous>
+		<previous><![CDATA[-0.6%]]></previous>
 	</event>
 	<event>
-		<title>Natural Gas Storage</title>
-		<country>USD</country>
-		<date><![CDATA[09-19-2013]]></date>
-		<time><![CDATA[2:30pm]]></time>
-		<impact><![CDATA[Low]]></impact>
-		<forecast><![CDATA[60B]]></forecast>
-		<previous><![CDATA[65B]]></previous>
-	</event>
-	<event>
-		<title>Visitor Arrivals m/m</title>
-		<country>NZD</country>
-		<date><![CDATA[09-19-2013]]></date>
-		<time><![CDATA[10:45pm]]></time>
-		<impact><![CDATA[Low]]></impact>
-		<forecast />
-		<previous><![CDATA[1.3%]]></previous>
-	</event>
-	<event>
-		<title>Bank Holiday</title>
-		<country>CNY</country>
-		<date><![CDATA[09-20-2013]]></date>
-		<time><![CDATA[12:01am]]></time>
-		<impact><![CDATA[Holiday]]></impact>
-		<forecast />
-		<previous />
-	</event>
-	<event>
-		<title>BOJ Gov Kuroda Speaks</title>
-		<country>JPY</country>
-		<date><![CDATA[09-20-2013]]></date>
-		<time><![CDATA[2:30am]]></time>
-		<impact><![CDATA[High]]></impact>
-		<forecast />
-		<previous />
-	</event>
-	<event>
-		<title>Credit Card Spending y/y</title>
-		<country>NZD</country>
-		<date><![CDATA[09-20-2013]]></date>
-		<time><![CDATA[3:00am]]></time>
-		<impact><![CDATA[Low]]></impact>
-		<forecast />
-		<previous><![CDATA[4.7%]]></previous>
-	</event>
-	<event>
-		<title>Public Sector Net Borrowing</title>
+		<title>MPC Member Tucker Speaks</title>
 		<country>GBP</country>
-		<date><![CDATA[09-20-2013]]></date>
-		<time><![CDATA[8:30am]]></time>
-		<impact><![CDATA[Medium]]></impact>
-		<forecast><![CDATA[11.9B]]></forecast>
-		<previous><![CDATA[-1.6B]]></previous>
-	</event>
-	<event>
-		<title>German Buba President Weidmann Speaks</title>
-		<country>EUR</country>
-		<date><![CDATA[09-20-2013]]></date>
-		<time><![CDATA[11:30am]]></time>
+		<date><![CDATA[09-24-2013]]></date>
+		<time><![CDATA[12:45pm]]></time>
 		<impact><![CDATA[Medium]]></impact>
 		<forecast />
 		<previous />
 	</event>
 	<event>
-		<title>CPI m/m</title>
-		<country>CAD</country>
-		<date><![CDATA[09-20-2013]]></date>
-		<time><![CDATA[12:30pm]]></time>
+		<title>HPI m/m</title>
+		<country>USD</country>
+		<date><![CDATA[09-24-2013]]></date>
+		<time><![CDATA[1:00pm]]></time>
+		<impact><![CDATA[Low]]></impact>
+		<forecast><![CDATA[0.9%]]></forecast>
+		<previous><![CDATA[0.7%]]></previous>
+	</event>
+	<event>
+		<title><![CDATA[S&P/CS Composite-20 HPI y/y]]></title>
+		<country>USD</country>
+		<date><![CDATA[09-24-2013]]></date>
+		<time><![CDATA[1:00pm]]></time>
 		<impact><![CDATA[Medium]]></impact>
-		<forecast><![CDATA[0.1%]]></forecast>
-		<previous><![CDATA[0.1%]]></previous>
+		<forecast><![CDATA[12.5%]]></forecast>
+		<previous><![CDATA[12.1%]]></previous>
 	</event>
 	<event>
-		<title>Core CPI m/m</title>
-		<country>CAD</country>
-		<date><![CDATA[09-20-2013]]></date>
-		<time><![CDATA[12:30pm]]></time>
-		<impact><![CDATA[High]]></impact>
-		<forecast><![CDATA[0.1%]]></forecast>
-		<previous><![CDATA[0.0%]]></previous>
-	</event>
-	<event>
-		<title>Consumer Confidence</title>
+		<title>Belgium NBB Business Climate</title>
 		<country>EUR</country>
-		<date><![CDATA[09-20-2013]]></date>
+		<date><![CDATA[09-24-2013]]></date>
+		<time><![CDATA[1:00pm]]></time>
+		<impact><![CDATA[Low]]></impact>
+		<forecast><![CDATA[-7.1]]></forecast>
+		<previous><![CDATA[-8.6]]></previous>
+	</event>
+	<event>
+		<title>CB Consumer Confidence</title>
+		<country>USD</country>
+		<date><![CDATA[09-24-2013]]></date>
+		<time><![CDATA[2:00pm]]></time>
+		<impact><![CDATA[High]]></impact>
+		<forecast><![CDATA[79.9]]></forecast>
+		<previous><![CDATA[81.5]]></previous>
+	</event>
+	<event>
+		<title>Richmond Manufacturing Index</title>
+		<country>USD</country>
+		<date><![CDATA[09-24-2013]]></date>
 		<time><![CDATA[2:00pm]]></time>
 		<impact><![CDATA[Low]]></impact>
-		<forecast><![CDATA[-14]]></forecast>
-		<previous><![CDATA[-16]]></previous>
+		<forecast><![CDATA[17]]></forecast>
+		<previous><![CDATA[14]]></previous>
 	</event>
 	<event>
-		<title>FOMC Member George Speaks</title>
-		<country>USD</country>
-		<date><![CDATA[09-20-2013]]></date>
+		<title>Gov Council Member Schembri Speaks</title>
+		<country>CAD</country>
+		<date><![CDATA[09-24-2013]]></date>
 		<time><![CDATA[4:30pm]]></time>
 		<impact><![CDATA[Medium]]></impact>
 		<forecast />
 		<previous />
 	</event>
 	<event>
-		<title>FOMC Member Tarullo Speaks</title>
+		<title>FOMC Member George Speaks</title>
 		<country>USD</country>
-		<date><![CDATA[09-20-2013]]></date>
-		<time><![CDATA[4:40pm]]></time>
+		<date><![CDATA[09-24-2013]]></date>
+		<time><![CDATA[5:00pm]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast />
+		<previous />
+	</event>
+	<event>
+		<title>MPC Member Bean Speaks</title>
+		<country>GBP</country>
+		<date><![CDATA[09-24-2013]]></date>
+		<time><![CDATA[5:00pm]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast />
+		<previous />
+	</event>
+	<event>
+		<title>Trade Balance</title>
+		<country>NZD</country>
+		<date><![CDATA[09-24-2013]]></date>
+		<time><![CDATA[10:45pm]]></time>
+		<impact><![CDATA[High]]></impact>
+		<forecast><![CDATA[-722M]]></forecast>
+		<previous><![CDATA[-774M]]></previous>
+	</event>
+	<event>
+		<title>CSPI y/y</title>
+		<country>JPY</country>
+		<date><![CDATA[09-24-2013]]></date>
+		<time><![CDATA[11:50pm]]></time>
+		<impact><![CDATA[Low]]></impact>
+		<forecast><![CDATA[0.5%]]></forecast>
+		<previous><![CDATA[0.4%]]></previous>
+	</event>
+	<event>
+		<title>RBA Financial Stability Review</title>
+		<country>AUD</country>
+		<date><![CDATA[09-25-2013]]></date>
+		<time><![CDATA[1:30am]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast />
+		<previous />
+	</event>
+	<event>
+		<title>UBS Consumption Indicator</title>
+		<country>CHF</country>
+		<date><![CDATA[09-25-2013]]></date>
+		<time><![CDATA[6:00am]]></time>
+		<impact><![CDATA[Low]]></impact>
+		<forecast />
+		<previous><![CDATA[1.41]]></previous>
+	</event>
+	<event>
+		<title>GfK German Consumer Climate</title>
+		<country>EUR</country>
+		<date><![CDATA[09-25-2013]]></date>
+		<time><![CDATA[6:00am]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast><![CDATA[7.1]]></forecast>
+		<previous><![CDATA[6.9]]></previous>
+	</event>
+	<event>
+		<title>CBI Realized Sales</title>
+		<country>GBP</country>
+		<date><![CDATA[09-25-2013]]></date>
+		<time><![CDATA[10:00am]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast><![CDATA[24]]></forecast>
+		<previous><![CDATA[27]]></previous>
+	</event>
+	<event>
+		<title>Core Durable Goods Orders m/m</title>
+		<country>USD</country>
+		<date><![CDATA[09-25-2013]]></date>
+		<time><![CDATA[12:30pm]]></time>
+		<impact><![CDATA[High]]></impact>
+		<forecast><![CDATA[1.1%]]></forecast>
+		<previous><![CDATA[-0.6%]]></previous>
+	</event>
+	<event>
+		<title>Durable Goods Orders m/m</title>
+		<country>USD</country>
+		<date><![CDATA[09-25-2013]]></date>
+		<time><![CDATA[12:30pm]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast><![CDATA[0.0%]]></forecast>
+		<previous><![CDATA[-7.3%]]></previous>
+	</event>
+	<event>
+		<title>New Home Sales</title>
+		<country>USD</country>
+		<date><![CDATA[09-25-2013]]></date>
+		<time><![CDATA[2:00pm]]></time>
+		<impact><![CDATA[High]]></impact>
+		<forecast><![CDATA[422K]]></forecast>
+		<previous><![CDATA[394K]]></previous>
+	</event>
+	<event>
+		<title>Crude Oil Inventories</title>
+		<country>USD</country>
+		<date><![CDATA[09-25-2013]]></date>
+		<time><![CDATA[2:30pm]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast />
+		<previous><![CDATA[-4.4M]]></previous>
+	</event>
+	<event>
+		<title>Nationwide HPI m/m</title>
+		<country>GBP</country>
+		<date><![CDATA[09-26-2013]]></date>
+		<time><![CDATA[6:00am]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast><![CDATA[0.5%]]></forecast>
+		<previous><![CDATA[0.6%]]></previous>
+	</event>
+	<event>
+		<title>Italian Retail Sales m/m</title>
+		<country>EUR</country>
+		<date><![CDATA[09-26-2013]]></date>
+		<time><![CDATA[8:00am]]></time>
+		<impact><![CDATA[Low]]></impact>
+		<forecast><![CDATA[0.3%]]></forecast>
+		<previous><![CDATA[-0.2%]]></previous>
+	</event>
+	<event>
+		<title>M3 Money Supply y/y</title>
+		<country>EUR</country>
+		<date><![CDATA[09-26-2013]]></date>
+		<time><![CDATA[8:00am]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast><![CDATA[2.3%]]></forecast>
+		<previous><![CDATA[2.2%]]></previous>
+	</event>
+	<event>
+		<title>Private Loans y/y</title>
+		<country>EUR</country>
+		<date><![CDATA[09-26-2013]]></date>
+		<time><![CDATA[8:00am]]></time>
+		<impact><![CDATA[Low]]></impact>
+		<forecast><![CDATA[-1.7%]]></forecast>
+		<previous><![CDATA[-1.9%]]></previous>
+	</event>
+	<event>
+		<title>Current Account</title>
+		<country>GBP</country>
+		<date><![CDATA[09-26-2013]]></date>
+		<time><![CDATA[8:30am]]></time>
+		<impact><![CDATA[High]]></impact>
+		<forecast><![CDATA[-11.2B]]></forecast>
+		<previous><![CDATA[-14.5B]]></previous>
+	</event>
+	<event>
+		<title>Final GDP q/q</title>
+		<country>GBP</country>
+		<date><![CDATA[09-26-2013]]></date>
+		<time><![CDATA[8:30am]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast><![CDATA[0.7%]]></forecast>
+		<previous><![CDATA[0.7%]]></previous>
+	</event>
+	<event>
+		<title>Revised Business Investment q/q</title>
+		<country>GBP</country>
+		<date><![CDATA[09-26-2013]]></date>
+		<time><![CDATA[8:30am]]></time>
+		<impact><![CDATA[Low]]></impact>
+		<forecast><![CDATA[0.9%]]></forecast>
+		<previous><![CDATA[0.9%]]></previous>
+	</event>
+	<event>
+		<title>Unemployment Claims</title>
+		<country>USD</country>
+		<date><![CDATA[09-26-2013]]></date>
+		<time><![CDATA[12:30pm]]></time>
+		<impact><![CDATA[High]]></impact>
+		<forecast><![CDATA[319K]]></forecast>
+		<previous><![CDATA[309K]]></previous>
+	</event>
+	<event>
+		<title>Final GDP q/q</title>
+		<country>USD</country>
+		<date><![CDATA[09-26-2013]]></date>
+		<time><![CDATA[12:30pm]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast><![CDATA[2.7%]]></forecast>
+		<previous><![CDATA[2.5%]]></previous>
+	</event>
+	<event>
+		<title>Final GDP Price Index q/q</title>
+		<country>USD</country>
+		<date><![CDATA[09-26-2013]]></date>
+		<time><![CDATA[12:30pm]]></time>
+		<impact><![CDATA[Low]]></impact>
+		<forecast><![CDATA[0.8%]]></forecast>
+		<previous><![CDATA[0.8%]]></previous>
+	</event>
+	<event>
+		<title>SNB Quarterly Bulletin</title>
+		<country>CHF</country>
+		<date><![CDATA[09-26-2013]]></date>
+		<time><![CDATA[1:00pm]]></time>
 		<impact><![CDATA[Low]]></impact>
 		<forecast />
 		<previous />
 	</event>
 	<event>
-		<title>FOMC Member Bullard Speaks</title>
+		<title>Pending Home Sales m/m</title>
 		<country>USD</country>
-		<date><![CDATA[09-20-2013]]></date>
-		<time><![CDATA[4:55pm]]></time>
+		<date><![CDATA[09-26-2013]]></date>
+		<time><![CDATA[2:00pm]]></time>
+		<impact><![CDATA[High]]></impact>
+		<forecast><![CDATA[-0.9%]]></forecast>
+		<previous><![CDATA[-1.3%]]></previous>
+	</event>
+	<event>
+		<title>FOMC Member Stein Speaks</title>
+		<country>USD</country>
+		<date><![CDATA[09-26-2013]]></date>
+		<time><![CDATA[2:10pm]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast />
+		<previous />
+	</event>
+	<event>
+		<title>Natural Gas Storage</title>
+		<country>USD</country>
+		<date><![CDATA[09-26-2013]]></date>
+		<time><![CDATA[2:30pm]]></time>
+		<impact><![CDATA[Low]]></impact>
+		<forecast />
+		<previous><![CDATA[46B]]></previous>
+	</event>
+	<event>
+		<title>GfK Consumer Confidence</title>
+		<country>GBP</country>
+		<date><![CDATA[09-26-2013]]></date>
+		<time><![CDATA[11:05pm]]></time>
+		<impact><![CDATA[Low]]></impact>
+		<forecast><![CDATA[-10]]></forecast>
+		<previous><![CDATA[-13]]></previous>
+	</event>
+	<event>
+		<title>National Core CPI y/y</title>
+		<country>JPY</country>
+		<date><![CDATA[09-26-2013]]></date>
+		<time><![CDATA[11:30pm]]></time>
+		<impact><![CDATA[Low]]></impact>
+		<forecast><![CDATA[0.7%]]></forecast>
+		<previous><![CDATA[0.7%]]></previous>
+	</event>
+	<event>
+		<title>Tokyo Core CPI y/y</title>
+		<country>JPY</country>
+		<date><![CDATA[09-26-2013]]></date>
+		<time><![CDATA[11:30pm]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast><![CDATA[0.3%]]></forecast>
+		<previous><![CDATA[0.4%]]></previous>
+	</event>
+	<event>
+		<title>ANZ Business Confidence</title>
+		<country>NZD</country>
+		<date><![CDATA[09-27-2013]]></date>
+		<time><![CDATA[1:03am]]></time>
+		<impact><![CDATA[High]]></impact>
+		<forecast />
+		<previous><![CDATA[48.1]]></previous>
+	</event>
+	<event>
+		<title>FOMC Member George Speaks</title>
+		<country>USD</country>
+		<date><![CDATA[09-27-2013]]></date>
+		<time><![CDATA[1:15am]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast />
+		<previous />
+	</event>
+	<event>
+		<title>German Prelim CPI m/m</title>
+		<country>EUR</country>
+		<date><![CDATA[09-27-2013]]></date>
+		<time><![CDATA[6:29am]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast><![CDATA[0.0%]]></forecast>
+		<previous><![CDATA[0.0%]]></previous>
+	</event>
+	<event>
+		<title>French Consumer Spending m/m</title>
+		<country>EUR</country>
+		<date><![CDATA[09-27-2013]]></date>
+		<time><![CDATA[6:45am]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast><![CDATA[0.1%]]></forecast>
+		<previous />
+	</event>
+	<event>
+		<title>French Consumer Spending m/m</title>
+		<country>EUR</country>
+		<date><![CDATA[09-27-2013]]></date>
+		<time><![CDATA[6:45am]]></time>
+		<impact><![CDATA[Low]]></impact>
+		<forecast><![CDATA[0.3%]]></forecast>
+		<previous><![CDATA[-0.8%]]></previous>
+	</event>
+	<event>
+		<title>KOF Economic Barometer</title>
+		<country>CHF</country>
+		<date><![CDATA[09-27-2013]]></date>
+		<time><![CDATA[7:00am]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast><![CDATA[1.46]]></forecast>
+		<previous><![CDATA[1.36]]></previous>
+	</event>
+	<event>
+		<title>Retail PMI</title>
+		<country>EUR</country>
+		<date><![CDATA[09-27-2013]]></date>
+		<time><![CDATA[8:10am]]></time>
+		<impact><![CDATA[Low]]></impact>
+		<forecast />
+		<previous><![CDATA[50.3]]></previous>
+	</event>
+	<event>
+		<title>Index of Services 3m/3m</title>
+		<country>GBP</country>
+		<date><![CDATA[09-27-2013]]></date>
+		<time><![CDATA[8:30am]]></time>
+		<impact><![CDATA[Low]]></impact>
+		<forecast><![CDATA[0.6%]]></forecast>
+		<previous><![CDATA[0.6%]]></previous>
+	</event>
+	<event>
+		<title>ECB President Draghi Speaks</title>
+		<country>EUR</country>
+		<date><![CDATA[09-27-2013]]></date>
+		<time><![CDATA[9:00am]]></time>
 		<impact><![CDATA[High]]></impact>
 		<forecast />
 		<previous />
 	</event>
 	<event>
-		<title>German Federal Elections</title>
+		<title>Italian 10-y Bond Auction</title>
 		<country>EUR</country>
-		<date><![CDATA[09-22-2013]]></date>
-		<time><![CDATA[8:30am]]></time>
-		<impact><![CDATA[High]]></impact>
+		<date><![CDATA[09-27-2013]]></date>
+		<time><![CDATA[9:03am]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast />
+		<previous />
+	</event>
+	<event>
+		<title>FOMC Member Evans Speaks</title>
+		<country>USD</country>
+		<date><![CDATA[09-27-2013]]></date>
+		<time><![CDATA[9:45am]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast />
+		<previous />
+	</event>
+	<event>
+		<title>Personal Income m/m</title>
+		<country>USD</country>
+		<date><![CDATA[09-27-2013]]></date>
+		<time><![CDATA[12:30pm]]></time>
+		<impact><![CDATA[Low]]></impact>
+		<forecast><![CDATA[0.5%]]></forecast>
+		<previous><![CDATA[0.1%]]></previous>
+	</event>
+	<event>
+		<title>Personal Spending m/m</title>
+		<country>USD</country>
+		<date><![CDATA[09-27-2013]]></date>
+		<time><![CDATA[12:30pm]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast><![CDATA[0.3%]]></forecast>
+		<previous><![CDATA[0.1%]]></previous>
+	</event>
+	<event>
+		<title>Core PCE Price Index m/m</title>
+		<country>USD</country>
+		<date><![CDATA[09-27-2013]]></date>
+		<time><![CDATA[12:30pm]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast><![CDATA[0.1%]]></forecast>
+		<previous><![CDATA[0.1%]]></previous>
+	</event>
+	<event>
+		<title>FOMC Member Rosengren Speaks</title>
+		<country>USD</country>
+		<date><![CDATA[09-27-2013]]></date>
+		<time><![CDATA[12:30pm]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast />
+		<previous />
+	</event>
+	<event>
+		<title>Revised UoM Consumer Sentiment</title>
+		<country>USD</country>
+		<date><![CDATA[09-27-2013]]></date>
+		<time><![CDATA[1:55pm]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast><![CDATA[78.2]]></forecast>
+		<previous><![CDATA[76.8]]></previous>
+	</event>
+	<event>
+		<title>Revised UoM Inflation Expectations</title>
+		<country>USD</country>
+		<date><![CDATA[09-27-2013]]></date>
+		<time><![CDATA[1:55pm]]></time>
+		<impact><![CDATA[Low]]></impact>
+		<forecast />
+		<previous><![CDATA[3.2%]]></previous>
+	</event>
+	<event>
+		<title>FOMC Member Evans Speaks</title>
+		<country>USD</country>
+		<date><![CDATA[09-27-2013]]></date>
+		<time><![CDATA[2:45pm]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast />
+		<previous />
+	</event>
+	<event>
+		<title>FOMC Member Dudley Speaks</title>
+		<country>USD</country>
+		<date><![CDATA[09-27-2013]]></date>
+		<time><![CDATA[6:00pm]]></time>
+		<impact><![CDATA[Medium]]></impact>
+		<forecast />
+		<previous />
+	</event>
+	<event>
+		<title>Daylight Saving Time Shift</title>
+		<country>NZD</country>
+		<date><![CDATA[09-28-2013]]></date>
+		<time><![CDATA[2:00pm]]></time>
+		<impact><![CDATA[Holiday]]></impact>
 		<forecast />
 		<previous />
 	</event>

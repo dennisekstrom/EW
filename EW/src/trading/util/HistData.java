@@ -13,6 +13,7 @@ import com.fxcore2.O2GRequest;
 import com.fxcore2.O2GRequestFactory;
 import com.fxcore2.O2GResponse;
 import com.fxcore2.O2GResponseReaderFactory;
+import com.fxcore2.O2GResponseType;
 import com.fxcore2.O2GSession;
 import com.fxcore2.O2GTimeConverter;
 import com.fxcore2.O2GTimeConverterTimeZone;
@@ -33,12 +34,6 @@ public class HistData {
 	private O2GSession mSession = null;
 	private final SessionStatusListener statusListener;
 	private final ResponseListener responseListener;
-	// private SimpleLog mSimpleLog;
-
-	// Test
-	private final ArrayList<Offer> historyArray = new ArrayList<Offer>();
-
-	// private String mInstrument;
 
 	public HistData(O2GSession session, SessionStatusListener statusListener,
 			ResponseListener responseListener) {
@@ -63,6 +58,9 @@ public class HistData {
 	public ArrayList<Offer> getHist(String instrument, String mTimeFrame,
 			String mDateFrom, String mDateTo) {
 
+		ArrayList<Offer> historyArray = new ArrayList<Offer>();
+
+		System.out.println("Getting history data");
 		System.out.println("History date to: " + mDateTo);
 		System.out.println("History date from: " + mDateFrom);
 		// Historic prices variables
@@ -91,7 +89,7 @@ public class HistData {
 				calFrom.setTime(dtFrom);
 			} catch (Exception e) {
 				System.out.println(" Date From format invalid.");
-				System.exit(1);
+				return null;
 			}
 		}
 		mDateTo = mDateTo.trim();
@@ -102,7 +100,7 @@ public class HistData {
 				calTo.setTime(dtTo);
 			} catch (Exception e) {
 				System.out.println(" Date To format invalid.");
-				System.exit(1);
+				return null;
 			}
 		}
 
@@ -128,21 +126,31 @@ public class HistData {
 				}
 			}
 			if (mContinue) {
+				O2GResponse oldResponse = null;
 				do {
 					requestFactory.fillMarketDataSnapshotRequestTime(request,
 							calFrom, calTo, false);
 					// Send historic data request
 					mSession.sendRequest(request);
-					// Behövs denna sleep verkligen?
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					O2GResponse response = responseListener.getResponse();
+
+					O2GResponse response;
+					long t0 = System.currentTimeMillis();
+					do {
+						response = responseListener.getResponse();
+						if (System.currentTimeMillis() - t0 > 5 * 1000) {
+							System.out.println("Waiting for response timeout");
+							return null;
+						}
+
+					} while (response == null
+							|| response.getType() != O2GResponseType.MARKET_DATA_SNAPSHOT
+							|| oldResponse == response);
+					oldResponse = response;
+
 					if (response != null) {
 						O2GResponseReaderFactory responseFactory = mSession
 								.getResponseReaderFactory();
+						System.out.println(response.getType());
 						O2GMarketDataSnapshotResponseReader reader = responseFactory
 								.createMarketDataSnapshotReader(response);
 						mReaderSize = reader.size();

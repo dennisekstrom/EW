@@ -1,5 +1,6 @@
 package forex;
 
+import util.Instrument;
 import util.Period;
 
 import com.fxcore2.O2GOfferTableRow;
@@ -117,6 +118,11 @@ public class Offer implements Comparable<Offer> {
 
 	public String getInstrument() {
 		return instrument;
+	}
+
+	// TODO test
+	public Instrument getInstrument2() {
+		return Instrument.EURUSD;
 	}
 
 	public String getTimeFrame() {
